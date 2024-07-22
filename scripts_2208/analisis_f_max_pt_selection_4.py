@@ -204,7 +204,9 @@ def main(parameters):
     hepmc = open(file_in, 'r')
     new_hepmc = open(file_out, 'w')
     #Estamos creando desde cero un nuevo hepmc
-    f = open('etaforptmax.txt', 'w')
+    
+    newstring = f"etaforptmax{number_alpha56}.txt"
+    f = open(newstring, 'w')
 
     
     sentences = ''
@@ -545,6 +547,7 @@ def main(parameters):
     return
 
 t_n = None
+number_alpha56 = None
 ATLASdet_radius= 1.5 #radio del detector de ATLAS
 ATLASdet_semilength = 3.512 #Mitad de la longitud del radio de atlas (metros) (z_atlas)
 
@@ -568,14 +571,36 @@ for typex in types[:]:
         #Nuevamente, abrimos los hepmc para reescribirlos
         for file_inx in sorted(glob.glob(f"/Collider/scripts_2208/data/raw/run_{typex}*{tevx}.hepmc"))[:]:
             allcases.append([file_inx, typex])
-            
-print(allcases)
 
-sys.exit("salimos del codigo")
+#print(allcases)
+# Redefine with only components at indices 0, 3, and 6
+selected_cases = [allcases[i] for i in [0, 3, 6]]
+
+# Extract the number 4 from the fourth part of the filename
+for case in selected_cases:
+    path = case[0]
+    # Split the path to get the file name
+    filename = path.split('/')[-1]
+    # Split the filename to extract the fourth part
+    fourth_part = filename.split('_')[3]
+    # Extract the number from the fourth part
+    number = ''.join(filter(str.isdigit, fourth_part))
+    if number:
+        extracted_number = number
+        break
+
+# Print the result
+print(selected_cases)
+print(extracted_number)
+
+number_alpha56 = extracted_number
+
+#sys.exit("salimos del codigo")
+
 if __name__ == '__main__':
     with Pool(1) as pool:
         #print(allcases[-1:])
-        pool.map(main, allcases)
+        pool.map(main, selected_cases)
 
         
 # Record the end time

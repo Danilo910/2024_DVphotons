@@ -38,6 +38,7 @@ tar -xf heavNeff4_UFO.tar.xz -C "${madgraph_folder}/models/"
 #el sed remplaza patrones (edita archivos de texto)
 #normalmente se pone la canitdad de cores de 10 el cual se puede variar si deseas
 #con sed buscamos en el archivo input/mg5_configuration.txt el string run_mode=2 y lo remplaza por run_mode=0
+#en el codigo de abajo no estamos realizando ningun cambio pues remplazamos run_mode = 2 por run_mode = 2 que es lo mismo
 # en el archivo mg5_configuration.txt se tiene lo siguiente:
 ##! Default Running mode
 #!  0: single machine/ 1: cluster / 2: multicore

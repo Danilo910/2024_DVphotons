@@ -120,11 +120,20 @@ echo "Analysis master"
 
 
 #Functiones 
-echo "datacompleto_1D_functions.py"
-python datacompleto_1D_functions.py
+#echo "datacompleto_1D_functions.py"
+#python datacompleto_1D_functions.py
 
 #echo "analisis_f_max_pt.py"
 #python analisis_f_max_pt.py
 
 #echo "analisis_f.py"
 #python analisis_f.py
+
+echo "analisis_f_max_pt_selection_4.py"
+python analisis_f_max_pt_selection_4.py
+
+echo "analisis_f_max_pt_selection_5.py"
+python analisis_f_max_pt_selection_5.py
+
+echo "analisis_f_max_pt_selection_6.py"
+python analisis_f_max_pt_selection_6.py
