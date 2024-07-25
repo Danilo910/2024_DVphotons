@@ -572,7 +572,16 @@ for typex in types[:]:
         for file_inx in sorted(glob.glob(f"/Collider/scripts_2208/data/raw/run_{typex}*{tevx}.hepmc"))[:]:
             allcases.append([file_inx, typex])
 
-#print(allcases)
+#[['/Collider/scripts_2208/data/raw/run_ZH_M9_Alpha4_13.hepmc', 'ZH'], 
+#['/Collider/scripts_2208/data/raw/run_ZH_M9_Alpha5_13.hepmc', 'ZH'], 
+#['/Collider/scripts_2208/data/raw/run_ZH_M9_Alpha6_13.hepmc', 'ZH'], 
+#['/Collider/scripts_2208/data/raw/run_WH_M9_Alpha4_13.hepmc', 'WH'], 
+#['/Collider/scripts_2208/data/raw/run_WH_M9_Alpha5_13.hepmc', 'WH'], 
+#['/Collider/scripts_2208/data/raw/run_WH_M9_Alpha6_13.hepmc', 'WH'], 
+#['/Collider/scripts_2208/data/raw/run_TTH_M9_Alpha4_13.hepmc', 'TTH'], 
+#['/Collider/scripts_2208/data/raw/run_TTH_M9_Alpha5_13.hepmc', 'TTH'], 
+#['/Collider/scripts_2208/data/raw/run_TTH_M9_Alpha6_13.hepmc', 'TTH']]
+print(allcases)
 # Redefine with only components at indices 0, 3, and 6
 selected_cases = [allcases[i] for i in [0, 3, 6]]
 
@@ -595,7 +604,7 @@ print(extracted_number)
 
 number_alpha56 = extracted_number
 
-#sys.exit("salimos del codigo")
+sys.exit("salimos del codigo")
 
 if __name__ == '__main__':
     with Pool(1) as pool:

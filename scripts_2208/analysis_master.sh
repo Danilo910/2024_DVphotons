@@ -132,8 +132,8 @@ echo "Analysis master"
 echo "analisis_f_max_pt_selection_4.py"
 python analisis_f_max_pt_selection_4.py
 
-echo "analisis_f_max_pt_selection_5.py"
-python analisis_f_max_pt_selection_5.py
+#echo "analisis_f_max_pt_selection_5.py"
+#python analisis_f_max_pt_selection_5.py
 
-echo "analisis_f_max_pt_selection_6.py"
-python analisis_f_max_pt_selection_6.py
+#echo "analisis_f_max_pt_selection_6.py"
+#python analisis_f_max_pt_selection_6.py
