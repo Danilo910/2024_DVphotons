@@ -29,6 +29,11 @@ cutflow_path = "./data/clean/cutflow/"
 
 scales = pd.read_csv("/Collider/scripts_2208/data/cross_section.dat",delimiter="\t",index_col=0,header=None,squeeze=True)
 
+#print("First few entries of scales:")
+#print(scales.head())
+
+#sys.exit("Salimos")
+
 np.random.seed(0)
 
 ## For photonresolution
@@ -504,6 +509,7 @@ destiny = f"./data/matrices_15/"
 types = ['ZH', 'WH', 'TTH']
 tevs = [13]
 
+
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 bases = []
@@ -512,7 +518,7 @@ for xx in types:
     #complete_WH_M3_Alpha3_13_jets.pickle
     #complete_ZH_M3_Alpha1_13_leptons.pickle
     #con esto nos quedamos con toda la direccion de los .picke completes
-    files_in = glob.glob(origin + f"complete_{xx}*photons.pickle")
+    files_in = glob.glob(origin + f"full_op_{xx}*photons.pickle")
     #print(files_in)
     #ahora extraemos solo lo que nos importa y lo ponemos en uan lista
     #en la primera tiene ZH, luego WH y en la ultima los TTH

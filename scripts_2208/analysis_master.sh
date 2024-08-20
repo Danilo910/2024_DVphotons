@@ -12,11 +12,11 @@ echo "Analysis master"
 #echo "03"
 #python 03_making_complete_hepmc.py
 #echo "04"
-#python 04_run_Delphes.py "$3" "$2"
+#python 04_run_Delphes_danilo.py "$3" "$2"
 #echo "05"
-#python 05_extracting_root.py 
+#python 05_extracting_root_no_cuts.py 
 #echo "06"
-#python 06_bins_after_Delphes.py "$1"
+#python 06_bins_after_Delphes_danilo.py "$1"
 #echo "07"
 #python "07a_making_graphs (copy).py"
 #echo "09"
@@ -129,11 +129,14 @@ echo "Analysis master"
 #echo "analisis_f.py"
 #python analisis_f.py
 
-echo "analisis_f_max_pt_selection_4.py"
-python analisis_f_max_pt_selection_4.py
+#echo "analisis_f_max_pt_selection_4.py"
+#python analisis_f_max_pt_selection_4.py
 
 #echo "analisis_f_max_pt_selection_5.py"
 #python analisis_f_max_pt_selection_5.py
 
 #echo "analisis_f_max_pt_selection_6.py"
 #python analisis_f_max_pt_selection_6.py
+
+echo "06_basics_observables"
+python 06_basics_observables.py "$1"

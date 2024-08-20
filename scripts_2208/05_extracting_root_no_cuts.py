@@ -67,35 +67,26 @@ def main(input_file):
         """
         
         for ph in branchPhoton:
-            #print(ph)
-            
-            #print(ph.PT, ph.Eta)
-            #condiciones experimentales del detector
-            if ph.PT > 10 and (abs(ph.Eta) < 1.37 or 1.52 < abs(ph.Eta) < 2.37):
-                #print(ph.Eta)
-                #entry nos da el numero del evento (de 0 a 499 en nuestro caso)
-                photons.append({"N": entry, "E":ph.E, "pt":ph.PT, "eta":ph.Eta, 'phi': ph.Phi,
-                                'z_origin': ph.ZOrigin, 'rel_tof': ph.RelativeT,'MET': miss})
+        
+            photons.append({"N": entry, "E":ph.E, "pt":ph.PT, "eta":ph.Eta, 'phi': ph.Phi,
+                            'z_origin': ph.ZOrigin, 'rel_tof': ph.RelativeT,'MET': miss})
 
         for jet in branchJet:
-            if jet.PT > 25:
+            if jet.PT > 0:
                 #esta es una formula alternative a la de pseudorapidity que es
                 #y = 1/2 ln (E + pz / E - pz), debido a que ahora no tenemos pz
                 #usamos el hecho de que sinh(eta) = E + pz / sqrt(m**2 + pt**2)
                 y = np.log((jet.PT * np.sinh(jet.Eta) + np.sqrt(jet.Mass**2 +
                     (jet.PT * np.cosh(jet.Eta))**2)) / (np.sqrt(jet.Mass**2 + jet.PT**2)))
-                if abs(y) < 4.4:
-                    jets.append({"N": entry, "pt": jet.PT, "eta": jet.Eta, 'phi': jet.Phi})
+                jets.append({"N": entry, "pt": jet.PT, "eta": jet.Eta, 'phi': jet.Phi})
 
         for e in branchElectron:
-            if e.PT > 10 and (abs(e.Eta) < 1.37 or 1.52 < abs(e.Eta) < 2.47):
-                leptons.append({"N": entry, 'pdg': 11, "pt":e.PT,
-                                "eta":e.Eta, 'phi': e.Phi, 'mass': 0.000511})
+            leptons.append({"N": entry, 'pdg': 11, "pt":e.PT,
+                            "eta":e.Eta, 'phi': e.Phi, 'mass': 0.000511})
 
-        for mu in branchMuon:
-            if mu.PT > 10 and abs(mu.Eta) < 2.7:
-                leptons.append({"N": entry, 'pdg': 13, "pt": mu.PT,
-                                "eta": mu.Eta, 'phi': mu.Phi, 'mass': 0.10566})
+        for mu in branchMuon:  
+            leptons.append({"N": entry, 'pdg': 13, "pt": mu.PT,
+                            "eta": mu.Eta, 'phi': mu.Phi, 'mass': 0.10566})
 
     #input_file.close()
     chain.Clear()
