@@ -68,7 +68,7 @@ def plot_most_energetic_histogram(df, particle_type, destiny):
     # Optionally, display the plot
     plt.show()
 
-def plot_met_histogram(df, destiny):
+def plot_met_histogram(df, alpha_type, destiny):
     """
     Plots and saves a histogram of the MET for the most energetic photon (id = 0) in each event.
 
@@ -85,19 +85,19 @@ def plot_met_histogram(df, destiny):
     # Create the histogram of 'MET' (Missing Transverse Energy)
     plt.figure(figsize=(10, 6))
     plt.hist(most_energetic_photons['MET'], bins=30, color='green', edgecolor='black')
-    plt.title('Histogram of MET for Most Energetic Photons')
+    plt.title(f'Histogram of MET for event {alpha_type.capitalize()}')
     plt.xlabel('MET (Missing Transverse Energy)')
     plt.ylabel('Frequency')
 
     # Save the histogram as a PNG file
-    plt.savefig(f"{destiny}most_energetic_photon_met_histogram.png")
+    plt.savefig(f"{destiny}most_energetic_photon_met_histogram{alpha_type.capitalize()}.png")
 
     # Optionally, display the plot
     plt.show()
 
 # Origin directory where the mega archives are stored
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/basics_graphs_merge/"
+destiny = f"./data/basics_graphs_merge_alpha/"
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 # List of mega pickle files
@@ -107,63 +107,68 @@ mega_files = ["megaphoton.pickle", "megaleptons.pickle", "megajets.pickle"]
 # Loop through each mega file and print its initial and final lines
 #for file in mega_files:
 #    print_initial_and_final_lines(file)
-
-input_file = origin + f"megaphoton.pickle"
-photons = pd.read_pickle(input_file)
-leptons = pd.read_pickle(input_file.replace('photon', 'leptons'))
-jets = pd.read_pickle(input_file.replace('photon', 'jets'))
-
-
-# Create sub DataFrame for electrons (id = 11)
-electrons = leptons[leptons['pdg'] == 11].copy()
-
-# Generate the 'new_id' column by resetting the id within each group
-electrons['new_id'] = electrons.groupby(level=0).cumcount()
-
-# Reset the index to turn the current 'id' level of the multi-index into a column
-electrons = electrons.reset_index(level='id')
-
-# Replace the 'id' in the index with 'new_id'
-electrons = electrons.set_index('new_id', append=True)
-
-# Rename the 'new_id' index level to 'id' to maintain the original naming
-electrons.index = electrons.index.rename('id', level='new_id')
-
-# Drop the 'id' column (not the multi-index)
-electrons = electrons.drop(columns=['id'])
+for alpha in [4, 5, 6]:
+    input_file = origin + f"megaphoton_{alpha}.pickle"
+    photons = pd.read_pickle(input_file)
+    leptons = pd.read_pickle(input_file.replace('photon', 'leptons'))
+    jets = pd.read_pickle(input_file.replace('photon', 'jets'))
 
 
+    # Create sub DataFrame for electrons (id = 11)
+    electrons = leptons[leptons['pdg'] == 11].copy()
 
-# Create sub DataFrame for muons (id = 13)
-muons = leptons[leptons['pdg'] == 13].copy()
-muons['new_id'] = muons.groupby(level=0).cumcount()  # Reset id within each group
+    # Generate the 'new_id' column by resetting the id within each group
+    electrons['new_id'] = electrons.groupby(level=0).cumcount()
 
-# Reset the index to turn the current 'id' level of the multi-index into a column
-muons = muons.reset_index(level='id')
+    # Reset the index to turn the current 'id' level of the multi-index into a column
+    electrons = electrons.reset_index(level='id')
 
-# Replace the 'id' in the index with 'new_id'
-muons = muons.set_index('new_id', append=True)
+    # Replace the 'id' in the index with 'new_id'
+    electrons = electrons.set_index('new_id', append=True)
 
-# Rename the 'new_id' index level to 'id' to maintain the original naming
-muons.index = muons.index.rename('id', level='new_id')
+    # Rename the 'new_id' index level to 'id' to maintain the original naming
+    electrons.index = electrons.index.rename('id', level='new_id')
 
-# Drop the 'id' column (not the multi-index)
-muons = muons.drop(columns=['id'])
+    # Drop the 'id' column (not the multi-index)
+    electrons = electrons.drop(columns=['id'])
 
-#print_contents("Photons", photons)
-#print_contents("Leptons", leptons)
-#print_contents("Jets", jets)
-#print_contents("Electrons", electrons)
-#print_contents("Muons", muons)
 
-# Plot for electrons
-plot_most_energetic_histogram(electrons, 'electrons', destiny)
 
-# Plot for muons
-plot_most_energetic_histogram(muons, 'muons', destiny)
+    # Create sub DataFrame for muons (id = 13)
+    muons = leptons[leptons['pdg'] == 13].copy()
+    muons['new_id'] = muons.groupby(level=0).cumcount()  # Reset id within each group
 
-# Plot for photons
-plot_most_energetic_histogram(photons, 'photons', destiny)
+    # Reset the index to turn the current 'id' level of the multi-index into a column
+    muons = muons.reset_index(level='id')
 
-# Plot the MET histogram for the most energetic photons
-plot_met_histogram(photons, destiny)
+    # Replace the 'id' in the index with 'new_id'
+    muons = muons.set_index('new_id', append=True)
+
+    # Rename the 'new_id' index level to 'id' to maintain the original naming
+    muons.index = muons.index.rename('id', level='new_id')
+
+    # Drop the 'id' column (not the multi-index)
+    muons = muons.drop(columns=['id'])
+
+    #print_contents("Photons", photons)
+    #print_contents("Leptons", leptons)
+    #print_contents("Jets", jets)
+    #print_contents("Electrons", electrons)
+    #print_contents("Muons", muons)
+
+    electron_alpha_type = f'electrons_{alpha}'
+    muon_alpha_type = f'muon_{alpha}'
+    photon_alpha_type = f'photon_{alpha}'
+    alpha_s = str(alpha)
+
+    # Plot for electrons
+    plot_most_energetic_histogram(electrons, electron_alpha_type, destiny)
+
+    # Plot for muons
+    plot_most_energetic_histogram(muons, muon_alpha_type, destiny)
+
+    # Plot for photons
+    plot_most_energetic_histogram(photons, photon_alpha_type, destiny)
+
+    # Plot the MET histogram for the most energetic photons
+    plot_met_histogram(photons, alpha_s, destiny)

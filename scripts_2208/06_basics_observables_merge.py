@@ -1,5 +1,16 @@
+import sys
+import numpy as np
+import re
+import glob
 import pandas as pd
-import os
+from scipy.interpolate import interp1d
+from my_funcs import isolation
+from pathlib import Path
+import json
+import sys
+from multiprocessing import Pool
+import matplotlib.pyplot as plt
+import os  
 
 # Origin directory where the files are stored
 origin = "/Collider/scripts_2208/data/clean/"
@@ -12,9 +23,21 @@ pickle_files = [f for f in all_files if f.endswith('.pickle')]
 
 
 # Separate the pickle files by type
-photon_files = [f for f in pickle_files if 'photons' in f]
-lepton_files = [f for f in pickle_files if 'leptons' in f]
-jet_files = [f for f in pickle_files if 'jets' in f]
+photon_files_4 = [f for f in pickle_files if 'Alpha4_13_photons' in f]
+photon_files_5 = [f for f in pickle_files if 'Alpha5_13_photons' in f]
+photon_files_6 = [f for f in pickle_files if 'Alpha6_13_photons' in f]
+
+lepton_files_4 = [f for f in pickle_files if 'Alpha4_13_leptons' in f]
+lepton_files_5 = [f for f in pickle_files if 'Alpha5_13_leptons' in f]
+lepton_files_6 = [f for f in pickle_files if 'Alpha6_13_leptons' in f]
+
+jet_files_4 = [f for f in pickle_files if 'Alpha4_13_jets' in f]
+jet_files_5 = [f for f in pickle_files if 'Alpha5_13_jets' in f]
+jet_files_6 = [f for f in pickle_files if 'Alpha6_13_jets' in f]
+
+#print(photon_files_4)
+#print(jet_files_6)
+#sys.exit("Salimos")
 
 def merge_and_save(files, output_name):
     """Merges the DataFrames from the given pickle files and saves the result."""
@@ -27,6 +50,12 @@ def merge_and_save(files, output_name):
     print(f"{output_name} saved successfully.")
 
 # Merge and save the pickle files for each type
-merge_and_save(photon_files, "megaphoton.pickle")
-merge_and_save(lepton_files, "megaleptons.pickle")
-merge_and_save(jet_files, "megajets.pickle")
+merge_and_save(photon_files_4, "megaphoton_4.pickle")
+merge_and_save(photon_files_5, "megaphoton_5.pickle")
+merge_and_save(photon_files_6, "megaphoton_6.pickle")
+merge_and_save(lepton_files_4, "megaleptons_4.pickle")
+merge_and_save(lepton_files_5, "megaleptons_5.pickle")
+merge_and_save(lepton_files_6, "megaleptons_6.pickle")
+merge_and_save(jet_files_4, "megajets_4.pickle")
+merge_and_save(jet_files_5, "megajets_5.pickle")
+merge_and_save(jet_files_6, "megajets_6.pickle")
