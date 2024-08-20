@@ -175,8 +175,8 @@ for xx in types:
     bases.extend(newcases)
 
 
-#print(bases)
-#sys.exit("Salimos")
+print(bases)
+sys.exit("Salimos")
 
 if __name__ == '__main__':
     with Pool(1) as pool:

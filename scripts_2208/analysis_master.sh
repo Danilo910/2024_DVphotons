@@ -138,5 +138,11 @@ echo "Analysis master"
 #echo "analisis_f_max_pt_selection_6.py"
 #python analisis_f_max_pt_selection_6.py
 
-echo "06_basics_observables"
-python 06_basics_observables.py "$1"
+#echo "06_basics_observables"
+#python 06_basics_observables.py "$1"
+
+#echo "06_basics_observables_merge"
+#python 06_basics_observables_merge.py
+
+echo "06_basics_observables_merge_analisis"
+python 06_basics_observables_merge_analisis.py
