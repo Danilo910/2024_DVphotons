@@ -12,33 +12,56 @@ from multiprocessing import Pool
 import matplotlib.pyplot as plt
 import os
 
-# Function to load and print initial and final lines of a pickle file
-def print_initial_and_final_lines(pickle_file):
-    # Load the pickle file into a DataFrame
-    df = pd.read_pickle(os.path.join(origin, pickle_file))
-    
-    # Print the first 5 rows
-    print(f"Initial lines of {pickle_file}:")
-    print(df.head())
-    
-    # Print the last 5 rows
-    print(f"\nFinal lines of {pickle_file}:")
-    print(df.tail())
-    print("\n" + "="*80 + "\n")
+def plot_histogram(df, column_name, title, xlabel, ylabel, destiny, output_file):
+    """
+    Plots and saves a histogram for a specified column in the DataFrame.
 
+    Parameters:
+    df (DataFrame): The DataFrame containing the data.
+    column_name (str): The name of the column to plot.
+    title (str): The title of the histogram.
+    xlabel (str): The label for the x-axis.
+    ylabel (str): The label for the y-axis.
+    destiny (str): The directory where the histogram image will be saved.
+    output_file (str): The name of the output file.
+    """
+    # Create the histogram
+    plt.figure(figsize=(10, 6))
+    plt.hist(df[column_name], bins=30, color='blue', edgecolor='black')
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
 
-# Function to print the content based on its type
-def print_contents(label, data):
-    print(f"\n{label}:")
-    if isinstance(data, pd.DataFrame):
-        print(data.head(10))  # Adjust the number of rows as needed
-    elif isinstance(data, list):
-        print(data[:100])  # Adjust the number of elements as needed
-    elif isinstance(data, dict):
-        for key, value in list(data.items())[:100]:  # Adjust the number of items as needed
-            print(f"{key}: {value}")
-    else:
-        print(data)
+    # Save the histogram as a PNG file
+    plt.savefig(f"{destiny}/{output_file}")
+    
+    # Optionally, display the plot
+    plt.show()
+
+def plot_z_origin_histogram(df, particle_type, destiny):
+    """
+    Plots and saves a histogram of the z_origin for the most energetic photon (id = 0).
+
+    Parameters:
+    df (DataFrame): The DataFrame containing the photon data.
+    destiny (str): The directory where the histogram image will be saved.
+    """
+    most_energetic_photons = df.xs(0, level='id')  # Extract rows where id = 0
+    plot_histogram(most_energetic_photons, 'z_origin', f'Histogram of z_origin for Most Energetic {particle_type.capitalize()} ',
+                   'z_origin', 'Frequency', destiny, f'z_origin_histogram_{particle_type}.png')
+
+def plot_rel_tof_histogram(df, particle_type, destiny):
+    """
+    Plots and saves a histogram of the rel_tof for the most energetic photon (id = 0).
+
+    Parameters:
+    df (DataFrame): The DataFrame containing the photon data.
+    destiny (str): The directory where the histogram image will be saved.
+    """
+    most_energetic_photons = df.xs(0, level='id')  # Extract rows where id = 0
+    plot_histogram(most_energetic_photons, 'rel_tof', f'Histogram of rel_tof for Most Energetic {particle_type.capitalize()}',
+                   'rel_tof', 'Frequency', destiny, f'rel_tof_histogram_{particle_type}.png')
+
 
 def plot_most_energetic_histogram(df, particle_type, destiny):
     """
@@ -95,14 +118,34 @@ def plot_met_histogram(df, alpha_type, destiny):
     # Optionally, display the plot
     plt.show()
 
+# Function to load and print initial and final lines of a pickle file
+def print_initial_and_final_lines(pickle_file):
+    # Load the pickle file into a DataFrame
+    df = pd.read_pickle(os.path.join(origin, pickle_file))
+    
+    # Print the first 5 rows
+    print(f"Initial lines of {pickle_file}:")
+    print(df.head())
+    
+    # Print the last 5 rows
+    print(f"\nFinal lines of {pickle_file}:")
+    print(df.tail())
+    print("\n" + "="*80 + "\n")
+
+
 # Origin directory where the mega archives are stored
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/basics_graphs_merge_alpha/"
+destiny = f"./data/basics_graphs_merge_alpha_total/"
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 # List of mega pickle files
-mega_files = ["megaphoton.pickle", "megaleptons.pickle", "megajets.pickle"]
+megaphoton = origin + f"megaphoton_4.pickle"
+megalepton = origin + f"megaleptons_4.pickle"
 
+print_initial_and_final_lines(megaphoton)
+print_initial_and_final_lines(megalepton)
+
+sys.exit("Salimos")
 
 # Loop through each mega file and print its initial and final lines
 #for file in mega_files:
@@ -172,3 +215,9 @@ for alpha in [4, 5, 6]:
 
     # Plot the MET histogram for the most energetic photons
     plot_met_histogram(photons, alpha_s, destiny)
+
+    # Plot z_origin histogram
+    plot_z_origin_histogram(photons, photon_alpha_type, destiny)
+
+    # Plot rel_tof histogram
+    plot_rel_tof_histogram(photons, photon_alpha_type, destiny)

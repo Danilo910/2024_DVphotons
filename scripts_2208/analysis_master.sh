@@ -144,5 +144,8 @@ echo "Analysis master"
 #echo "06_basics_observables_merge"
 #python 06_basics_observables_merge.py
 
-echo "06_basics_observables_merge_analisis"
-python 06_basics_observables_merge_analisis.py
+#echo "06_basics_observables_merge_analisis"
+#python 06_basics_observables_merge_analisis.py
+
+echo "06_deltaR"
+python 06_deltaR.py
