@@ -25,9 +25,17 @@ def plot_histogram(df, column_name, title, xlabel, ylabel, destiny, output_file)
     destiny (str): The directory where the histogram image will be saved.
     output_file (str): The name of the output file.
     """
+    # Define bins based on the column name
+    if column_name == 'z_origin':
+        bins = np.arange(0, 1100, 100)  # Bins from 0 to 1000 with steps of 100
+    elif column_name == 'rel_tof':
+        bins = np.arange(0, 6.3, 0.3)  # Bins from 0 to 6 with steps of 0.3
+    else:
+        bins = 30  # Default number of bins
+    
     # Create the histogram
     plt.figure(figsize=(10, 6))
-    plt.hist(df[column_name], bins=30, color='blue', edgecolor='black')
+    plt.hist(df[column_name], bins=bins, color='blue', edgecolor='black')
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
@@ -62,7 +70,6 @@ def plot_rel_tof_histogram(df, particle_type, destiny):
     plot_histogram(most_energetic_photons, 'rel_tof', f'Histogram of rel_tof for Most Energetic {particle_type.capitalize()}',
                    'rel_tof', 'Frequency', destiny, f'rel_tof_histogram_{particle_type}.png')
 
-
 def plot_most_energetic_histogram(df, particle_type, destiny):
     """
     Plots and saves a histogram of the most energetic particle (id = 0) for the given particle type.
@@ -78,9 +85,12 @@ def plot_most_energetic_histogram(df, particle_type, destiny):
     # Filter to get the most energetic particle (id = 0) in each event
     most_energetic_particles = df.xs(0, level='id')  # Extract rows where id = 0
 
+    # Define bins from 0 to 300 with intervals of 10
+    bins = np.arange(0, 310, 10)
+
     # Create the histogram of 'pt' (transverse momentum)
     plt.figure(figsize=(10, 6))
-    plt.hist(most_energetic_particles['pt'], bins=30, color='blue', edgecolor='black')
+    plt.hist(most_energetic_particles['pt'], bins=bins, color='blue', edgecolor='black')
     plt.title(f'Histogram of Most Energetic {particle_type.capitalize()} Transverse Momentum (pt)')
     plt.xlabel('Transverse Momentum (pt)')
     plt.ylabel('Frequency')
@@ -105,9 +115,12 @@ def plot_met_histogram(df, alpha_type, destiny):
     # Filter to get the most energetic photon (id = 0) in each event
     most_energetic_photons = df.xs(0, level='id')  # Extract rows where id = 0
 
+
+    bins = np.arange(0, 310, 10)
+
     # Create the histogram of 'MET' (Missing Transverse Energy)
     plt.figure(figsize=(10, 6))
-    plt.hist(most_energetic_photons['MET'], bins=30, color='green', edgecolor='black')
+    plt.hist(most_energetic_photons['MET'], bins=bins, color='green', edgecolor='black')
     plt.title(f'Histogram of MET for event {alpha_type.capitalize()}')
     plt.xlabel('MET (Missing Transverse Energy)')
     plt.ylabel('Frequency')
@@ -132,20 +145,49 @@ def print_initial_and_final_lines(pickle_file):
     print(df.tail())
     print("\n" + "="*80 + "\n")
 
+def reset_id_by_pt(electrons):
+    """
+    Sorts the DataFrame by 'pt' within each 'N', then assigns a new 'id' starting from 0 for each group.
+
+    Parameters:
+    electrons (DataFrame): The input DataFrame with a multi-index ('N', 'id').
+
+    Returns:
+    electrons (DataFrame): The DataFrame with a new multi-index ('N', 'id') sorted by 'pt'.
+    """
+    # Reset index to treat 'N' and 'id' as columns
+    electrons = electrons.reset_index()
+
+    electrons = electrons.drop(columns=['id'])
+
+    #print_initial_and_final_lines(electrons)
+
+    #sys.exit("Salimos")
+
+    # Sort the DataFrame by 'N' and 'pt'
+    electrons = electrons.sort_values(by=['N', 'pt'], ascending=[True, False])
+
+    g = electrons.groupby('N', as_index=False).cumcount()
+
+    electrons['id'] = g
+
+    electrons = electrons.set_index(['N', 'id'])
+
+    return electrons
 
 # Origin directory where the mega archives are stored
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/basics_graphs_merge_alpha_total/"
+destiny = f"./data/graphs_simple_complete/"
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 # List of mega pickle files
-megaphoton = origin + f"megaphoton_4.pickle"
-megalepton = origin + f"megaleptons_4.pickle"
+#megaphoton = origin + f"megaphoton_4.pickle"
+#megalepton = origin + f"megaleptons_4.pickle"
 
-print_initial_and_final_lines(megaphoton)
-print_initial_and_final_lines(megalepton)
+#print_initial_and_final_lines(megaphoton)
+#print_initial_and_final_lines(megalepton)
 
-sys.exit("Salimos")
+#sys.exit("Salimos")
 
 # Loop through each mega file and print its initial and final lines
 #for file in mega_files:
@@ -159,45 +201,13 @@ for alpha in [4, 5, 6]:
 
     # Create sub DataFrame for electrons (id = 11)
     electrons = leptons[leptons['pdg'] == 11].copy()
-
-    # Generate the 'new_id' column by resetting the id within each group
-    electrons['new_id'] = electrons.groupby(level=0).cumcount()
-
-    # Reset the index to turn the current 'id' level of the multi-index into a column
-    electrons = electrons.reset_index(level='id')
-
-    # Replace the 'id' in the index with 'new_id'
-    electrons = electrons.set_index('new_id', append=True)
-
-    # Rename the 'new_id' index level to 'id' to maintain the original naming
-    electrons.index = electrons.index.rename('id', level='new_id')
-
-    # Drop the 'id' column (not the multi-index)
-    electrons = electrons.drop(columns=['id'])
-
+    electrons = reset_id_by_pt(electrons)
 
 
     # Create sub DataFrame for muons (id = 13)
     muons = leptons[leptons['pdg'] == 13].copy()
-    muons['new_id'] = muons.groupby(level=0).cumcount()  # Reset id within each group
+    muons = reset_id_by_pt(muons)
 
-    # Reset the index to turn the current 'id' level of the multi-index into a column
-    muons = muons.reset_index(level='id')
-
-    # Replace the 'id' in the index with 'new_id'
-    muons = muons.set_index('new_id', append=True)
-
-    # Rename the 'new_id' index level to 'id' to maintain the original naming
-    muons.index = muons.index.rename('id', level='new_id')
-
-    # Drop the 'id' column (not the multi-index)
-    muons = muons.drop(columns=['id'])
-
-    #print_contents("Photons", photons)
-    #print_contents("Leptons", leptons)
-    #print_contents("Jets", jets)
-    #print_contents("Electrons", electrons)
-    #print_contents("Muons", muons)
 
     electron_alpha_type = f'electrons_{alpha}'
     muon_alpha_type = f'muon_{alpha}'

@@ -91,6 +91,36 @@ def plot_delta_r_histogram(delta_r_values, alpha, destiny):
     # Optionally, display the plot
     plt.show()
 
+def reset_id_by_pt(electrons):
+    """
+    Sorts the DataFrame by 'pt' within each 'N', then assigns a new 'id' starting from 0 for each group.
+
+    Parameters:
+    electrons (DataFrame): The input DataFrame with a multi-index ('N', 'id').
+
+    Returns:
+    electrons (DataFrame): The DataFrame with a new multi-index ('N', 'id') sorted by 'pt'.
+    """
+    # Reset index to treat 'N' and 'id' as columns
+    electrons = electrons.reset_index()
+
+    electrons = electrons.drop(columns=['id'])
+
+    #print_initial_and_final_lines(electrons)
+
+    #sys.exit("Salimos")
+
+    # Sort the DataFrame by 'N' and 'pt'
+    electrons = electrons.sort_values(by=['N', 'pt'], ascending=[True, False])
+
+    g = electrons.groupby('N', as_index=False).cumcount()
+
+    electrons['id'] = g
+
+    electrons = electrons.set_index(['N', 'id'])
+
+    return electrons
+
 origin = "/Collider/scripts_2208/data/clean/"
 destiny = f"./data/basics_graphs_merge_alpha_deltaR/"
 Path(destiny).mkdir(exist_ok=True, parents=True)
@@ -108,20 +138,7 @@ for alpha in [4, 5, 6]:
     # Create sub DataFrame for electrons (id = 11)
     electrons = leptons[leptons['pdg'] == 11].copy()
 
-    # Generate the 'new_id' column by resetting the id within each group
-    electrons['new_id'] = electrons.groupby(level=0).cumcount()
-
-    # Reset the index to turn the current 'id' level of the multi-index into a column
-    electrons = electrons.reset_index(level='id')
-
-    # Replace the 'id' in the index with 'new_id'
-    electrons = electrons.set_index('new_id', append=True)
-
-    # Rename the 'new_id' index level to 'id' to maintain the original naming
-    electrons.index = electrons.index.rename('id', level='new_id')
-
-    # Drop the 'id' column (not the multi-index)
-    electrons = electrons.drop(columns=['id'])
+    electrons = reset_id_by_pt(electrons)
 
     #print(electrons)
     #sys.exit("Salimos")

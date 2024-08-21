@@ -149,3 +149,6 @@ echo "Analysis master"
 
 echo "06_deltaR"
 python 06_deltaR.py
+
+#echo "06_graphics_compare_pt.py"
+#python 06_graphics_compare_pt.py
