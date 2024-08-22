@@ -147,8 +147,14 @@ echo "Analysis master"
 #echo "06_basics_observables_merge_analisis"
 #python 06_basics_observables_merge_analisis.py
 
-echo "06_deltaR"
-python 06_deltaR.py
+#echo "06_deltaR"
+#python 06_deltaR.py
 
 #echo "06_graphics_compare_pt.py"
 #python 06_graphics_compare_pt.py
+
+echo "06_deltaR_tracks"
+python 06_deltaR_tracks.py
+
+#echo "06_compare_pt_opti.py"
+#python 06_compare_pt_opti.py
