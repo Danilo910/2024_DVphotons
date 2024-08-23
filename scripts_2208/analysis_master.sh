@@ -150,10 +150,14 @@ echo "Analysis master"
 #echo "06_deltaR_tracks"
 #python 06_deltaR_tracks.py
 
-#Cuatro archivos finales
-
 #echo "06_basics_observables_merge"
 #python 06_basics_observables_merge.py
+
+
+#Cuatro archivos finales
+
+#echo "06_merge_opt"
+#python 06_merge_opt.py
 
 echo "06_basics_observables_merge_analisis"
 python 06_basics_observables_merge_analisis.py
@@ -163,3 +167,4 @@ python 06_compare_pt_opti.py
 
 echo "06_track_opt2"
 python 06_track_opt2.py
+
