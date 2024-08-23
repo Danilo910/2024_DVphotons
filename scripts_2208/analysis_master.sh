@@ -162,9 +162,9 @@ echo "Analysis master"
 echo "06_basics_observables_merge_analisis"
 python 06_basics_observables_merge_analisis.py
 
-echo "06_compare_pt_opti.py"
-python 06_compare_pt_opti.py
+#echo "06_compare_pt_opti.py"
+#python 06_compare_pt_opti.py
 
-echo "06_track_opt2"
-python 06_track_opt2.py
+#echo "06_track_opt2"
+#python 06_track_opt2.py
 

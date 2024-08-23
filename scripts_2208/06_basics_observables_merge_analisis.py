@@ -27,9 +27,9 @@ def plot_histogram(df, column_name, title, xlabel, ylabel, destiny, output_file)
     """
     # Define bins based on the column name
     if column_name == 'z_origin':
-        bins = np.arange(0, 1100, 100)  # Bins from 0 to 1000 with steps of 100
+        bins = np.arange(0, 310, 10)  # Bins from 0 to 1000 with steps of 100
     elif column_name == 'rel_tof':
-        bins = np.arange(0, 6.3, 0.3)  # Bins from 0 to 6 with steps of 0.3
+        bins = np.arange(0, 3.1, 0.1)  # Bins from 0 to 6 with steps of 0.3
     else:
         bins = 30  # Default number of bins
     
@@ -86,7 +86,10 @@ def plot_most_energetic_histogram(df, particle_type, destiny):
     most_energetic_particles = df.xs(0, level='id')  # Extract rows where id = 0
 
     # Define bins from 0 to 300 with intervals of 10
-    bins = np.arange(0, 310, 10)
+    if 'photon' in particle_type.lower():
+        bins = np.arange(0, 210, 10)
+    else:
+        bins = np.arange(0, 310, 10)
 
     # Create the histogram of 'pt' (transverse momentum)
     plt.figure(figsize=(10, 6))
