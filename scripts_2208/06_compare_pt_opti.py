@@ -102,7 +102,7 @@ def reset_id_by_pt(electrons):
 
 # Origin directory where the mega archives are stored
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/graphs_compare_pt_opt/"
+destiny = f"./data/final_comparation"
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 dataframes_electrons = []
@@ -114,6 +114,12 @@ for alpha in [4, 5, 6]:
     photons = pd.read_pickle(input_file)
     leptons = pd.read_pickle(input_file.replace('photon', 'leptons'))
     jets = pd.read_pickle(input_file.replace('photon', 'jets'))
+
+    # Rest photons
+    photons = reset_id_by_pt(photons)
+
+    #Reset Jets
+    jets = reset_id_by_pt(jets)
 
     # Create sub DataFrame for electrons (id = 11)
     electrons = leptons[leptons['pdg'] == 11].copy()

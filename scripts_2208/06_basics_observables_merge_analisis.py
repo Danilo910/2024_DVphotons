@@ -96,7 +96,7 @@ def plot_most_energetic_histogram(df, particle_type, destiny):
     plt.ylabel('Frequency')
 
     # Save the histogram as a PNG file
-    plt.savefig(f"{destiny}most_energetic_{particle_type}_pt_histogram.png")
+    plt.savefig(f"{destiny}_most_energetic_{particle_type}_pt_histogram.png")
 
     # Optionally, display the plot
     plt.show()
@@ -177,7 +177,7 @@ def reset_id_by_pt(electrons):
 
 # Origin directory where the mega archives are stored
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/graphs_simple_complete/"
+destiny = f"./data/finales_simples/"
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 # List of mega pickle files
@@ -197,6 +197,12 @@ for alpha in [4, 5, 6]:
     photons = pd.read_pickle(input_file)
     leptons = pd.read_pickle(input_file.replace('photon', 'leptons'))
     jets = pd.read_pickle(input_file.replace('photon', 'jets'))
+
+    # Rest photons
+    photons = reset_id_by_pt(photons)
+
+    #Reset Jets
+    jets = reset_id_by_pt(jets)
 
 
     # Create sub DataFrame for electrons (id = 11)

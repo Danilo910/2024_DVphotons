@@ -141,20 +141,25 @@ echo "Analysis master"
 #echo "06_basics_observables"
 #python 06_basics_observables.py "$1"
 
-#echo "06_basics_observables_merge"
-#python 06_basics_observables_merge.py
-
-#echo "06_basics_observables_merge_analisis"
-#python 06_basics_observables_merge_analisis.py
-
 #echo "06_deltaR"
 #python 06_deltaR.py
 
 #echo "06_graphics_compare_pt.py"
 #python 06_graphics_compare_pt.py
 
-echo "06_deltaR_tracks"
-python 06_deltaR_tracks.py
+#echo "06_deltaR_tracks"
+#python 06_deltaR_tracks.py
 
-#echo "06_compare_pt_opti.py"
-#python 06_compare_pt_opti.py
+#Cuatro archivos finales
+
+#echo "06_basics_observables_merge"
+#python 06_basics_observables_merge.py
+
+echo "06_basics_observables_merge_analisis"
+python 06_basics_observables_merge_analisis.py
+
+echo "06_compare_pt_opti.py"
+python 06_compare_pt_opti.py
+
+echo "06_track_opt2"
+python 06_track_opt2.py
