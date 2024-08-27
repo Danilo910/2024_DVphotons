@@ -75,6 +75,12 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
             # Calculate the isolation ratio for each photon
             isolation_ratio = sum_pt_within_cone / photon_pt
 
+                                    # Use filter to find values less than 0.065
+            values_below_threshold = list(filter(lambda x: x < 0.065 and x > 0, isolation_ratio))
+
+            if values_below_threshold:
+                print("Values less than 0.065:", values_below_threshold)
+
             # Determine if each photon is isolated based on the isolation ratio or if there are no leptons nearby
             isolated_photon_mask = (isolation_ratio < pt_ratio_max) | no_leptons_within_cone
 
@@ -128,7 +134,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
     df_isolated_photons = df_isolated_photons.sort_values(by=['N', 'id'])
     # Set 'N' and 'id' as a multi-index
     df_isolated_photons_multi = df_isolated_photons.set_index(['N', 'id'])
-    print_first_and_last_10(df_isolated_photons_multi)
+    #print_first_and_last_10(df_isolated_photons_multi)
 
     return df_isolated_photons_multi
 
@@ -224,7 +230,7 @@ def plot_delta_r_histogram(delta_r_values, alpha, destiny):
     """
     plt.figure(figsize=(10, 6))
 
-    bins = np.arange(0, 1, 0.1)  # Bins from 0 to 1000 with steps of 100
+    bins = np.arange(0, 4, 0.2)  # Bins from 0 to 1000 with steps of 100
 
     plt.hist(delta_r_values, bins=bins, color='blue', edgecolor='black')
     plt.title(f'Histogram of ΔR between Most Energetic Photon and Electron {alpha.capitalize()}')
@@ -268,7 +274,7 @@ def reset_id_by_pt(electrons):
     return electrons
 
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/final_deltaR_aislado/"
+destiny = f"./data/final_deltaR_no_aislado_binmax/"
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 
@@ -288,14 +294,14 @@ for alpha in [4, 5, 6]:
 
 
     #realizamos el algoritmo de aislamiento
-    photons = isolate_photons(photons, electrons)
+    #photons = isolate_photons(photons, electrons)
     #Reset id photons
     photons = reset_id_by_pt(photons)
 
-    print("Restauramos id")
-    print_first_and_last_10(photons)
+    #print("Restauramos id")
+    #print_first_and_last_10(photons)
     #print(electrons)
-    sys.exit("Salimos")
+    #sys.exit("Salimos")
     alpha_s = str(alpha)
     # Example usage:
    

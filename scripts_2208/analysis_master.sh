@@ -179,6 +179,6 @@ echo "Analysis master"
 #echo "06_track_opt2"
 #python 06_track_opt2.py
 
-#echo "06_track_iso3"
-#python 06_track_iso3.py
+echo "06_track_iso3"
+python 06_track_iso3.py
 
