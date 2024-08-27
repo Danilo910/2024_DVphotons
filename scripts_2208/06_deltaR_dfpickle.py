@@ -26,7 +26,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
     Returns:
     isolated_photons (DataFrame): A DataFrame containing only the isolated photons.
     """
-    df_isolated_photons = pd.DataFrame(columns=['N', 'id', 'eta', 'phi', 'E'])
+    df_isolated_photons = pd.DataFrame(columns=['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET'])
 
     # Get unique event indices
     events = df_photons.index.get_level_values('N').unique()
@@ -48,10 +48,10 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
             # Extract phi, eta, and pt values as numpy arrays
             photon_phi = photons['phi'].values
             photon_eta = photons['eta'].values
-            photon_pt = photons['E'].values
+            photon_pt = photons['pt'].values
             lepton_phi = leptons['phi'].values
             lepton_eta = leptons['eta'].values
-            lepton_pt = leptons['E'].values
+            lepton_pt = leptons['pt'].values
 
             # Calculate Δphi and Δη using numpy broadcasting (outer subtraction)
             delta_phi = np.subtract.outer(photon_phi, lepton_phi)
@@ -75,10 +75,17 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
             # Calculate the isolation ratio for each photon
             isolation_ratio = sum_pt_within_cone / photon_pt
 
+                                    # Use filter to find values less than 0.065
+            values_below_threshold = list(filter(lambda x: x < 0.065 and x > 0, isolation_ratio))
+
+            if values_below_threshold:
+                print("Values less than 0.065:", values_below_threshold)
+
             # Determine if each photon is isolated based on the isolation ratio or if there are no leptons nearby
             isolated_photon_mask = (isolation_ratio < pt_ratio_max) | no_leptons_within_cone
 
             # Print statements for all variables
+            
             """
             print("delta_phi:")
             print(delta_phi)
@@ -110,7 +117,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
                 # Add the photon id as a column
                 isolated_photons['id'] = isolated_photons.index
                 # Append to the result DataFrame
-                df_isolated_photons = pd.concat([df_isolated_photons, isolated_photons[['N', 'id', 'eta', 'phi', 'E']]])
+                df_isolated_photons = pd.concat([df_isolated_photons, isolated_photons[['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET']]])
                 #print("isolated_photon:")
                 #print(isolated_photons)
 
@@ -122,13 +129,13 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
             # Add the photon id as a column
             isolated_photons['id'] = isolated_photons.index
             # Append to the result DataFrame
-            df_isolated_photons = pd.concat([df_isolated_photons, isolated_photons[['N', 'id', 'eta', 'phi', 'E']]])
+            df_isolated_photons = pd.concat([df_isolated_photons, isolated_photons[['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET']]])
 
     
     df_isolated_photons = df_isolated_photons.sort_values(by=['N', 'id'])
     # Set 'N' and 'id' as a multi-index
     df_isolated_photons_multi = df_isolated_photons.set_index(['N', 'id'])
-    print_first_and_last_10(df_isolated_photons_multi)
+    #print_first_and_last_10(df_isolated_photons_multi)
 
     return df_isolated_photons_multi
 
@@ -214,7 +221,7 @@ def calculate_delta_r(df_photons, df_leptons):
 
     return min_delta_r_values
 
-def plot_delta_r_histogram(delta_r_values, alpha, destiny):
+def plot_delta_r_histogram(delta_r_values, alpha, destiny, output_name):
     """
     Plots and saves a histogram of ΔR values.
 
@@ -224,15 +231,15 @@ def plot_delta_r_histogram(delta_r_values, alpha, destiny):
     """
     plt.figure(figsize=(10, 6))
 
-    bins = np.arange(0, 4, 0.2)  # Bins from 0 to 1000 with steps of 100
+    bins = np.arange(0, 6, 0.1)  # Bins from 0 to 1000 with steps of 100
 
     plt.hist(delta_r_values, bins=bins, color='blue', edgecolor='black')
-    plt.title(f'Histogram of ΔR between Most Energetic Photon and Electron {alpha.capitalize()}')
+    plt.title(f'{output_name}, {alpha.capitalize()}')
     plt.xlabel('ΔR')
     plt.ylabel('Frequency')
     
     # Save the histogram as a PNG file
-    plt.savefig(f"{destiny}/delta_r_histogram_{alpha}.png")
+    plt.savefig(f"{destiny}/deltaR_{output_name}_{alpha}.png")
     
     # Optionally, display the plot
     plt.show()
@@ -268,40 +275,51 @@ def reset_id_by_pt(electrons):
     return electrons
 
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/final_deltaR_binmax/"
-Path(destiny).mkdir(exist_ok=True, parents=True)
+#destiny = f"./data/deltaR_nomerge/"
+#Path(destiny).mkdir(exist_ok=True, parents=True)
 
 
 for alpha in [4, 5, 6]:
-
-    print("Alpha: ", alpha)
-    input_file = origin + f"megaphoton_{alpha}.pickle"
-
     
-    photons = pd.read_pickle(input_file)
-    leptons = pd.read_pickle(input_file.replace('photon', 'leptons'))
+    for type in ['ZH', 'WH', 'TTH']:
+        
+        destiny = f"./data/deltaR_no_isol/{type}_{alpha}/"
+        Path(destiny).mkdir(exist_ok=True, parents=True)
 
-    # Create sub DataFrame for electrons (id = 11)
-    electrons = leptons[leptons['pdg'] == 11].copy()
+        print("Alpha: ", alpha)
+        
+        input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
+        
+        photons = pd.read_pickle(input_file)
 
-    electrons = reset_id_by_pt(electrons)
+        leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
+
+        
+        # Create sub DataFrame for electrons (id = 11)
+        electrons = leptons[leptons['pdg'] == 11].copy()
+        
+        #reseteamos el id del electron
+        electrons = reset_id_by_pt(electrons)
+
+        #realizamos el algoritmo de aislamiento
+        photons = isolate_photons(photons, electrons)
+        #Reset id photons ya que el algoritmo de aislamiento lo desordeno
+        photons = reset_id_by_pt(photons)
+        print_first_and_last_10(photons)
 
 
-    #realizamos el algoritmo de aislamiento
-    photons = isolate_photons(photons, electrons)
-    #Reset id photons
-    photons = reset_id_by_pt(photons)
+        #print(electrons)
+        #sys.exit("Salimos")
+        alpha_s = str(alpha)
+        # Example usage:
 
-    #print("Restauramos id")
-    #print_first_and_last_10(photons)
-    #print(electrons)
-    sys.exit("Salimos")
-    alpha_s = str(alpha)
-    # Example usage:
-   
 
-    # Calculate ΔR values
-    delta_r_values = calculate_delta_r(photons, electrons)
+        # Calculate ΔR values
+        deltaR_ph_elec = calculate_delta_r(photons, electrons)
 
-    # Plot ΔR histogram
-    plot_delta_r_histogram(delta_r_values, alpha_s, destiny)
+        np.savetxt(f"{origin}/deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_elec)
+
+        print("Start phvselectrons")
+        # Plot ΔR histogram
+        plot_delta_r_histogram(deltaR_ph_elec, alpha_s, destiny, 'Photons vs Electrons')
+
