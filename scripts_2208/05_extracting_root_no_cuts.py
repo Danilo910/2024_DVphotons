@@ -83,6 +83,8 @@ def main(input_file):
         for e in branchElectron:
             leptons.append({"N": entry, 'pdg': 11, "pt":e.PT,
                             "eta":e.Eta, 'phi': e.Phi, 'mass': 0.000511})
+            #como observamos al hacer el print, branchElectron tiene informacion tanto de electrones como positrones
+            #print("charge", e.Charge)
 
         for mu in branchMuon:  
             leptons.append({"N": entry, 'pdg': 13, "pt": mu.PT,
@@ -96,6 +98,7 @@ def main(input_file):
     df_jets = pd.DataFrame(jets)
     df_leps = pd.DataFrame(leptons)
 
+    
     #si los fotones o los leptones no tiene filas (registros) entonces la funcion acaba alli
     if (df.shape[0] == 0) or (df_leps.shape[0] == 0):
         print(df.shape,df_leps.shape)
@@ -176,6 +179,7 @@ def main(input_file):
     df_leps = df_leps.set_index(['N', 'id'])
     df_leps.to_pickle(out_file.replace('_photons', '_leptons'))
     #print(df) #Commented by JJP
+    
     
     return
 

@@ -12,6 +12,102 @@ from multiprocessing import Pool
 import matplotlib.pyplot as plt
 import os
 
+#originales: delta_r_max=0.2, pt_min=0.1, pt_ratio_max=0.065 los editamos para ver mejor los prints
+def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_ratio_max=0.065):
+    """
+    Isolates photons using the Mini-cone algorithm and returns a DataFrame of isolated photons.
+
+    Parameters:
+    df_photons (DataFrame): The DataFrame containing photon data.
+    df_leptons (DataFrame): The DataFrame containing lepton (e.g., electron) data.
+    delta_r_max (float): The maximum ΔR to consider for isolation (cone size).
+    pt_min (float): The minimum pT threshold for leptons to be considered in the isolation.
+    pt_ratio_max (float): The maximum allowable ratio of the sum of lepton pT to photon pT.
+
+    Returns:
+    isolated_photons (DataFrame): A DataFrame containing only the isolated photons.
+    """
+    df_isolated_photons = pd.DataFrame(columns=['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET'])
+
+    # Get unique event indices
+    events = df_photons.index.get_level_values('N').unique()
+
+    for event in events:
+        # Check if the event has both photons and leptons
+        if event in df_photons.index.get_level_values('N') and event in df_leptons.index.get_level_values('N'):
+            # Extract photons and leptons in the event
+            photons = df_photons.loc[event]
+            leptons = df_leptons.loc[event]
+
+            # Extract phi, eta, and pt values as numpy arrays
+            photon_phi = photons['phi'].values
+            photon_eta = photons['eta'].values
+            photon_pt = photons['pt'].values
+            lepton_phi = leptons['phi'].values
+            lepton_eta = leptons['eta'].values
+            lepton_pt = leptons['pt'].values
+
+            # Calculate Δphi and Δη using numpy broadcasting (outer subtraction)
+            delta_phi = np.subtract.outer(photon_phi, lepton_phi)
+            delta_eta = np.subtract.outer(photon_eta, lepton_eta)
+
+            # Calculate ΔR for all photon-lepton pairs
+            delta_r = np.sqrt(delta_phi**2 + delta_eta**2)
+
+            # Apply the ΔR max condition
+            within_cone = (delta_r < delta_r_max)
+
+            # Apply the pT min condition to the leptons
+            lepton_pt_filtered = np.where(lepton_pt > pt_min, lepton_pt, 0)
+
+            # Calculate the sum of pT of leptons within the cone for each photon
+            sum_pt_within_cone = np.sum(lepton_pt_filtered * within_cone, axis=1)
+
+            # Calculate the isolation ratio for each photon
+            isolation_ratio = sum_pt_within_cone / photon_pt
+
+            # Determine if each photon is isolated based on the isolation ratio
+            isolated_photon_mask = (isolation_ratio < pt_ratio_max) & (sum_pt_within_cone > 0)
+
+            print("isolation_ratio")
+            print(isolation_ratio)
+
+            print("isolated_photon_mask")
+            print(isolated_photon_mask)
+
+            # Filter and store the isolated photons with the event number (N) and photon id
+            if any(isolated_photon_mask):
+                # Filter isolated photons
+                isolated_photons = photons[isolated_photon_mask].copy()
+                # Add the event number (N) as a column
+                isolated_photons['N'] = event
+                # Add the photon id as a column
+                isolated_photons['id'] = isolated_photons.index
+                # Append to the result DataFrame
+                df_isolated_photons = pd.concat([df_isolated_photons, isolated_photons[['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET']]])
+                print("isolated_photon")
+                print(isolated_photons)
+                #print("isolated_photons_total")
+                #print(df_isolated_photons)
+
+        else:
+            # If no leptons are present, consider all photons in this event as isolated
+            isolated_photons = df_photons.loc[event].copy()
+            # Add the event number (N) as a column
+            isolated_photons['N'] = event
+            # Add the photon id as a column
+            isolated_photons['id'] = isolated_photons.index
+            # Append to the result DataFrame
+            df_isolated_photons = pd.concat([df_isolated_photons, isolated_photons[['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET']]])
+
+    
+    df_isolated_photons = df_isolated_photons.sort_values(by=['N', 'id'])
+    # Set 'N' and 'id' as a multi-index
+    df_isolated_photons_multi = df_isolated_photons.set_index(['N', 'id'])
+    #print(df_isolated_photons_multi)
+
+    return df_isolated_photons_multi
+
 def calculate_delta_r(df_photons, df_leptons):
     """
     Calculates the minimum ΔR between each photon and all electrons in each event,
@@ -90,7 +186,10 @@ def plot_delta_r_histogram(delta_r_values, alpha, destiny):
     destiny (str): The directory where the histogram image will be saved.
     """
     plt.figure(figsize=(10, 6))
-    plt.hist(delta_r_values, bins=30, color='blue', edgecolor='black')
+
+    bins = np.arange(0, 1, 0.1)  # Bins from 0 to 1000 with steps of 100
+
+    plt.hist(delta_r_values, bins=bins, color='blue', edgecolor='black')
     plt.title(f'Histogram of ΔR between Most Energetic Photon and Electron {alpha.capitalize()}')
     plt.xlabel('ΔR')
     plt.ylabel('Frequency')
@@ -132,7 +231,7 @@ def reset_id_by_pt(electrons):
     return electrons
 
 origin = "/Collider/scripts_2208/data/clean/"
-destiny = f"./data/final_deltaR/"
+destiny = f"./data/final_deltaR_aislado/"
 Path(destiny).mkdir(exist_ok=True, parents=True)
 
 
@@ -145,16 +244,20 @@ for alpha in [4, 5, 6]:
     photons = pd.read_pickle(input_file)
     leptons = pd.read_pickle(input_file.replace('photon', 'leptons'))
 
-    #Reset id photons
-    photons = reset_id_by_pt(photons)
-
     # Create sub DataFrame for electrons (id = 11)
     electrons = leptons[leptons['pdg'] == 11].copy()
 
     electrons = reset_id_by_pt(electrons)
 
+
+    #realizamos el algoritmo de aislamiento
+    photons = isolate_photons(photons, electrons)
+    #Reset id photons
+    photons = reset_id_by_pt(photons)
+
+
     #print(electrons)
-    #sys.exit("Salimos")
+    sys.exit("Salimos")
     alpha_s = str(alpha)
     # Example usage:
    

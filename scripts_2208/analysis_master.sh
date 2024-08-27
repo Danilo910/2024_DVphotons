@@ -153,18 +153,32 @@ echo "Analysis master"
 #echo "06_basics_observables_merge"
 #python 06_basics_observables_merge.py
 
+#echo "06_track_iso"
+#python 06_track_iso.py
+
+#echo "06_track_iso2"
+#python 06_track_iso2.py
 
 #Cuatro archivos finales
+
+#echo "04_run_Delphes_danilo.py"
+#python 04_run_Delphes_danilo.py "$3" "$2"
+
+#echo "05_extracting_root_no_cuts.py "
+#python 05_extracting_root_no_cuts.py 
 
 #echo "06_merge_opt"
 #python 06_merge_opt.py
 
-echo "06_basics_observables_merge_analisis"
-python 06_basics_observables_merge_analisis.py
+#echo "06_basics_observables_merge_analisis"
+#python 06_basics_observables_merge_analisis.py
 
 #echo "06_compare_pt_opti.py"
 #python 06_compare_pt_opti.py
 
 #echo "06_track_opt2"
 #python 06_track_opt2.py
+
+#echo "06_track_iso3"
+#python 06_track_iso3.py
 
