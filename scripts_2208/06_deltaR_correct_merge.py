@@ -8,6 +8,8 @@ def merge_and_plot(alpha):
     # Directory where txt files are stored
     origin = "/Collider/scripts_2208/data/clean/"
     
+    print("Alpha: ")
+    print(alpha)
     # Initialize an empty DataFrame to hold merged data
     merged_data = pd.DataFrame()
     
@@ -22,13 +24,19 @@ def merge_and_plot(alpha):
         
         # Store the data for individual plotting
         data_dict[event_type] = df
+
+        #print("event_type: ")
+        #print(event_type)
+        #print("data_dict")
+        #print(data_dict)
         
         # Merge the data
         merged_data = pd.concat([merged_data, df], ignore_index=True)
 
     # Create the first plot: All data merged
+    bins = np.arange(0, 6, 0.1)
     plt.figure(figsize=(10, 6))
-    plt.hist(merged_data['deltaR'], bins=50, alpha=0.7, label=f"Alpha {alpha}")
+    plt.hist(merged_data['deltaR'], bins=bins, alpha=0.7, label=f"Alpha {alpha}")
     plt.title(f"deltaR Histogram for Alpha {alpha} (All Merged)")
     plt.xlabel("deltaR")
     plt.ylabel("Frequency")
@@ -43,7 +51,7 @@ def merge_and_plot(alpha):
     # Create the second plot: Differentiating by event type
     plt.figure(figsize=(10, 6))
     for event_type, df in data_dict.items():
-        plt.hist(df['deltaR'], bins=50, alpha=0.5, label=event_type, histtype='stepfilled')
+        plt.hist(df['deltaR'], bins=bins, alpha=0.5, label=event_type, histtype='stepfilled')
     
     plt.title(f"deltaR Histogram for Alpha {alpha} (Differentiated by Type)")
     plt.xlabel("deltaR")

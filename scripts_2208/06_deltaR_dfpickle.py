@@ -280,21 +280,26 @@ origin = "/Collider/scripts_2208/data/clean/"
 
 
 for alpha in [4, 5, 6]:
+
+    print("Alpha: ", alpha)
     
     for type in ['ZH', 'WH', 'TTH']:
         
         destiny = f"./data/deltaR_no_isol/{type}_{alpha}/"
         Path(destiny).mkdir(exist_ok=True, parents=True)
 
-        print("Alpha: ", alpha)
+        print("Type: ", type)
         
         input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
+
+        #print("input_photons: ", input_file)
+
+        #print("leptons: ", input_file.replace('photons', 'leptons'))
         
         photons = pd.read_pickle(input_file)
 
         leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
 
-        
         # Create sub DataFrame for electrons (id = 11)
         electrons = leptons[leptons['pdg'] == 11].copy()
         
@@ -302,7 +307,7 @@ for alpha in [4, 5, 6]:
         electrons = reset_id_by_pt(electrons)
 
         #realizamos el algoritmo de aislamiento
-        photons = isolate_photons(photons, electrons)
+        #photons = isolate_photons(photons, electrons)
         #Reset id photons ya que el algoritmo de aislamiento lo desordeno
         photons = reset_id_by_pt(photons)
         print_first_and_last_10(photons)
@@ -317,9 +322,9 @@ for alpha in [4, 5, 6]:
         # Calculate ΔR values
         deltaR_ph_elec = calculate_delta_r(photons, electrons)
 
-        np.savetxt(f"{origin}/deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_elec)
+        np.savetxt(f"{origin}/no_iso_deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_elec)
 
         print("Start phvselectrons")
         # Plot ΔR histogram
         plot_delta_r_histogram(deltaR_ph_elec, alpha_s, destiny, 'Photons vs Electrons')
-
+    
