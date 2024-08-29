@@ -18,7 +18,7 @@ def merge_and_plot(alpha):
 
     # Read and merge the data for each event type
     for event_type in ['ZH', 'WH', 'TTH']:
-        file_path = f"{origin}/deltaR_Alpha{alpha}_{event_type}.txt"
+        file_path = f"{origin}/no_iso_deltaR_Alpha{alpha}_{event_type}.txt"
         data = np.loadtxt(file_path)
         df = pd.DataFrame(data, columns=["deltaR"])
         
@@ -43,7 +43,7 @@ def merge_and_plot(alpha):
     plt.legend()
     
     # Save the merged plot in the specified directory
-    destiny = f"./data/deltaR_merge/{alpha}/"
+    destiny = f"./data/deltaR_merge/no_iso_{alpha}/"
     Path(destiny).mkdir(exist_ok=True, parents=True)
     plt.savefig(f"{destiny}/deltaR_histogram_alpha{alpha}_merged.png")
     plt.close()

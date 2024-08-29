@@ -67,9 +67,15 @@ def main(input_file):
         """
         
         for ph in branchPhoton:
-        
-            photons.append({"N": entry, "E":ph.E, "pt":ph.PT, "eta":ph.Eta, 'phi': ph.Phi,
-                            'z_origin': ph.ZOrigin, 'rel_tof': ph.RelativeT,'MET': miss})
+            #print(ph)
+            
+            #print(ph.PT, ph.Eta)
+            #condiciones experimentales del detector
+            if ph.PT > 10:
+                #print(ph.Eta)
+                #entry nos da el numero del evento (de 0 a 499 en nuestro caso)
+                photons.append({"N": entry, "E":ph.E, "pt":ph.PT, "eta":ph.Eta, 'phi': ph.Phi,
+                                'z_origin': ph.ZOrigin, 'rel_tof': ph.RelativeT,'MET': miss})
 
         for jet in branchJet:
             if jet.PT > 0:

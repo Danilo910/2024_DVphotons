@@ -185,5 +185,46 @@ echo "Analysis master"
 #echo "06_deltaR_dfpickle"
 #python 06_deltaR_dfpickle.py
 
-echo "06_deltaR_correct_merge.py"
-python 06_deltaR_correct_merge.py
+#echo "06_deltaR_correct_merge.py"
+#python 06_deltaR_correct_merge.py
+
+#Cuatro archivos finales version 2
+
+#echo "05_extracting_root_no_cuts.py "
+#python 05_extracting_root_no_cuts.py 
+
+#Iso
+
+#echo "06_deltaR_dfpickle_iso"
+#python 06_deltaR_dfpickle_iso.py
+
+#echo "06_deltaR_correct_merge_iso.py"
+#python 06_deltaR_correct_merge_iso.py
+
+#No iso
+
+#echo "06_deltaR_dfpickle"
+#python 06_deltaR_dfpickle.py
+
+#echo "06_deltaR_correct_merge.py"
+#python 06_deltaR_correct_merge.py
+
+#opt
+
+#echo "06_deltaR_dfpickle_opt"
+#python 06_deltaR_dfpickle_opt.py
+
+#echo "comparacion_deltaR.py"
+#python comparacion_deltaR.py
+
+#echo "06_simples_correct_merge.py"
+#python 06_simples_correct_merge.py
+
+#echo "06_com_pt_correct.py"
+#python 06_com_pt_correct.py
+
+echo "06_simples_histograms_Channels.py"
+python 06_simples_histograms_Channels.py
+
+echo "06_simple_histograms_Merges_Channels.py"
+python 06_simple_histograms_Merges_Channels.py
