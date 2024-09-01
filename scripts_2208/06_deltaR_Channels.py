@@ -169,12 +169,12 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
             photons = df_photons.loc[event]
             leptons = df_leptons.loc[event]
 
-            """
+            
             print("photonsdataframe")
             print(photons)
             print("electronsdataframe")
             print(leptons)
-            """
+            
 
             # Extract phi, eta, and pt values as numpy arrays
             photon_phi = photons['phi'].values
@@ -217,7 +217,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
 
             # Print statements for all variables
             
-            """
+            
             print("delta_phi:")
             print(delta_phi)
             print("delta_eta:")
@@ -236,7 +236,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
             print(isolation_ratio)
             print("isolated_photon_mask:")
             print(isolated_photon_mask)
-            """
+            
             
 
             # Filter and store the isolated photons with the event number (N) and photon id
@@ -362,7 +362,7 @@ def plot_delta_r_histogram(delta_r_values, alpha, destiny, output_name):
     """
     plt.figure(figsize=(10, 6))
 
-    bins = np.arange(0, 6, 0.1)  # Bins from 0 to 1000 with steps of 100
+    bins = np.arange(0, 0.1, 0.005)  # Bins from 0 to 1000 with steps of 100
 
     plt.hist(delta_r_values, bins=bins, color='blue', edgecolor='black')
     plt.title(f'{output_name}, {alpha.capitalize()}')
@@ -438,13 +438,13 @@ for alpha in [4, 5, 6]:
         electrons = reset_id_by_pt(electrons)
 
         #realizamos el algoritmo de aislamiento
-        photons = isolate_photons(photons, electrons)
+        #photons = isolate_photons(photons, electrons)
         #Reset id photons ya que el algoritmo de aislamiento lo desordeno
         photons = reset_id_by_pt(photons)
         print_first_and_last_10(photons)
 
         #print(electrons)
-        sys.exit("Salimos")
+        #sys.exit("Salimos")
         alpha_s = str(alpha)
         # Example usage:
 

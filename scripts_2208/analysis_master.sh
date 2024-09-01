@@ -220,11 +220,36 @@ echo "Analysis master"
 #echo "06_simples_correct_merge.py"
 #python 06_simples_correct_merge.py
 
-#echo "06_com_pt_correct.py"
-#python 06_com_pt_correct.py
+#echo "06_com_pt_Merges_Channels.py"
+#python 06_com_pt_Merges_Channels.py
 
-echo "06_simples_histograms_Channels.py"
-python 06_simples_histograms_Channels.py
+#echo "06_simples_histograms_Channels.py"
+#python 06_simples_histograms_Channels.py
 
-echo "06_simple_histograms_Merges_Channels.py"
-python 06_simple_histograms_Merges_Channels.py
+#echo "06_simple_histograms_Merges_Channels.py"
+#python 06_simple_histograms_Merges_Channels.py
+
+#Codigos _06
+
+#echo "06_com_pt_Channels.py"
+#python 06_com_pt_Channels.py
+
+#echo "06_com_pt_Merges_Channels.py"
+#python 06_com_pt_Merges_Channels.py
+
+
+
+#echo "06_simples_histograms_Channels.py"
+#python 06_simples_histograms_Channels.py
+
+#echo "06_simples_histograms_Merges_Channels.py"
+#python 06_simples_histograms_Merges_Channels.py
+
+
+
+#echo "06_deltaR_Channels.py"
+#python 06_deltaR_Channels.py
+
+#echo "06_deltaR_Merge_Channels.py"
+#python 06_deltaR_Merge_Channels.py
+

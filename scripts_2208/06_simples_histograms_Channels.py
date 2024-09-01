@@ -258,10 +258,11 @@ for alpha in [4, 5, 6]:
         leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
 
         electrons = leptons[leptons['pdg'] == 11].copy()
+        electrons = isolate_photons(electrons, photons)
         electrons = reset_id_by_pt(electrons)
 
         # Apply isolation algorithm
-        #photons = isolate_photons(photons, electrons)
+        photons = isolate_photons(photons, electrons)
         photons = reset_id_by_pt(photons)
         #print_initial_and_final_lines(photons)
 
