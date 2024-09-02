@@ -20,7 +20,7 @@ def get_bins_for_observable(observable):
     else:
         return 30  # Default number of bins if none of the above
 
-def merge_and_plot_observable(observable, alphas, event_types, origin):
+def merge_and_plot_observable(observable, alphas, event_types, origin, mode):
     """
     Merges and plots data for a given observable across different alphas and event types.
 
@@ -47,6 +47,12 @@ def merge_and_plot_observable(observable, alphas, event_types, origin):
 
         # Determine the bins based on the observable
         bins = get_bins_for_observable(observable)
+        
+        #Definimos el destino donde queremos que esten las imagenes (iso y no iso)
+
+        destiny = f"./data/Merge_simples_{mode}/{observable}/"
+        Path(destiny).mkdir(exist_ok=True, parents=True)
+
 
         # Plotting merged data for the current observable and alpha
         plt.figure(figsize=(10, 6))
@@ -56,9 +62,7 @@ def merge_and_plot_observable(observable, alphas, event_types, origin):
         plt.ylabel("Frequency")
         plt.legend()
 
-        destiny = f"./data/{observable}_merge_no_iso/"
-        Path(destiny).mkdir(exist_ok=True, parents=True)
-        plt.savefig(f"{destiny}/{observable}_histogram_alpha{alpha}_merged.png")
+        plt.savefig(f"{destiny}/{mode}_{observable}_histogram_alpha{alpha}_merged.png")
         plt.close()
 
         # Create the second plot: Differentiating by event type
@@ -75,8 +79,9 @@ def merge_and_plot_observable(observable, alphas, event_types, origin):
         plt.savefig(f"{destiny}/{observable}_histogram_alpha{alpha}_differentiated.png")
         plt.close()
 
-def merge_and_plot_for_all_observables():
-    origin = "/Collider/scripts_2208/data/clean/"
+def merge_and_plot_for_all_observables(mode):
+
+    origin = f"/Collider/scripts_2208/data/clean/simples_{mode}"
     alphas = [4, 5, 6]
     event_types = ['ZH', 'WH', 'TTH']
 
@@ -85,7 +90,20 @@ def merge_and_plot_for_all_observables():
 
     # Merge and plot for each observable
     for observable in observables:
-        merge_and_plot_observable(observable, alphas, event_types, origin)
+        merge_and_plot_observable(observable, alphas, event_types, origin, mode)
+
+
+# Define the strings
+iso = "iso"
+no_iso = "no_iso"
+
+# Create a list containing both strings
+modes = [iso, no_iso]
 
 # Run the full merging and plotting process
-merge_and_plot_for_all_observables()
+for mode in modes:
+    # Perform actions with each mode
+    print(f"Processing mode: {mode}")
+
+    merge_and_plot_for_all_observables(mode)
+

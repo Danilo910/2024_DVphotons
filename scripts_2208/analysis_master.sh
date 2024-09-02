@@ -231,11 +231,11 @@ echo "Analysis master"
 
 #Codigos _06
 
-#echo "06_com_pt_Channels.py"
-#python 06_com_pt_Channels.py
+echo "06_com_pt_Channels.py"
+python 06_com_pt_Channels.py
 
-#echo "06_com_pt_Merges_Channels.py"
-#python 06_com_pt_Merges_Channels.py
+echo "06_com_pt_Merges_Channels.py"
+python 06_com_pt_Merges_Channels.py
 
 
 
@@ -252,4 +252,7 @@ echo "Analysis master"
 
 #echo "06_deltaR_Merge_Channels.py"
 #python 06_deltaR_Merge_Channels.py
+
+#echo "06_ISO_vs_NoISO.py"
+#python 06_ISO_vs_NoISO.py
 

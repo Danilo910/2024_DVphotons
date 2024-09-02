@@ -25,7 +25,7 @@ import numpy as np
 import pandas as pd
 
 
-def isolate_photons_opt(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_ratio_max=0.065):
+def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_ratio_max=0.065):
 
     """
     Isolates photons using the Mini-cone algorithm and returns a DataFrame of isolated photons.
@@ -143,7 +143,7 @@ def isolate_photons_opt(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_
 
     return df_photons
 
-def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_ratio_max=0.065):
+def isolate_photons_no_opt(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_ratio_max=0.065):
     """
     Isolates photons using the Mini-cone algorithm and returns a DataFrame of isolated photons.
 
@@ -410,52 +410,70 @@ origin = "/Collider/scripts_2208/data/clean/"
 #Path(destiny).mkdir(exist_ok=True, parents=True)
 
 
-for alpha in [4, 5, 6]:
+# Define the strings
+iso = "iso"
+no_iso = "no_iso"
 
-    print("Alpha: ", alpha)
-    
-    for type in ['ZH', 'WH', 'TTH']:
+# Create a list containing both strings
+modes = [iso, no_iso]
+
+# Loop through each mode in the list
+for mode in modes:
+    # Perform actions with each mode
+    print(f"Processing mode: {mode}")
+
+    for alpha in [4, 5, 6]:
+
+        print("Alpha: ", alpha)
         
-        destiny = f"./data/deltaR_no_isol/{type}_{alpha}/"
-        Path(destiny).mkdir(exist_ok=True, parents=True)
+        for type in ['ZH', 'WH', 'TTH']:
+            
+            print("Type: ", type)
+            
+            destiny = f"./data/deltaR_{mode}/{type}_{alpha}/"
+            Path(destiny).mkdir(exist_ok=True, parents=True)
 
-        print("Type: ", type)
-        
-        input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
+            destiniy_txt = f"/Collider/scripts_2208/data/clean/deltaR_{mode}"
+            Path(destiniy_txt).mkdir(exist_ok=True, parents=True)
+            
+            input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
 
-        #print("input_photons: ", input_file)
+            #print("input_photons: ", input_file)
 
-        #print("leptons: ", input_file.replace('photons', 'leptons'))
-        
-        photons = pd.read_pickle(input_file)
+            #print("leptons: ", input_file.replace('photons', 'leptons'))
+            
+            photons = pd.read_pickle(input_file)
 
-        leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
+            leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
 
-        # Create sub DataFrame for electrons (id = 11)
-        electrons = leptons[leptons['pdg'] == 11].copy()
-        
-        #reseteamos el id del electron
-        electrons = reset_id_by_pt(electrons)
+            # Create sub DataFrame for electrons (id = 11)
+            electrons = leptons[leptons['pdg'] == 11].copy()
+            
+            #reseteamos el id del electron
+            electrons = reset_id_by_pt(electrons)
 
-        #realizamos el algoritmo de aislamiento
-        #photons = isolate_photons(photons, electrons)
-        #Reset id photons ya que el algoritmo de aislamiento lo desordeno
-        photons = reset_id_by_pt(photons)
-        print_first_and_last_10(photons)
+            # Apply isolation algorithm
+            if mode == "iso":
+                photons = isolate_photons(photons, electrons)
+                photons = reset_id_by_pt(photons)
 
-        #print(electrons)
-        #sys.exit("Salimos")
-        alpha_s = str(alpha)
-        # Example usage:
+                electrons = isolate_photons(electrons, photons)
+                electrons = reset_id_by_pt(electrons)
 
-        
-        # Calculate ΔR values
-        deltaR_ph_elec = calculate_delta_r(photons, electrons)
 
-        np.savetxt(f"{origin}/no_iso_deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_elec)
+            #print(electrons)
+            #sys.exit("Salimos")
+            alpha_s = str(alpha)
+            # Example usage:
 
-        print("Start phvselectrons")
-        # Plot ΔR histogram
-        plot_delta_r_histogram(deltaR_ph_elec, alpha_s, destiny, 'Photons vs Electrons')
+            
+            # Calculate ΔR values
+            deltaR_ph_elec = calculate_delta_r(photons, electrons)
+
+            np.savetxt(f"{destiniy_txt}/deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_elec)
+
+            print("Start phvselectrons")
+            # Plot ΔR histogram
+            plot_delta_r_histogram(deltaR_ph_elec, alpha_s, destiny, 'Photons_vs_Electrons')
         
     

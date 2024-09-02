@@ -123,7 +123,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
 
     return df_photons
 
-def plot_histogram(type, df, column_name, title, xlabel, ylabel, destiny, output_file):
+def plot_histogram_z_and_t(type, df, column_name, title, xlabel, ylabel, destiny, output_file):
     """
     Plots and saves a histogram for a specified column in the DataFrame.
 
@@ -139,10 +139,10 @@ def plot_histogram(type, df, column_name, title, xlabel, ylabel, destiny, output
     # Define bins based on the column name
     if column_name == 'z_origin':
         bins = np.arange(0, 310, 10)
-        np.savetxt(f"{origin}/z_origin_{alpha}_{type}.txt", df[column_name])
+        np.savetxt(f"{destiniy_txt}/z_origin_{alpha}_{type}.txt", df[column_name])
     elif column_name == 'rel_tof':
         bins = np.arange(0, 3.1, 0.1)
-        np.savetxt(f"{origin}/rel_tof_{alpha}_{type}.txt", df[column_name])
+        np.savetxt(f"{destiniy_txt}/rel_tof_{alpha}_{type}.txt", df[column_name])
     else:
         bins = 30  # Default number of bins
     
@@ -161,12 +161,12 @@ def plot_histogram(type, df, column_name, title, xlabel, ylabel, destiny, output
 
 def plot_z_origin_histogram(df, particle_type, type, destiny):
     most_energetic_photons = df.xs(0, level='id')  # Extract rows where id = 0
-    plot_histogram(type, most_energetic_photons, 'z_origin', f'Histogram of z_origin for Most Energetic {particle_type.capitalize()}',
+    plot_histogram_z_and_t(type, most_energetic_photons, 'z_origin', f'Histogram of z_origin for Most Energetic {particle_type.capitalize()}',
                    'z_origin', 'Frequency', destiny, f'z_origin_histogram_{particle_type}.png')
 
 def plot_rel_tof_histogram(df, particle_type, type, destiny):
     most_energetic_photons = df.xs(0, level='id')  # Extract rows where id = 0
-    plot_histogram(type, most_energetic_photons, 'rel_tof', f'Histogram of rel_tof for Most Energetic {particle_type.capitalize()}',
+    plot_histogram_z_and_t(type, most_energetic_photons, 'rel_tof', f'Histogram of rel_tof for Most Energetic {particle_type.capitalize()}',
                    'rel_tof', 'Frequency', destiny, f'rel_tof_histogram_{particle_type}.png')
 
 def plot_most_energetic_histogram(df, particle_type, type, destiny):
@@ -178,7 +178,7 @@ def plot_most_energetic_histogram(df, particle_type, type, destiny):
         bins = np.arange(0, 310, 10)
    
     particle = particle_type.split('_')[0]
-    np.savetxt(f"{origin}/PT_{particle}_{alpha}_{type}.txt", most_energetic_particles['pt'])
+    np.savetxt(f"{destiniy_txt}/PT_{particle}_{alpha}_{type}.txt", most_energetic_particles['pt'])
     plt.hist(most_energetic_particles['pt'], bins=bins, color='blue', edgecolor='black')
     plt.title(f'Histogram of Most Energetic {particle_type.capitalize()} Transverse Momentum (pt)')
     plt.xlabel('Transverse Momentum (pt)')
@@ -191,20 +191,12 @@ def plot_met_histogram(df, alpha, type, destiny):
     most_energetic_photons = df.xs(0, level='id')  # Extract rows where id = 0
     bins = np.arange(0, 310, 10)
     plt.hist(most_energetic_photons['MET'], bins=bins, color='green', edgecolor='black')
-    np.savetxt(f"{origin}/MET_{alpha}_{type}.txt", most_energetic_photons['MET'])
+    np.savetxt(f"{destiniy_txt}/MET_{alpha}_{type}.txt", most_energetic_photons['MET'])
     plt.title(f'Histogram of MET for event {alpha.capitalize()}')
     plt.xlabel('MET (Missing Transverse Energy)')
     plt.ylabel('Frequency')
     plt.savefig(f"{destiny}/most_energetic_photon_met_histogram_{alpha.capitalize()}.png")
     plt.show()
-
-def print_initial_and_final_lines(pickle_file):
-    df = pd.read_pickle(os.path.join(origin, pickle_file))
-    print(f"Initial lines of {pickle_file}:")
-    print(df.head())
-    print(f"\nFinal lines of {pickle_file}:")
-    print(df.tail())
-    print("\n" + "="*80 + "\n")
 
 def reset_id_by_pt(electrons):
     """
@@ -239,50 +231,70 @@ def reset_id_by_pt(electrons):
 
 origin = "/Collider/scripts_2208/data/clean/"
 
+
+# Define the strings
+iso = "iso"
+no_iso = "no_iso"
+
+# Create a list containing both strings
+modes = [iso, no_iso]
+
 # List of alphas and event types
 alphas = [4, 5, 6]
 event_types = ['ZH', 'WH', 'TTH']
 
 
-for alpha in [4, 5, 6]:
-    print("Alpha: ", alpha)
-    
-    for type in ['ZH', 'WH', 'TTH']:
-        destiny = f"./data/simples_yes_iso/{type}_{alpha}/"
-        Path(destiny).mkdir(exist_ok=True, parents=True)
+# Loop through each mode in the list
+for mode in modes:
+    # Perform actions with each mode
+    print(f"Processing mode: {mode}")
+    # You can add any additional operations here
+    for alpha in [4, 5, 6]:
 
-        print("Type: ", type)
+        print("Alpha: ", alpha)
+    
+        for type in ['ZH', 'WH', 'TTH']:
+
+            destiny = f"./data/simples_{mode}/{type}_{alpha}/"
+            Path(destiny).mkdir(exist_ok=True, parents=True)
+
+            destiniy_txt = f"/Collider/scripts_2208/data/clean/simples_{mode}"
+            Path(destiniy_txt).mkdir(exist_ok=True, parents=True)
+
+            print("Type: ", type)
+            
+            input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
+            photons = pd.read_pickle(input_file)
+            leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
+
+            electrons = leptons[leptons['pdg'] == 11].copy()
+            electrons = reset_id_by_pt(electrons)
+
+            # Apply isolation algorithm
+            if mode == "iso":
+                photons = isolate_photons(photons, electrons)
+                photons = reset_id_by_pt(photons)
+
+                electrons = isolate_photons(electrons, photons)
+                electrons = reset_id_by_pt(electrons)
+
+
+            # Create sub DataFrame for muons (id = 13)
+            muons = leptons[leptons['pdg'] == 13].copy()
+            muons = reset_id_by_pt(muons)
+
+            alpha_s = str(alpha)
+            photon_alpha_type = f'photon_{alpha}'
+            electron_alpha_type = f'electron_{alpha}'
+            muon_alpha_type = f'muon_{alpha}'
+
+            # Plot histograms
+            plot_met_histogram(photons, alpha_s, type, destiny)
+
+            plot_most_energetic_histogram(electrons, electron_alpha_type, type, destiny)
+            plot_most_energetic_histogram(muons, muon_alpha_type, type, destiny)
+            plot_most_energetic_histogram(photons, photon_alpha_type, type, destiny)
+
+            plot_z_origin_histogram(photons, photon_alpha_type, type, destiny)
+            plot_rel_tof_histogram(photons, photon_alpha_type, type, destiny)
         
-        input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
-        photons = pd.read_pickle(input_file)
-        leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
-
-        electrons = leptons[leptons['pdg'] == 11].copy()
-        electrons = isolate_photons(electrons, photons)
-        electrons = reset_id_by_pt(electrons)
-
-        # Apply isolation algorithm
-        photons = isolate_photons(photons, electrons)
-        photons = reset_id_by_pt(photons)
-        #print_initial_and_final_lines(photons)
-
-
-        # Create sub DataFrame for muons (id = 13)
-        muons = leptons[leptons['pdg'] == 13].copy()
-        muons = reset_id_by_pt(muons)
-
-        alpha_s = str(alpha)
-        photon_alpha_type = f'photon_{alpha}'
-        electron_alpha_type = f'electron_{alpha}'
-        muon_alpha_type = f'muon_{alpha}'
-
-        # Plot histograms
-        plot_met_histogram(photons, alpha_s, type, destiny)
-
-        plot_most_energetic_histogram(electrons, electron_alpha_type, type, destiny)
-        plot_most_energetic_histogram(muons, muon_alpha_type, type, destiny)
-        plot_most_energetic_histogram(photons, photon_alpha_type, type, destiny)
-
-        plot_z_origin_histogram(photons, photon_alpha_type, type, destiny)
-        plot_rel_tof_histogram(photons, photon_alpha_type, type, destiny)
-    
