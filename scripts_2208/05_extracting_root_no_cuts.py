@@ -211,8 +211,8 @@ for typex in types[:]:
         for file_inx in sorted(glob.glob(origin + f"*{typex}*{tevx}.root"))[:]:
             allcases.append(file_inx)
 
-print(allcases)
-sys.exit("SALIMOS")
+#print(allcases)
+#sys.exit("SALIMOS")
 #estamos pasandole .root como input_file
 if __name__ == '__main__':
     #print(allcases) #Commented by JJP

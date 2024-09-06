@@ -229,13 +229,16 @@ echo "Analysis master"
 #echo "06_simple_histograms_Merges_Channels.py"
 #python 06_simple_histograms_Merges_Channels.py
 
-#Codigos _06
+#Codigos _06 y 05 3 de setiembre
 
-echo "06_com_pt_Channels.py"
-python 06_com_pt_Channels.py
+#echo "05_extracting_root_no_cuts.py "
+#python 05_extracting_root_no_cuts.py 
 
-echo "06_com_pt_Merges_Channels.py"
-python 06_com_pt_Merges_Channels.py
+#echo "06_com_pt_Channels.py"
+#python 06_com_pt_Channels.py
+
+#echo "06_com_pt_Merges_Channels.py"
+#python 06_com_pt_Merges_Channels.py
 
 
 
@@ -253,6 +256,20 @@ python 06_com_pt_Merges_Channels.py
 #echo "06_deltaR_Merge_Channels.py"
 #python 06_deltaR_Merge_Channels.py
 
-#echo "06_ISO_vs_NoISO.py"
-#python 06_ISO_vs_NoISO.py
+
+
+echo "06_ISO_vs_NoISO.py"
+python 06_ISO_vs_NoISO.py
+
+
+
+#echo "06_deltaR_Channels_deltaR_min.py"
+#python 06_deltaR_Channels_deltaR_min.py
+
+#echo "06_deltaR_Merge_Channels_deltaR_min.py"
+#python 06_deltaR_Merge_Channels_deltaR_min.py
+
+#echo "06_deltaR_Channels_borrador.py"
+#python 06_deltaR_Channels_borrador.py
+
 

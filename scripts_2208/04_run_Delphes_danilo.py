@@ -18,7 +18,7 @@ def main(in_file):
     #corremos ./DelphesHepMC2 y usamos la configuracion elphes_card_LLHNscanV5.tcl (archivo editado?)
     #finalmente obtenemos out_file como .root y el in_file como hepmc
     os.system(f'cd {sys.argv[2]} && ./DelphesHepMC2 ' 
-                f'/Collider/limon/Delphes_cards/delphes_card_LLHNscanV5.tcl {out_file} {in_file} > /dev/null 2>&1')
+                f'/Collider/limon/Delphes_cards/delphes_card_LLHNscanVbasic_5.tcl {out_file} {in_file} > /dev/null 2>&1')
                 #f'/Collider/limon/Delphes_cards/delphes_card_LLHNscanV5.tcl {out_file} {in_file} > /dev/null 2>&1')
     return
 
