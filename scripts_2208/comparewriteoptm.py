@@ -2,7 +2,7 @@ import os
 
 directory = "/Collider/scripts_2208/data/raw/"
 file1_name = "complete_TTH_M9_Alpha6_13.hepmc"
-file2_name = "full_op_TTH_M9_Alpha6_13.hepmc"
+file2_name = "zsimp_full_op_TTH_M9_Alpha6_13.hepmc"
 output_file_name = "difference_cristian_walter.txt"  # Name of the output file
 
 file1_path = os.path.join(directory, file1_name)
