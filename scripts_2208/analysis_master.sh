@@ -14,34 +14,35 @@ echo "Analysis master"
 #python 02_run_Delphes.py "$3" "$2"
 #echo "03"
 #python 03_extracting_root.py
-#python 03_extracting_root_no_cuts.py
 
+echo "04"
+python 04_cuts_after_Delphes.py "$1"
 
 #04
 
-echo "04_com_pt_Channels.py"
-python 04_com_pt_Channels.py
+#echo "04_com_pt_Channels.py"
+#python 04_com_pt_Channels.py
 
-echo "04_com_pt_Merges_Channels.py"
-python 04_com_pt_Merges_Channels.py
-
-
-
-echo "04_simples_histograms_Channels.py"
-python 04_simples_histograms_Channels.py
-
-echo "04_simples_histograms_Merges_Channels.py"
-python 04_simples_histograms_Merges_Channels.py
+#echo "04_com_pt_Merges_Channels.py"
+#python 04_com_pt_Merges_Channels.py
 
 
 
-echo "04_deltaR_Channels.py"
-python 04_deltaR_Channels.py
+#echo "04_simples_histograms_Channels.py"
+#python 04_simples_histograms_Channels.py
 
-echo "04_deltaR_Merge_Channels.py"
-python 04_deltaR_Merge_Channels.py
+#echo "04_simples_histograms_Merges_Channels.py"
+#python 04_simples_histograms_Merges_Channels.py
+
+
+
+#echo "04_deltaR_Channels.py"
+#python 04_deltaR_Channels.py
+
+#echo "04_deltaR_Merge_Channels.py"
+#python 04_deltaR_Merge_Channels.py
 
 #05
 
-echo "05_ISO_vs_NoISO.py"
-python 05_ISO_vs_NoISO.py
+#echo "05_ISO_vs_NoISO.py"
+#python 05_ISO_vs_NoISO.py
