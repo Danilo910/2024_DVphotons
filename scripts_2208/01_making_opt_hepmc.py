@@ -8,6 +8,7 @@ from multiprocessing import Pool
 import numpy as np
 from my_funcs import my_arctan
 import eta_functions_R_abs
+from functools import partial
 
 
 '''
@@ -194,14 +195,21 @@ def main(parameters):
     
     global t_n
 
-    file_in, type = parameters
+    file_in, type, yes_zatlas = params  # Unpack the parameters
+
+    print("entramos en la funcion: ", file_in)
     
-    #Extraemos el baseout y ponemos el nombre del archivo de salida (complete...hepmc)
+    # Extract base_out and set the output filename
     base_out = re.search(f'({type}.+)\.', file_in).group(1)
-    file_out = destiny + f'full_op_{base_out}.hepmc'
+    
+    if yes_zatlas:  # If yes_zatlas is True
+        file_out = destiny + f'full_op_{base_out}.hepmc'
+    else:  # If yes_zatlas is False
+        file_out = destiny + f'zsimp_full_op_{base_out}.hepmc'
 
-    #print(f'\nRUNNING: {base_out}') #Commented by JJP
+    print(f'\nRUNNING: {base_out}') #Commented by JJP
 
+    sys.exit("Salimos")
     #importante para emular codigo de Cristian
     it = 0 # Iterator for unnecessary lines
     i = 0
@@ -413,7 +421,7 @@ def main(parameters):
                             
                             #print("eta1, eta2 main: ", eta1,eta2)
                             R1, R2 = eta_functions_R_abs.eta_func_R_abs(eta1,eta2)*d_scaler
-
+        
                             #print("R1 y R2: ",R1,R2)
 
                             zsimpl_value = zsimpl(p_vector, r_n_vector)
@@ -561,17 +569,50 @@ types = ["ZH","WH","TTH"]
 tevs = [13]
 
 allcases = []
+# Example list of allcases (you can adjust it with your logic)
+allcases = []
 for typex in types[:]:
     for tevx in tevs[:]:
-        #Nuevamente, abrimos los hepmc para reescribirlos
         for file_inx in sorted(glob.glob(f"/Collider/scripts_2208/data/raw/run_{typex}*{tevx}.hepmc"))[:]:
-            allcases.append([file_inx, typex])
+            allcases.append([file_inx, typex, True])  # Initially setting yes_zatlas to True
 
-if __name__ == '__main__':
-    with Pool(1) as pool:
-        #print(allcases[-1:])
-        pool.map(main, allcases)
+#print("All cases 1: ", allcases)
+#allcases = [[file_inx, typex, False] for file_inx, typex, _ in allcases]
 
+#print("All cases 2: ", allcases)
+#sys.exit("Salimos")
+
+# Iterate for two iterations: First with True, then with False
+for iteration in [True, False]:  # First iteration with True, second with False
+
+    if iteration == True:
+        # First iteration: yes_zatlas = True
+        # Modify allcases to include `True` for the yes_zatlas parameter
+        #allcases = [[file_inx, typex, True] for file_inx, typex, _ in allcases]
+
+        # Run the pool with yes_zatlas set to True
+        if __name__ == '__main__':
+            with Pool(1) as pool:
+                pool.map(main, allcases)
+
+    else:
+        # Second iteration: Ask the user if they want to generate the hepmc with zsimpl
+        user_input = input("Do you want to generate the hepmc with zsimpl? (yes/no): ").strip().lower()
+
+        if user_input == "no":
+            print("Exiting the program.")
+            break  # Exit the loop if the user doesn't want to continue
+        elif user_input == "yes":
+            # Get zsimp value from the user
+            zsimp = input("Please enter the zsimp value: ").strip()
+
+            # Modify allcases to include `False` for the yes_zatlas parameter
+            allcases = [[file_inx, typex, False] for file_inx, typex, _ in allcases]
+
+            # Run the pool with yes_zatlas set to False
+            if __name__ == '__main__':
+                with Pool(1) as pool:
+                    pool.map(main, allcases)
         
 # Record the end time
 end_time = time.time()
