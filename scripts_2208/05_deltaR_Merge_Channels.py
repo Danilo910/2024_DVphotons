@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 # Function to merge data and create plots
-def merge_and_plot(mode, alpha):
+def merge_and_plot(mode, alpha, modes_deltaR):
     # Directory where txt files are stored
-    origin = f"/Collider/scripts_2208/data/clean/deltaR_{mode}"
+    origin = f"/Collider/scripts_2208/data/clean/{modes_deltaR}deltaR_{mode}"
     
     # Initialize an empty DataFrame to hold merged data
     merged_data = pd.DataFrame()
@@ -16,7 +16,7 @@ def merge_and_plot(mode, alpha):
 
     # Read and merge the data for each event type
     for event_type in ['ZH', 'WH', 'TTH']:
-        file_path = f"{origin}/deltaR_Alpha{alpha}_{event_type}.txt"
+        file_path = f"{origin}/{modes_deltaR}deltaR_Alpha{alpha}_{event_type}.txt"
         data = np.loadtxt(file_path)
         df = pd.DataFrame(data, columns=["deltaR"])
         
@@ -33,8 +33,12 @@ def merge_and_plot(mode, alpha):
 
 
     # Save the merged plot in the specified directory
-    destiny = f"./data/deltaR_merge/{mode}_{alpha}/"
-    Path(destiny).mkdir(exist_ok=True, parents=True)
+    if(modes_deltaR == "ph_vs_ph"):
+        destiny = f"./data/{modes_deltaR}_deltaR_merge/{mode}_{alpha}/"
+        Path(destiny).mkdir(exist_ok=True, parents=True)
+    else:
+        destiny = f"./data/deltaR_merge/{mode}_{alpha}/"
+        Path(destiny).mkdir(exist_ok=True, parents=True)
 
 
     # Create the first plot: All data merged
@@ -64,6 +68,16 @@ def merge_and_plot(mode, alpha):
     plt.savefig(f"{destiny}/deltaR_histogram_alpha{alpha}_differentiated.png")
     plt.close()
 
+
+# Define the deltaRcomparation
+ph_vs_ph = "ph_vs_ph"
+#el de abajo es el default
+#ph_vs_e = ""
+
+# Create a list containing both strings
+modes_deltaRs = [ph_vs_ph]
+
+
 # Define the strings
 iso = "iso"
 no_iso = "no_iso"
@@ -71,12 +85,13 @@ no_iso = "no_iso"
 # Create a list containing both strings
 modes = [iso, no_iso]
 
-
-# Loop through each mode in the list
-for mode in modes:
-    # Perform actions with each mode
-    print(f"Processing mode: {mode}")
-    # Run the analysis for each alpha value
-    for alpha in [4, 5, 6]:
-        print(f"alpha: {alpha}")
-        merge_and_plot(mode, alpha)
+for modes_deltaR in modes_deltaRs:
+    print(f"Processing modes_deltaR: {modes_deltaR}")
+    # Loop through each mode in the list
+    for mode in modes:
+        # Perform actions with each mode
+        print(f"Processing mode: {mode}")
+        # Run the analysis for each alpha value
+        for alpha in [4, 5, 6]:
+            print(f"alpha: {alpha}")
+            merge_and_plot(mode, alpha, modes_deltaR)

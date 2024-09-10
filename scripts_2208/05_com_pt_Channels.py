@@ -119,7 +119,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
     Returns:
     isolated_photons (DataFrame): A DataFrame containing only the isolated photons.
     """
-    df_isolated_photons = pd.DataFrame(columns=['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET'])
+    #df_isolated_photons = pd.DataFrame(columns=['N', 'id', 'E', 'pt', 'eta', 'phi', 'z_origin', 'rel_tof', 'MET'])
 
     # Get unique event indices
     events = df_photons.index.get_level_values('N').unique()
@@ -265,6 +265,9 @@ for mode in modes:
             
             input_file = real_origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
             photons = pd.read_pickle(input_file)
+            photons = reset_id_by_pt(photons)
+
+
             leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
 
             electrons = leptons[leptons['pdg'] == 11].copy()
@@ -275,10 +278,18 @@ for mode in modes:
             muons = leptons[leptons['pdg'] == 13].copy()
             muons = reset_id_by_pt(muons)
 
+            
+            #print(type(photons['phi']))
+            #print("photon data frame: ", photons)
+            #
+
             if mode == "iso":
                 #el primer argumento se aisla del segundo
                 electrons = isolate_photons(electrons, photons)
                 electrons = reset_id_by_pt(electrons)
+                #print("electrons data frame: ", electrons)
+                #sys.exit("salimos")
+            
             
             muons = muons.xs(0, level='id')  # Extract rows where id = 0
             

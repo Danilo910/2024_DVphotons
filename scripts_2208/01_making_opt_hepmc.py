@@ -8,6 +8,7 @@ from multiprocessing import Pool
 import numpy as np
 from my_funcs import my_arctan
 import eta_functions_R_abs
+from functools import partial
 
 
 '''
@@ -424,7 +425,6 @@ def main(parameters):
                             
                             #print("eta1, eta2 main: ", eta1,eta2)
                             R1, R2 = eta_functions_R_abs.eta_func_R_abs(eta1,eta2)*d_scaler
-
                             #print("R1 y R2: ",R1,R2)
 
                             zsimpl_value = zsimpl(p_vector, r_n_vector)
@@ -618,7 +618,6 @@ for iteration in [True, False]:  # First iteration with True, second with False
             if __name__ == '__main__':
                 with Pool(1) as pool:
                     pool.map(main, allcases)
-
         
 # Record the end time
 end_time = time.time()

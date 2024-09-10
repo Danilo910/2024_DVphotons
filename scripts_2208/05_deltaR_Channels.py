@@ -334,7 +334,7 @@ def calculate_delta_r(df_photons, df_leptons):
 
             # Ignore ΔR values that are too small
             #mandamos a infinito los que tienen cero para que asi nunca puedan ser seleccionados
-            delta_r = np.where(delta_r > 1e-15, delta_r, np.inf)
+            #delta_r = np.where(delta_r > 1e-15, delta_r, np.inf)
             
             #print("deltar despues de corte: ")
             #print(delta_r)
@@ -362,7 +362,7 @@ def plot_delta_r_histogram(delta_r_values, alpha, destiny, output_name):
     """
     plt.figure(figsize=(10, 6))
 
-    bins = np.arange(0, 0.1, 0.005)  # Bins from 0 to 1000 with steps of 100
+    bins = np.arange(0, 6, 0.1)  # Bins from 0 to 1000 with steps of 100
 
     plt.hist(delta_r_values, bins=bins, color='blue', edgecolor='black')
     plt.title(f'{output_name}, {alpha.capitalize()}')
@@ -409,6 +409,13 @@ origin = "/Collider/scripts_2208/data/clean/"
 #destiny = f"./data/deltaR_nomerge/"
 #Path(destiny).mkdir(exist_ok=True, parents=True)
 
+# Define the deltaRcomparation
+ph_vs_ph = "ph_vs_ph"
+#ph_vs_e = "ph_vs_e"
+
+# Create a list containing both strings
+modes_deltaRs = [ph_vs_ph]
+
 
 # Define the strings
 iso = "iso"
@@ -417,63 +424,92 @@ no_iso = "no_iso"
 # Create a list containing both strings
 modes = [iso, no_iso]
 
-# Loop through each mode in the list
-for mode in modes:
-    # Perform actions with each mode
-    print(f"Processing mode: {mode}")
+for modes_deltaR in modes_deltaRs:
+    print(f"Processing modes_deltaR: {modes_deltaR}")
+    # Loop through each mode in the list
+    for mode in modes:
+        # Perform actions with each mode
+        print(f"Processing mode: {mode}")
 
-    for alpha in [4, 5, 6]:
+        for alpha in [4, 5, 6]:
 
-        print("Alpha: ", alpha)
-        
-        for type in ['ZH', 'WH', 'TTH']:
+            print("Alpha: ", alpha)
             
-            print("Type: ", type)
-            
-            destiny = f"./data/deltaR_{mode}/{type}_{alpha}/"
-            Path(destiny).mkdir(exist_ok=True, parents=True)
+            for type in ['ZH', 'WH', 'TTH']:
+                
+                print("Type: ", type)
+                if(modes_deltaR == "ph_vs_ph"):
+                    destiny = f"./data/{modes_deltaR}_deltaR_{mode}/{type}_{alpha}/"
+                    Path(destiny).mkdir(exist_ok=True, parents=True)
 
-            destiniy_txt = f"/Collider/scripts_2208/data/clean/deltaR_{mode}"
-            Path(destiniy_txt).mkdir(exist_ok=True, parents=True)
-            
-            input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
+                    destiniy_txt = f"/Collider/scripts_2208/data/clean/{modes_deltaR}deltaR_{mode}"
+                    Path(destiniy_txt).mkdir(exist_ok=True, parents=True)
+                    
+                    input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
+                
+                else:
+                    destiny = f"./data/deltaR_{mode}/{type}_{alpha}/"
+                    Path(destiny).mkdir(exist_ok=True, parents=True)
 
-            #print("input_photons: ", input_file)
+                    destiniy_txt = f"/Collider/scripts_2208/data/clean/deltaR_{mode}"
+                    Path(destiniy_txt).mkdir(exist_ok=True, parents=True)
+                    
+                    input_file = origin + f"full_op_{type}_M9_Alpha{alpha}_13_photons.pickle"
 
-            #print("leptons: ", input_file.replace('photons', 'leptons'))
-            
-            photons = pd.read_pickle(input_file)
+                #print("input_photons: ", input_file)
 
-            leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
+                #print("leptons: ", input_file.replace('photons', 'leptons'))
+                
+                photons = pd.read_pickle(input_file)
 
-            # Create sub DataFrame for electrons (id = 11)
-            electrons = leptons[leptons['pdg'] == 11].copy()
-            
-            #reseteamos el id del electron
-            electrons = reset_id_by_pt(electrons)
+                leptons = pd.read_pickle(input_file.replace('photons', 'leptons'))
 
-            # Apply isolation algorithm
-            if mode == "iso":
-                photons = isolate_photons(photons, electrons)
-                photons = reset_id_by_pt(photons)
+                all_photons = pd.read_pickle(input_file.replace('photons', 'mega'))
 
-                electrons = isolate_photons(electrons, photons)
+                #print("all_photons before", all_photons)
+                #nos quedamos con los fotonoes despues del mas energetico
+                all_photons = all_photons.loc[(slice(None), slice(1, None)), :]
+
+                all_photons = reset_id_by_pt(all_photons)
+                #print("all_photons after", all_photons)
+
+                #sys.exit("Salimos")
+                # Create sub DataFrame for electrons (id = 11)
+                electrons = leptons[leptons['pdg'] == 11].copy()
+                
+                #reseteamos el id del electron
                 electrons = reset_id_by_pt(electrons)
 
+                # Apply isolation algorithm
+                if mode == "iso":
+                    photons = isolate_photons(photons, electrons)
+                    photons = reset_id_by_pt(photons)
 
-            #print(electrons)
-            #sys.exit("Salimos")
-            alpha_s = str(alpha)
-            # Example usage:
+                    electrons = isolate_photons(electrons, photons)
+                    electrons = reset_id_by_pt(electrons)
 
-            
-            # Calculate ΔR values
-            deltaR_ph_elec = calculate_delta_r(photons, electrons)
 
-            np.savetxt(f"{destiniy_txt}/deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_elec)
+                #print(electrons)
+                #sys.exit("Salimos")
+                alpha_s = str(alpha)
+                # Example usage:
+    
+                # Calculate ΔR values
+                if(modes_deltaR == "ph_vs_ph"):
+                    deltaR_ph_ph = calculate_delta_r(photons, all_photons)
 
-            print("Start phvselectrons")
-            # Plot ΔR histogram
-            plot_delta_r_histogram(deltaR_ph_elec, alpha_s, destiny, 'Photons_vs_Electrons')
+                    #print(deltaR_ph_ph)
+                    np.savetxt(f"{destiniy_txt}/{modes_deltaR}deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_ph)
+                    print("Start phvsph")
+                    # Plot ΔR histogram
+                    plot_delta_r_histogram(deltaR_ph_ph, alpha_s, destiny, 'Photons0vsAllPhotons')
+                else:
+                    deltaR_ph_elec = calculate_delta_r(photons, electrons)
+                    np.savetxt(f"{destiniy_txt}/deltaR_Alpha{alpha}_{type}.txt", deltaR_ph_elec)
+                    print("Start phvselectrons")
+                    # Plot ΔR histogram
+                    plot_delta_r_histogram(deltaR_ph_elec, alpha_s, destiny, 'Photons_vs_Electrons')
+
+                
         
     
