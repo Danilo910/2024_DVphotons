@@ -5,11 +5,26 @@ import glob
 import pandas as pd
 from scipy.interpolate import interp1d
 from my_funcs import isolation
+from my_funcs import isolation_muon
 from pathlib import Path
 import json
 import sys
 from multiprocessing import Pool
+import matplotlib.pyplot as plt
+
 #import os
+
+def print_first_and_last_10(df):
+    """
+    This function prints the first 10 and last 10 rows of a DataFrame.
+    
+    Parameters:
+    df (pd.DataFrame): The DataFrame to print the rows from.
+    """
+    print("First 30 rows:")
+    print(df.head(30))
+    #print("\nLast 10 rows:")
+    #print(df.tail(10))
 
 
 #la variable 1 es el numero de eventos
@@ -38,7 +53,7 @@ np.random.seed(0)
 #no es una interpolacion lineal, mas bien como si fuera un histograma
 #no hay que verlo como graficos, mas bien como funciones que nos dan la eficiencia
 photon_eff_zo = interp1d(ph_eff_zo.zorigin, ph_eff_zo.eff, fill_value=tuple(ph_eff_zo.eff.iloc[[0,-1]]),
-                        bounds_error=False)
+                        bounds_error=False, kind='zero')
 ## For muon efficiency
 mu_func = interp1d(mu_eff_pt.pt,mu_eff_pt.eff, fill_value=tuple(mu_eff_pt.eff.iloc[[0,-1]]), bounds_error=False)
 ## For electron efciency
@@ -56,14 +71,145 @@ m_Z = 91.1876 #GeV
 Ecell_factor = 0.35
 ## For photon's z origin resolution (esta es dada de forma experimental)
 zorigin_res_func = interp1d(zorigin_res.zorigin, zorigin_res.res, fill_value=tuple(zorigin_res.res.iloc[[0,-1]]),
-                        bounds_error=False)
+                        bounds_error=False, kind='zero')
 
+
+
+new_pt_values = np.linspace(min(mu_eff_pt.pt), max(mu_eff_pt.pt), 1000)  # 1000 points within the pt range
+
+
+"""
+# Interpolate efficiency values for these new pt values using mu_func
+interpolated_pt_eff_values = mu_func(new_pt_values)
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(new_pt_values, interpolated_pt_eff_values, label='Interpolated Efficiency ($p_T$)', color='blue')
+plt.scatter(mu_eff_pt.pt, mu_eff_pt.eff, color='red', label='Original Data Points')  # Original data points
+plt.xlabel('$p_T$ (GeV)')
+plt.ylabel('Efficiency')
+plt.title('Interpolation of Muon Efficiency vs $p_T$')
+plt.legend()
+plt.grid(True)
+plt.xlim(min(mu_eff_pt.pt), max(mu_eff_pt.pt))  # Set x limits to min and max pt
+plt.ylim(min(mu_eff_pt.eff) - 0.05, max(mu_eff_pt.eff) + 0.05)  # Adjust y-limits for clarity
+
+# Save the plot as a PNG file
+plt.savefig('./data/muon_pt_eff_interpolation.png')  # Save in the specified directory
+
+plt.show()
+#sys.exit("Salimos")
+
+# Assuming you have already loaded zorigin_res DataFrame and defined zorigin_res_func
+# Generate new_z values from 0 to 700
+new_z_values = np.linspace(0, 700, 1000)  # 1000 points between 0 and 700
+
+# Interpolate res values for these new_z values
+interpolated_res_values = zorigin_res_func(new_z_values)
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(new_z_values, interpolated_res_values, label='Interpolated $res$', color='blue')
+plt.scatter(zorigin_res.zorigin, zorigin_res.res, color='red', label='Original Data Points')  # Original data points
+plt.xlabel('$zorigin$')
+plt.ylabel('$res$')
+plt.title('Interpolation of $res$ vs $zorigin$ from 0 to 700')
+plt.legend()
+plt.grid(True)
+plt.xlim(0, 700)  # Set x limits to 0 and 700
+plt.ylim(min(zorigin_res.res) - 10, max(zorigin_res.res) + 10)  # Adjust y-limits for clarity
+
+# Save the plot as a PNG file
+plt.savefig('./data/zorigin_res_interpolation.png')  # Save in the specified directory
+
+plt.show()
+
+
+
+new_eta_values = np.linspace(min(el_eff_eta.BinLeft), max(el_eff_eta.BinLeft), 1000)  # 1000 points over the eta range
+
+# Interpolate efficiency values for these new_eta values
+interpolated_eta_eff_values = el_eta_func(new_eta_values)
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(new_eta_values, interpolated_eta_eff_values, label='Interpolated Efficiency ($\eta$)', color='blue')
+plt.scatter(el_eff_eta.BinLeft, el_eff_eta.Efficiency, color='red', label='Original Data Points')  # Original data points
+plt.xlabel('$\eta$')
+plt.ylabel('Efficiency')
+plt.title('Interpolation of Efficiency vs $\eta$')
+plt.legend()
+plt.grid(True)
+plt.xlim(min(el_eff_eta.BinLeft), max(el_eff_eta.BinLeft))  # Set x limits to min and max eta
+plt.ylim(min(el_eff_eta.Efficiency) - 0.05, max(el_eff_eta.Efficiency) + 0.05)  # Adjust y-limits for clarity
+
+# Save the plot as a PNG file
+plt.savefig('./data/eta_eff_interpolation.png')  # Save in the specified directory
+
+plt.show()
+
+
+new_pt_values = np.linspace(min(el_eff_pt.BinLeft), max(el_eff_pt.BinLeft), 1000)  # 1000 points over the pt range
+
+# Interpolate efficiency values for these new_pt values
+interpolated_pt_eff_values = el_pt_func(new_pt_values)
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(new_pt_values, interpolated_pt_eff_values, label='Interpolated Efficiency ($p_T$)', color='blue')
+plt.scatter(el_eff_pt.BinLeft, el_eff_pt.Efficiency, color='red', label='Original Data Points')  # Original data points
+plt.xlabel('$p_T$ (GeV)')
+plt.ylabel('Efficiency')
+plt.title('Interpolation of Efficiency vs $p_T$')
+plt.legend()
+plt.grid(True)
+plt.xlim(min(el_eff_pt.BinLeft), max(el_eff_pt.BinLeft))  # Set x limits to min and max pt
+plt.ylim(min(el_eff_pt.Efficiency) - 0.05, max(el_eff_pt.Efficiency) + 0.05)  # Adjust y-limits for clarity
+
+# Save the plot as a PNG file
+plt.savefig('./data/pt_eff_interpolation.png')  # Save in the specified directory
+
+plt.show()
+
+
+
+new_z_values = np.linspace(0, max(ph_eff_zo.zorigin), 1000)  # 1000 points over the zorigin range
+
+# Interpolate efficiency values for these new z values
+interpolated_eff_values = photon_eff_zo(new_z_values)
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(new_z_values, interpolated_eff_values, label='Step-wise Interpolated Efficiency', color='blue')
+plt.scatter(ph_eff_zo.zorigin, ph_eff_zo.eff, color='red', label='Original Data Points')  # Original data points
+plt.xlabel('$zorigin$')
+plt.ylabel('Efficiency')
+plt.title('Step-wise Interpolation of Photon Efficiency vs $zorigin$')
+plt.legend()
+plt.grid(True)
+plt.xlim(0, max(ph_eff_zo.zorigin))  # Set x limits based on zorigin data
+plt.ylim(min(ph_eff_zo.eff) - 0.05, max(ph_eff_zo.eff) + 0.05)  # Adjust y-limits for clarity
+
+# Save the plot as a PNG file
+plt.savefig('./data/ph_eff_zo_step_interpolation.png')  # Save in the specified directory
+
+plt.show()
+"""
+
+#sys.exit("Salimos")
 ## For photon's relative tof resolution
-p0_h = 1.962
-p1_h = 0.262
+#p0_h = 1.962
+#p1_h = 0.262
 
-p0_m = 3.650
-p1_m = 0.223
+#p0_m = 3.650
+#p1_m = 0.223
+
+#ponemos los valores adecuados que aparecen en el paper
+p0_h = 2.071
+p1_h = 0.208
+
+p0_m = 2.690
+p1_m = 0.219
 
 #formulas de la tesis para calcular la resolucion
 def t_res(ecell):
@@ -105,6 +251,7 @@ def main(variables):
     
     if leptons.size == 0 or photons.size == 0:
         return
+    
 
     photons['zo_smeared'] = \
         photons.apply(lambda row:
@@ -141,12 +288,6 @@ def main(variables):
                                        el_normal_factor*el_pt_func(row.pt)*el_eta_func(row.eta), axis=1)
     leptons.loc[(leptons.pdg == 13), 'eff_value'] = \
         leptons[leptons.pdg == 13].apply(lambda row: mu_func(row.pt), axis=1)
-
-    
-    #print("photons: ", photons)
-
-    #print("leptons antes de la mascara: ", leptons)
-
     
 
     #aqui realizamos el corte debido a la eficiencia de la deteccion la cual, aleatoriamente
@@ -188,7 +329,20 @@ def main(variables):
    
     
     
-    #Isolation_1
+    #Overlap
+
+    """
+    An overlap removal procedure is performed in order to
+    avoid double counting of objects. First, electrons over-
+    lapping with photons within ΔR < 0.4 are removed. Jets
+    overlapping with photons (ΔR < 0.4) and electrons -> CORRRECCION DEBERIA SER OR EN VEZ DE AND
+    Jones envio correo para preguntar sobre eso
+    (ΔR < 0.2) are removed. Electrons overlapping with the
+    remaining jets (ΔR < 0.4) are removed, to match the
+    requirements imposed when measuring isolated electron
+    efficiencies. Finally, muons overlapping with photons or
+    jets (ΔR < 0.4) are removed.
+    """
 
     #print("Type of leptons: ", leptons)
     #print("Type of photons: ", photons)
@@ -196,7 +350,29 @@ def main(variables):
     ## Overlapping
     ### Primero electrones
     # a) Descartar electrones que esten a deltaR < 0.4 de algun foton.
+    #leptons.loc[(leptons.pdg==11),'el_iso_ph'] = isolation(leptons[leptons.pdg==11],photons,'pt',same=False,dR=0.4)
+    #el momento es usado como un centinela para indicar si la particula es removida o no, no hay algoritmo de isolation
+
+    #Empezamos aislando muones de los jets
+
+    print("Antes del corte muones")
+    print_first_and_last_10(leptons)
+    print("Antes del corte jets")
+    print_first_and_last_10(jets)
+    leptons.loc[(leptons.pdg == 13), 'mu_iso_j'] = isolation_muon(leptons[leptons.pdg == 13], jets, 'pt', same=False,
+                                                                 dR=0.4)
+    leptons = leptons[(leptons.pdg == 11) | (leptons['mu_iso_j'] == 0)]
+
+    print("Despues del corte muones")
+    print_first_and_last_10(leptons)
+    print("Despues del corte jets")
+    print_first_and_last_10(jets)
+
+    sys.exit("Salimos")
+    """
     leptons.loc[(leptons.pdg==11),'el_iso_ph'] = isolation(leptons[leptons.pdg==11],photons,'pt',same=False,dR=0.4)
+    print_first_and_last_10(leptons)
+    sys.exit("Salimos")
     leptons = leptons[(leptons.pdg==13)|(leptons['el_iso_ph']==0)]
 
     #print("estructura leptons, despues corte photons0: ", leptons)
@@ -207,8 +383,11 @@ def main(variables):
     # b) Descartar jets que esten a deltaR = 0.4 de algun foton o a deltaR = 0.2 de un electron.
     jets['jet_iso_ph'] = isolation(jets,photons,'pt',same=False,dR=0.4)
     jets['jet_iso_e'] = isolation(jets, leptons[leptons.pdg==11], 'pt', same=False, dR=0.2)
-    #tener en cuenta que se descartan, entonces seria la negacion de delta < 0.4 o delta < 0.2
-    #lo cual implica que sea mayor a 0.4 y mayor a 0.2 lo cual se traduce en que ambos tengan jet_iso_ph = 0
+    #tener en cuenta que se descartan, entonces seria la negacion de (delta1 < 0.4 y delta2< 0.2)
+    #implica delta1>=0.4 o delta2>=0.2
+    #ya que abmos tienen que estar aislados
+    #esto se traduce en que ambos tengan jet_iso_ph = 0
+    #basta que jet_iso_e =! 0 entonces ya se tiene una particula no aislada y por lo tanto no pasa el filtro
     jets = jets[jets['jet_iso_e'] + jets['jet_iso_ph']==0]
 
     ## Electrones de nuevo
@@ -227,6 +406,11 @@ def main(variables):
     #1   0       1.8     0.000000
 
     #Descartar jets que esten a deltaR = 0.01 de algun muon.
+    #Hacer un analisis de jets y muones, puede que se reeconstruyan en paralelo
+    #en otras palabras todos los jets son reeconstruidos como muones
+    #si estan muy pegados, darle preferencia al muon
+    #esto pues esta botando los jets que estan muy cerca a los muones
+    #este codigo deberia ir al inicio pues es uno adicional y queremos que no cause ruido para los demas isolation
     jets['jet_iso_mu'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.01)
     #print("Jets antes del overlapping", jets)
     
@@ -235,11 +419,14 @@ def main(variables):
     #print("Jets despues del overlapping", jets)
 
     #Descartar muones que esten a deltaR = 0.4 de algun jet o foton.
+    #El codigo de abajo deberia eliminarse ya que lo estamos poniendo arriba, pero con la version mejorada
     leptons.loc[(leptons.pdg == 13), 'mu_iso_j'] = isolation(leptons[leptons.pdg == 13], jets, 'pt', same=False,
                                                                  dR=0.4)
     leptons.loc[(leptons.pdg == 13), 'mu_iso_ph'] = isolation(leptons[leptons.pdg == 13], photons, 'pt', same=False,
                                                                  dR=0.4)
+   
     leptons = leptons[(leptons.pdg == 11) | ((leptons['mu_iso_j'] + leptons['mu_iso_ph']) == 0)]
+    
 
 
     #final Isolation_1
@@ -310,7 +497,7 @@ def main(variables):
     df_jets = pd.DataFrame(jets)
     df_leps = pd.DataFrame(leptons)
     df_all_photons = pd.DataFrame(photons)
-
+    
     df.to_pickle(out_file)
 
     #creamos otro pickle, pero cambiando el nombre de fotones a jets
@@ -320,7 +507,7 @@ def main(variables):
     df_leps.to_pickle(out_file.replace('_photons', '_leptons'))
 
     df_all_photons.to_pickle(out_file.replace('_photons', '_mega'))
-    
+    """
 
     #sys.exit("Salimos")
 

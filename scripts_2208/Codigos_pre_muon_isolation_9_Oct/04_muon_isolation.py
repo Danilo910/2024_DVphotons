@@ -83,7 +83,7 @@ def isolate_photons(df_photons, df_leptons, delta_r_max=0.2, pt_min=0.1, pt_rati
             # Calculate the isolation ratio for each photon
             isolation_ratio = sum_pt_within_cone / photon_pt
 
-            # Use filter to find values less than 0.065
+                                    # Use filter to find values less than 0.065
             values_below_threshold = list(filter(lambda x: x < 0.065 and x > 0, isolation_ratio))
 
             if values_below_threshold:

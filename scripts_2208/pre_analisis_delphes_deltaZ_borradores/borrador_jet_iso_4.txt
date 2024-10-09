@@ -1,0 +1,36 @@
+for i in range(jet.Constituents.GetEntriesFast()):
+                    
+                    
+                    try:
+                        # Access the GenParticle object
+                        obj = jet.Constituents.At(i)
+
+                        delta_phi = jet.Phi - obj.Phi
+                        delta_eta = jet.Eta - obj.Eta
+
+                        delta_r = np.sqrt(delta_phi**2 + delta_eta**2)
+                        # Skip if the object is null or invalid
+
+                        if(delta_r < 0.1)
+                            if obj is None or not obj:
+                                continue
+
+                            # Check if the object is of class Muon
+                            if hasattr(obj, 'ClassName') and obj.ClassName() == "Muon":
+                                muon = obj
+                                ConstList.append(13)
+                                #print("Eta del muon: ")
+                                #print(muon.Eta)
+
+                    except ReferenceError as e:
+                        print(f"ReferenceError occurred at index {i}: {e}")
+                        """
+                        elif obj.ClassName() == "Track":
+                            track = obj
+                            # Add the track's 4-momentum
+                            #momentum += track.P4()
+                        elif obj.ClassName() == "Tower":
+                            tower = obj
+                            # Add the tower's 4-momentum
+                            #momentum += tower.P4()
+                        """

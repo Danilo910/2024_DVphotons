@@ -1,0 +1,179 @@
+#print("Estamos en tracks")
+        no_tracks_within_cone = np.all(delta_r_tracks > delta_r_max, axis=1)
+
+        # Apply the ΔR max condition
+        within_cone_tracks = (delta_r_tracks < delta_r_max)
+        
+        #print("within_cone_tracks")
+        #print(within_cone_tracks)
+        # Apply the pT min condition to the tracks
+        track_pt_filtered = np.where(track_pt > pt_min, track_pt, 0)
+
+        #print("track_pt_filtered")
+        #print(track_pt_filtered)
+
+        # Calculate the sum of pT of tracks within the cone for each muon
+        sum_pt_within_cone_tracks = np.sum(track_pt_filtered * within_cone_tracks, axis=1)
+
+        #print("sum_pt_within_cone_tracks")
+        #print(sum_pt_within_cone_tracks)
+
+        # Calculate the isolation ratio for each muon
+        isolation_ratio_tracks = sum_pt_within_cone_tracks/muon_pt
+        
+    
+    
+    
+    
+ """
+                aislamiento_completo = np.full_like(isolation_ratio_tracks, False, dtype=bool)
+
+
+                isolation_ratio = np.full_like(isolation_ratio_tracks, -1)
+
+                case_1_mask = np.logical_and(np.logical_not(no_tracks_within_cone), np.logical_not(no_towers_within_cone))
+
+                
+                print("Case 4 mask:", case_1_mask)
+
+                # Case 4: Apply the full formula (tracks + 0.4 * towers)
+                isolation_ratio = np.where(case_1_mask, isolation_ratio_tracks + 0.4 * isolation_ratio_towers, isolation_ratio)
+
+                if np.all(isolation_ratio == -1.0):
+                    case_2_mask = np.logical_and(no_tracks_within_cone, np.logical_not(no_towers_within_cone))
+                    print("Case 2 mask:", case_2_mask)
+                    isolation_ratio = np.where(case_2_mask, 0.4 * isolation_ratio_towers, isolation_ratio)
+
+                    if np.all(isolation_ratio == -1.0):
+                        case_3_mask = np.logical_and(np.logical_not(no_tracks_within_cone), no_towers_within_cone)
+                        print("Case 3 mask:", case_3_mask)
+                        isolation_ratio = np.where(case_3_mask, isolation_ratio_tracks, isolation_ratio)
+
+                        if np.all(isolation_ratio == -1.0):
+                            case_4_mask = np.logical_and(no_tracks_within_cone, no_towers_within_cone)
+                            print("Case 3 mask:", case_4_mask)
+                            aislamiento_completo = np.full_like(isolation_ratio_tracks, True, dtype=bool)
+                            isolation_ratio = np.full_like(isolation_ratio_tracks, np.inf)
+
+                isolated_photon_mask = (isolation_ratio < pt_ratio_max) | aislamiento_completo
+                
+                print(isolation_ratio)
+                """
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+
+                event_tower = df_towers.loc[ix]
+                print(f"Evento que tiene track y tower: '{ix}'")
+                
+                delta_r_tracks, delta_r_towers = deltaRcalculation(event_muon, event_track, event_tower)
+
+                track_pt = event_track['pt'].values
+                tower_et = event_tower['et'].values
+                muon_pt = event_muon['pt'].values
+                
+                isolation_ratio_tracks, isolation_ratio_towers = \
+                cone_isolation(track_pt, tower_et, muon_pt, delta_r_tracks, delta_r_towers)
+
+          
+                
+                isolation_ratio = isolation_ratio_tracks + 0.4 * isolation_ratio_towers
+
+                isolated_muon_mask = (isolation_ratio < pt_ratio_max)
+
+                not_isolated_muon_mask = ~isolated_muon_mask
+          
+                
+                if any(not_isolated_muon_mask):
+ 
+                    not_isolated_muons = event_muon[not_isolated_muon_mask].copy()
+
+                    index_list = not_isolated_muons.index.tolist()
+
+                    for index_event in index_list:
+                        df_muons = df_muons.drop((ix, index_event))
+                        
+                        
+   
+   
+
+    print("Printeamos Jets")
+
+    """
+    print(jets)
+
+    jets['jet_iso_mu_e02'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.01)
+    jets['jet_iso_mu_e03'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.001)
+    jets['jet_iso_mu_e04'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.0001)
+    jets['jet_iso_mu_e05'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.00001)
+    jets['jet_iso_mu_e06'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.000001)
+    jets['jet_iso_mu_e07'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.0000001)
+    numberJets0_2 = len(jets[jets['jet_iso_mu_e02'] != 0.0])
+    numberJets0_3 = len(jets[jets['jet_iso_mu_e03'] != 0.0])
+    numberJets0_4 = len(jets[jets['jet_iso_mu_e04'] != 0.0])
+    numberJets0_5 = len(jets[jets['jet_iso_mu_e05'] != 0.0])
+    numberJets0_6 = len(jets[jets['jet_iso_mu_e06'] != 0.0])
+    numberJets0_7 = len(jets[jets['jet_iso_mu_e07'] != 0.0])
+
+    numberMuons = len(leptons[leptons.pdg == 13])
+
+    print("Number of jets cone = 0 for deltaR 0.01")
+    print(numberJets0_2)
+
+    print("Number of jets cone = 0 for deltaR 0.001")
+    print(numberJets0_3)
+
+    print("Number of jets cone = 0 for deltaR 0.0001")
+    print(numberJets0_4)
+
+    print("Number of jets cone = 0 for deltaR 0.00001")
+    print(numberJets0_5)
+
+    print("Number of jets cone = 0 for deltaR 0.000001")
+    print(numberJets0_6)
+    
+    print("Number of jets cone = 0 for deltaR 0.0000001")
+    print(numberJets0_7)
+
+    print ("Number of muons")
+    print(numberMuons)
+
+    print("Print jets con dR run")
+    print(jets)
+    sys.exit("Salimos")
+    """
+    # Example: interpolating at a new zorigin value
+    #new_z = 100  # Some zorigin value to interpolate
+    #interpolated_res = zorigin_res_func(240)
+    #print(interpolated_res)
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        

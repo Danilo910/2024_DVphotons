@@ -1,0 +1,2 @@
+Cuando haces el clustering de los jets, usualmente, este debe tener un valor de 20 GeV. Los muones tambien entran en el algoritmo
+de Kt. Para analizar al muon se necesita ID y el muon tracker

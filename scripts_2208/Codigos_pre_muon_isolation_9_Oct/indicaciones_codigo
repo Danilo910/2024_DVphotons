@@ -3,3 +3,5 @@ Archivos_comparacion
 #echo "comparacion"
 #python comparewriteoptm.py
 #python compreal.py
+
+#Hay que correr siempre el codigo 3 antes del 4 si es que se desea analizar el 4

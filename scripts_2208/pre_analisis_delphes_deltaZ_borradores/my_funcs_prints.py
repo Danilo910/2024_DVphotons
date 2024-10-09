@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
+import sys
 
 cross_sec = {13:{'VBF': {50: 0.231009, 30: 0.233562, 10: 0.234305}},
              8: {'VBF': {50: 1.12885, 30: 1.14555, 10: 1.13663},'GF': {50: 7.4004, 30: 7.4165, 10: 7.409}}} # pb
@@ -30,8 +31,13 @@ def isolation(phs, surr, obs, same=False, dR=0.2):
     #ix sera el numero del evento
     for ix in phs.index.get_level_values(0).unique()[:]:
         event_ph = phs.loc[ix]
-        #print(f"DataFrame for index '{ix}':\n{event_ph}\n")
+        print(f"Evento numero: '{ix}'")
+
+        print("Jets")
+        print(event_ph)
+
         #print(len(event_ph))
+        
         #con este print obtendremos los siguiente:
         #para el ix = 263, tendremos el siguiente data frame
         #DataFrame for index '263':
@@ -42,15 +48,22 @@ def isolation(phs, surr, obs, same=False, dR=0.2):
 
         try:
             event_surr = surr.loc[ix]
-            # print(event_surr)
+
+            print("Muones")
+            print(event_surr)
+            #print("Electrones que seran aislados de los fotones")
+            #print(event_surr)
             #
             for index_ph, row_ph in event_ph.iterrows():
+
+                print(f"Estamos analizando el cono generado por el jet con indice '{index_ph}'\n")
                 # print(row_ph)
                 cone = 0
                 #print("Index ph:", index_ph)
                 #print("Row ph:", row_ph)
                 #el indice sera el asociado al numero de la particula en un determinado evento
                 #row_ph es lo siguiente, si por ejemplo tenemos
+                #sys.exit("Salimos")
                 #id   A  B
                 #0    1  4
                 #1    2  5
@@ -71,7 +84,19 @@ def isolation(phs, surr, obs, same=False, dR=0.2):
                         dr = dR*1000
                     if dr < dR:
                         #normalmente pt es el observable
+                        #basta que se sume una vez, entonces ese electron no estará aisalado
                         cone += row_d[obs]
+                        print(f"Muon '{index_d}' que esta dentro del cono generado por el jet '{index_ph}'")
+                        row_isolated_muon = surr.loc[(ix, index_d)]
+                        print(row_isolated_muon)
+                        print("Jet el cual genera el cono")
+                        print(row_ph)
+                    else:
+                        print(f"Muon '{index_d}' que esta fuera del cono generado por el jet '{index_ph}'")
+                        row_non_isolated_muon = surr.loc[(ix, index_d)]
+                        print(row_non_isolated_muon)
+                        print("Jet el cual genera el cono")
+                        print(row_ph)
             
                 #print("Cone:", cone)
                 phs_list.append(cone)

@@ -13,10 +13,26 @@ echo "Analysis master"
 #python 02_run_Delphes.py "$3" "$2"
 
 #echo "03"
+#python 03_extracting_root_avoid_jet_constitu.py
+
+#echo "03"
 #python 03_extracting_root.py
 
-#echo "04"
+#python 03_extracting_root_jetiso.py
+
+#python 03_extracting_root_jetiso_clean.py
+
+echo "04"
+
+python 04_bins_after_Delphes_Muon_Isolation.py "$1"
+
+#python 04_bins_after_Delphes_Walter.py "$1"
 #python 04_cuts_after_Delphes.py "$1"
+
+#python 04_jets_solving.py
+
+#echo "04"
+#python 04_bins_after_Delphes_jetiso_Walter.py "$1"
 
 #05
 
@@ -39,8 +55,8 @@ echo "Analysis master"
 #echo "05_deltaR_Channels.py"
 #python 05_deltaR_Channels.py
 
-echo "05_deltaR_Merge_Channels.py"
-python 05_deltaR_Merge_Channels.py
+#echo "05_deltaR_Merge_Channels.py"
+#python 05_deltaR_Merge_Channels.py
 
 #06
 

@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
+import sys
 
 cross_sec = {13:{'VBF': {50: 0.231009, 30: 0.233562, 10: 0.234305}},
              8: {'VBF': {50: 1.12885, 30: 1.14555, 10: 1.13663},'GF': {50: 7.4004, 30: 7.4165, 10: 7.409}}} # pb
@@ -140,3 +141,54 @@ def format_exponent(ax, axis='y', size=13):
             verticalalignment=verticalalignment)
 
     return ax
+
+
+def overlap_removal_muon_jet(phs, surr, obs, same=False, dR=0.2):
+    phs_list = []
+ 
+    for ix in phs.index.get_level_values(0).unique()[:]:
+        event_ph = phs.loc[ix]
+  
+        try:
+            event_surr = surr.loc[ix]
+            total_surr = event_surr.shape[0]
+            #print("event_surr")
+            #print(event_surr)
+            #print("Total Surr")
+            #print(total_surr)
+            #sys.exit("Salimos")
+            #
+            for index_ph, row_ph in event_ph.iterrows():
+                # print(row_ph)
+                cone = 0
+
+                for index_d, row_d in event_surr.iterrows():
+                    #para un valor de ph fijo en un evento, lo comparamos con las demas particulas
+                    dr = np.sqrt((row_d.phi - row_ph.phi) ** 2 + (row_d.eta - row_ph.eta) ** 2)
+
+                    if same and (index_ph == index_d):
+                        dr = dR*1000
+                    
+                    if(total_surr == 1):
+                        
+                        #print("Hubo solo un jet, pero entre este y el muon tiene dr < 0.2 asi que no le hacemos nada")
+                        if(dr > 0.2):
+                            #print("Estamos en un caso donde dr>0.2 y solo hay un jet")
+                            cone += row_d[obs]
+                    
+                    else:
+                        if dr < dR:
+                            #normalmente pt es el observable
+                            cone += row_d[obs]
+
+                #sys.exit("Salimos")
+                #print("Cone:", cone)
+                phs_list.append(cone)
+                #print("Cone list:", phs_list)
+        except KeyError:
+            #en que caso podria surgir este error?
+            #puede que el evento numero 5 no hayan habido particulas surr y por lo tanto sale error
+            #por que se extiende la lista con ceros?
+            phs_list.extend([0]*len(event_ph))
+    
+    return phs_list
