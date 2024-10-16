@@ -19,11 +19,13 @@ br_np = {8: {50: 0.719,30: 0.935,10: 0.960}, 13:{50: 0.799, 30: 0.938, 10: 0.960
 #dR = delta R (separacion angular). Util para definir el aislamiento. Definido en base a phi y eta
 #Hay casos en los que quiero fotones que esten aislados de todo(incluyendo fotones). En ese caso, se cambia el same a True
 
-def isolation(phs, surr, obs, same=False, dR=0.2):
+def isolation_prints(phs, surr, obs, same=False, dR=0.2):
     phs_list = []
 
     contador_jets_cerca_muones = 0
     contador_jets_cerca_muones_jets_un_muon = 0
+    
+
     for ix in phs.index.get_level_values(0).unique()[:]:
         event_ph = phs.loc[ix]
 
@@ -49,6 +51,7 @@ def isolation(phs, surr, obs, same=False, dR=0.2):
                 #Analizo particula por particula
                 for index_d, row_d in event_surr.iterrows():
                     dr = np.sqrt((row_d.phi - row_ph.phi) ** 2 + (row_d.eta - row_ph.eta) ** 2)
+
                     #Quiero que la energia del cono, sin considerar el foton,sea el 5% de la energia del foton.
                     #Si considero al foton no será el 5% de la energia.
                     if same and (index_ph == index_d):
@@ -65,6 +68,7 @@ def isolation(phs, surr, obs, same=False, dR=0.2):
                         # print(row_d[obs])
                         # print("cone")
                         # print(cone)
+                            
 
                     #     print(f"Muon '{index_d}' que esta dentro del cono generado por el jet '{index_ph}'")
                     #     row_isolated_muon = surr.loc[(ix, index_d)]
@@ -83,6 +87,80 @@ def isolation(phs, surr, obs, same=False, dR=0.2):
             phs_list.extend([0]*len(event_ph))
     print("contador_jets_cerca_muones: ", contador_jets_cerca_muones)
     print("contador_jets_cerca_muones_jets_un_muon: ", contador_jets_cerca_muones_jets_un_muon)
+    
+    return phs_list
+
+def isolation(phs, surr, obs, same=False, dR=0.2):
+    phs_list = []
+    #print(phs)
+    #con el codigo de abajo se repite los indices, por ejemplo:
+    #                value  other_value
+    #Level_1 Level_2                  
+    #A       1         10          100
+    #        2         20          200
+    #B       1         30          300
+    #        2         40          400
+    #C       1         50          500
+    #nos dara
+    #Index(['A', 'A', 'B', 'B', 'C'], dtype='object', name='Level_1')
+    #print(phs.index.get_level_values(0))
+    #el unique permite no repetirlos
+    #print(phs.index.get_level_values(0).unique()[:])
+    #ix sera el numero del evento
+    for ix in phs.index.get_level_values(0).unique()[:]:
+        event_ph = phs.loc[ix]
+        #print(f"DataFrame for index '{ix}':\n{event_ph}\n")
+        #print(len(event_ph))
+        #con este print obtendremos los siguiente:
+        #para el ix = 263, tendremos el siguiente data frame
+        #DataFrame for index '263':
+        #    pdg         pt       eta       phi      mass eff_value  detected
+        #id                                                                  
+        #0    11  64.123085  0.186741 -0.068175  0.000511  0.974118      True
+        #1    11  29.816454  1.769422 -0.714027  0.000511  0.849529      True
+
+        try:
+            event_surr = surr.loc[ix]
+            # print(event_surr)
+            #
+            for index_ph, row_ph in event_ph.iterrows():
+                # print(row_ph)
+                cone = 0
+                #print("Index ph:", index_ph)
+                #print("Row ph:", row_ph)
+                #el indice sera el asociado al numero de la particula en un determinado evento
+                #row_ph es lo siguiente, si por ejemplo tenemos
+                #id   A  B
+                #0    1  4
+                #1    2  5
+                #2    3  6
+                #row ph sera por cada indice
+                #Index: 0
+                #Row: A    1
+                #B    4
+                #Name: 0, dtype: int64
+                for index_d, row_d in event_surr.iterrows():
+                    #para un valor de ph fijo en un evento, lo comparamos con las demas particulas
+                    dr = np.sqrt((row_d.phi - row_ph.phi) ** 2 + (row_d.eta - row_ph.eta) ** 2)
+                    #consideramos el caso que tengamos que aislar foton de foton
+                    #si las particulas son iguales, entonces no es necesario aislarlas
+                    #print("Index surr:", index_d)
+                    #print("Row surr:", row_d)
+                    if same and (index_ph == index_d):
+                        dr = dR*1000
+                    if dr < dR:
+                        #normalmente pt es el observable
+                        cone += row_d[obs]
+            
+                #print("Cone:", cone)
+                phs_list.append(cone)
+                #print("Cone list:", phs_list)
+        except KeyError:
+            #en que caso podria surgir este error?
+            #puede que el evento numero 5 no hayan habido particulas surr y por lo tanto sale error
+            #por que se extiende la lista con ceros?
+            phs_list.extend([0]*len(event_ph))
+    
     return phs_list
 
 def my_arctan(y,x):

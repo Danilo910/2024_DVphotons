@@ -5,6 +5,7 @@ import glob
 import pandas as pd
 from scipy.interpolate import interp1d
 from my_funcs_vfinal import isolation
+from my_funcs_vfinal import isolation_prints
 from my_funcs_vfinal import overlap_removal_muon_jet
 from my_funcs_vfinal import muon_isolation
 from my_funcs_vfinal import deltaRcalculation
@@ -16,6 +17,50 @@ import sys
 from multiprocessing import Pool
 import matplotlib.pyplot as plt
 
+def reset_id_by_pt(electrons, muons):
+    """
+    Sorts the DataFrame by 'pt' within each 'N', then assigns a new 'id' starting from 0 for each group.
+
+    Parameters:
+    electrons (DataFrame): The input DataFrame with a multi-index ('N', 'id').
+
+    Returns:
+    electrons (DataFrame): The DataFrame with a new multi-index ('N', 'id') sorted by 'pt'.
+    """
+    # Reset index to treat 'N' and 'id' as columns
+    electrons = electrons.reset_index()
+
+    electrons = electrons.drop(columns=['id'])
+
+    muons = muons.reset_index()
+
+    muons = muons.drop(columns=['id'])
+
+    #print("Electrons")
+    #print(electrons)
+    #print("Muons")
+    #print(muons)
+
+    #sys.exit("Salimos")
+
+    leptons = pd.concat([electrons, muons], ignore_index=True)
+
+    #print("Leptons concat")
+    #print(leptons)
+    # Sort the DataFrame by 'N' and 'pt'
+    leptons = leptons.sort_values(by=['N', 'pt'], ascending=[True, False])
+
+    g = leptons.groupby('N', as_index=False).cumcount()
+
+    leptons['id'] = g
+
+    leptons = leptons.set_index(['N', 'id'])
+
+    #print("Fianl leptons")
+
+    #print(leptons)
+
+    return leptons
 #import os
 
 #Numero de eventos (recordamos que este archivo tiene un input, que es el # de eventos)
@@ -216,46 +261,188 @@ def main(variables):
     print ("Number of jets that have only have one muon")
     print(numberJets_one_muon)
 
-    #print("Begin muon isolation")
+    print("Jets one muon")
 
-    #print ("Number of muons before isolation")
-    #print(numberMuons)
+    print(jets[jets.Constituents == 13])
 
-    muons = muon_isolation(leptons[leptons.pdg == 13], tracks, towers, 0.16)
-
-    #print ("Number of muons after isolation")
-    #print(len(muons))
-
-    jets['jet_iso_mu_e02'] = isolation(jets, muons, 'pt', same=False, dR=0.0001)
+    Jets_one_muon = jets[jets.Constituents == 13]
 
     """
+    print("Begin muon isolation")
+
     numberMuons = len(leptons[leptons.pdg == 13])
     print ("Number of muons before isolation")
     print(numberMuons)
 
-    print("Begin muon isolation")
+    muons = muon_isolation(leptons[leptons.pdg == 13], tracks, towers, 0.16)
+
+    print ("Number of muons after isolation")
+    print(len(muons))
+    
+    print("Sin aplicar algoritmo isolation muon")
+    
+    print("Cono que genera el jet y puede englobar muones: 0.01")
+    jets['jet_iso_mu_e02'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.01)
+
+    print("Cono que genera el jet y puede englobar muones: 0.001")
+    jets['jet_iso_mu_e02'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.001)
+
+    print("Cono que genera el jet y puede englobar muones: 0.0001")
+    jets['jet_iso_mu_e02'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.0001)
+
+    print("Cono que genera el jet y puede englobar muones: 0.00001")
+    jets['jet_iso_mu_e02'] = isolation(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.00001)
+
+    
+    
+
+    
     #!Begin muon isolation
     # print("Towers dataframe")
     # print(towers)
 
     # print("Tracks dataframe")
     # print(tracks)
-    muons = muon_isolation(leptons[leptons.pdg == 13], tracks, towers, 0.16)
-    #!end muon isolation
-    print("Fin muon isolation")
-
-    print ("Number of muons after isolation")
-    print(len(muons))
     """
     
+    print("Begin muon isolation")
+
+    muons = muon_isolation(leptons[leptons.pdg == 13], tracks, towers, 0.16)
+    #!end muon isolation
+    print("End muon isolation")
+
+
+    #reiniciamos leptons para que tenga la estructura de siempre, pero con los muones filtrados
+    #este leptons ya tiene el isolation muon, se usara este a partir de ahora
+    leptons = reset_id_by_pt(leptons[leptons.pdg == 11], muons)
+
+    #numberMuons = len(leptons[leptons.pdg == 13])
+    #print ("Number of muons before isolation")
+    #print(numberMuons)
+
+    #muons = muon_isolation(leptons[leptons.pdg == 13], tracks, towers, 0.16)
+    #!end muon isolation
+    #print("Fin muon isolation")
+
+    #print ("Number of muons after isolation")
+    #print(len(muons))
+
+    #print("Cono que genera el jet y puede englobar muones: 0.01")
+    #jets['jet_iso_mu_e02'] = isolation_prints(jets, muons, 'pt', same=False, dR=0.01)
+    #print("Cono que genera el jet y puede englobar muones: 0.001")
+    #jets['jet_iso_mu_e03'] = isolation_prints(jets, muons, 'pt', same=False, dR=0.001)
+    #print("Cono que genera el jet y puede englobar muones: 0.0001")
+    #jets['jet_iso_mu_e04'] = isolation_prints(jets, muons, 'pt', same=False, dR=0.0001)
+    print("Cono que genera el jet y puede englobar muones: 0.00001")
+    jets['jet_iso_mu_e05'] = isolation_prints(jets, leptons[leptons.pdg == 13], 'pt', same=False, dR=0.00001)
+
+
+    Jets_raros = jets[(jets['jet_iso_mu_e05'] == 0) & (jets['Constituents'] == 13)]
+
+        # Define the path to the output text file
+    file_path = "/Collider/limon/scripts_2208/jets_anomalos_completos_events_iso.txt"
+
+    # Write the DataFrame to the specified text file
+    with open(file_path, 'w') as f:
+        f.write("Jets_raros\n")
+        f.write(Jets_raros.to_string(index=True) + "\n")  # Write DataFrame as string with index
+
+    print(f"Jets_raros successfully saved to {file_path}")
+
+    file_path = "/Collider/limon/scripts_2208/jets_anomalos_events_iso.txt"
+
+    for ix in Jets_raros.index.get_level_values(0).unique()[:]:
+        event_Jets_raros = Jets_raros.loc[ix]
+
+        try:
+            event_Muons = leptons[leptons.pdg == 13].loc[ix]
+            with open(file_path, 'a') as f:  
+                # Write the messages to the file
+                f.write("Estamos en el evento\n")
+                f.write(str(ix) + "\n")
+                f.write("Jet\n")
+                f.write(event_Jets_raros.to_string() + "\n")  # Use .to_string() for better formatting
+                f.write("Muon\n")
+                f.write(event_Muons.to_string() + "\n")
+        except KeyError:
+            a = 1
+
     sys.exit("Salimos")
-    
-    jets['jet_iso_mu_e02'] = isolation(jets, muons, 'pt', same=False, dR=0.01)
-    jets['jet_iso_mu_e03'] = isolation(jets, muons, 'pt', same=False, dR=0.001)
-    jets['jet_iso_mu_e04'] = isolation(jets, muons, 'pt', same=False, dR=0.0001)
-    jets['jet_iso_mu_e05'] = isolation(jets, muons, 'pt', same=False, dR=0.00001)
-    jets['jet_iso_mu_e06'] = isolation(jets, muons, 'pt', same=False, dR=0.000001)
-    jets['jet_iso_mu_e07'] = isolation(jets, muons, 'pt', same=False, dR=0.0000001)
+
+    Jets_anomalos = jets[(jets['jet_iso_mu_e05'] != 0) & (jets['Constituents'] == 13)]
+
+    print("Jets_anomalos")
+    print(Jets_anomalos)
+  
+    index_one_muon = Jets_one_muon.index  # Index of Jets_one_muon
+    index_anomalos = Jets_anomalos.index  # Index of Jets_anomalos
+
+    # Step 2: Find the missing indices by checking the difference
+    missing_indices = index_one_muon.difference(index_anomalos)
+
+    # Step 3: Select the rows from Jets_one_muon that have the missing indices
+    missing_events_df = Jets_one_muon.loc[missing_indices]
+
+    # Step 4: Print and save the missing events
+    print(missing_events_df)
+
+    # Define the path to the output text file
+    # Define the path to the output text file
+    file_path = "/Collider/limon/scripts_2208/missing_events_output.txt"
+
+    # Open the text file in write mode
+    with open(file_path, 'w') as f:
+        # Loop through the rows of the missing events DataFrame
+        for (N, jet_id), jet_row in missing_events_df.iterrows():
+            # Filter the muons for the same event (N) with pdg == 13
+            muons = leptons[(leptons.index.get_level_values(0) == N) & (leptons.pdg == 13)]
+
+            # Only proceed if both the jet and at least one muon exist
+            if not muons.empty:
+                # Write the jet information to the file
+                f.write(f"Event N = {N}, Jet ID = {jet_id}\n")
+                f.write("Jet: pt, eta, phi, Constituents\n")
+                f.write(f"{jet_row.pt} {jet_row.eta} {jet_row.phi} {jet_row.Constituents}\n\n")
+
+                # Write the muons information to the file
+                f.write("Muons (pdg == 13) for the same event:\n")
+                for _, muon_row in muons.iterrows():
+                    f.write(f"{muon_row.pt} {muon_row.eta} {muon_row.phi} {muon_row.pdg}\n")
+
+                # Add a separator between events for readability
+                f.write("\n" + "="*50 + "\n\n")
+
+    print(f"Output successfully written to {file_path}")
+    sys.exit("Salimos")
+    """
+    file_path = "/Collider/limon/scripts_2208/missing_events_output.txt"
+
+    # Open the text file in write mode
+    with open(file_path, 'w') as f:
+        # Loop through the rows of the missing events DataFrame
+        for (N, jet_id), jet_row in missing_events_df.iterrows():
+            # Filter the muons for the same event (N)
+            event_muons = muons[muons.index.get_level_values(0) == N]
+
+            # Only proceed if both the jet and at least one muon exist
+            if not event_muons.empty:
+                # Write the jet information to the file
+                f.write(f"Event N = {N}, Jet ID = {jet_id}\n")
+                f.write("Jet: pt, eta, phi, Constituents\n")
+                f.write(f"{jet_row.pt} {jet_row.eta} {jet_row.phi} {jet_row.Constituents}\n\n")
+
+                # Write the muons information to the file
+                f.write("Muons for the same event:\n")
+                for _, muon_row in event_muons.iterrows():
+                    f.write(f"{muon_row.pt} {muon_row.eta} {muon_row.phi} {muon_row.pdg}\n")
+
+                # Add a separator between events for readability
+                f.write("\n" + "="*50 + "\n\n")
+
+    print(f"Output successfully written to {file_path}")
+    sys.exit("Salimos")
+    """
+
     numberJets0_2 = len(jets[jets['jet_iso_mu_e02'] != 0.0])
     numberJets0_3 = len(jets[jets['jet_iso_mu_e03'] != 0.0])
     numberJets0_4 = len(jets[jets['jet_iso_mu_e04'] != 0.0])
@@ -263,7 +450,7 @@ def main(variables):
     numberJets0_6 = len(jets[jets['jet_iso_mu_e06'] != 0.0])
     numberJets0_7 = len(jets[jets['jet_iso_mu_e07'] != 0.0])
 
-    numberMuonsAfterIso = len(leptons[leptons.pdg == 13])
+    
     print ("Number of muons after isolation")
     print(muons)
 

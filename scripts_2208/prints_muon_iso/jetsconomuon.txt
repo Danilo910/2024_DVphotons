@@ -1,0 +1,68 @@
+Analysis master
+04
+Event type:
+ZH
+Event alpha:
+M9_Alpha4_13
+Number of total jets
+32409
+Number of jets that have only have one muon
+5027
+Sin aplicar algoritmo isolation muon
+Cono que genera el jet y puede englobar muones: 0.01
+contador_jets_cerca_muones:  7859
+contador_jets_cerca_muones_jets_un_muon:  4932
+Cono que genera el jet y puede englobar muones: 0.001
+contador_jets_cerca_muones:  5443
+contador_jets_cerca_muones_jets_un_muon:  4932
+Cono que genera el jet y puede englobar muones: 0.0001
+contador_jets_cerca_muones:  4970
+contador_jets_cerca_muones_jets_un_muon:  4932
+Cono que genera el jet y puede englobar muones: 0.00001
+contador_jets_cerca_muones:  4933
+contador_jets_cerca_muones_jets_un_muon:  4932
+Salimos
+Event type:
+WH
+Event alpha:
+M9_Alpha4_13
+Number of total jets
+22068
+Number of jets that have only have one muon
+2620
+Sin aplicar algoritmo isolation muon
+Cono que genera el jet y puede englobar muones: 0.01
+contador_jets_cerca_muones:  4024
+contador_jets_cerca_muones_jets_un_muon:  2579
+Cono que genera el jet y puede englobar muones: 0.001
+contador_jets_cerca_muones:  2823
+contador_jets_cerca_muones_jets_un_muon:  2579
+Cono que genera el jet y puede englobar muones: 0.0001
+contador_jets_cerca_muones:  2603
+contador_jets_cerca_muones_jets_un_muon:  2579
+Cono que genera el jet y puede englobar muones: 0.00001
+contador_jets_cerca_muones:  2580
+contador_jets_cerca_muones_jets_un_muon:  2579
+Salimos
+Event type:
+TTH
+Event alpha:
+M9_Alpha4_13
+Number of total jets
+64254
+Number of jets that have only have one muon
+1176
+Sin aplicar algoritmo isolation muon
+Cono que genera el jet y puede englobar muones: 0.01
+contador_jets_cerca_muones:  1858
+contador_jets_cerca_muones_jets_un_muon:  1151
+Cono que genera el jet y puede englobar muones: 0.001
+contador_jets_cerca_muones:  1259
+contador_jets_cerca_muones_jets_un_muon:  1151
+Cono que genera el jet y puede englobar muones: 0.0001
+contador_jets_cerca_muones:  1159
+contador_jets_cerca_muones_jets_un_muon:  1151
+Cono que genera el jet y puede englobar muones: 0.00001
+contador_jets_cerca_muones:  1151
+contador_jets_cerca_muones_jets_un_muon:  1151
+

@@ -1,0 +1,1280 @@
+Estamos en el evento
+238
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   26.72312 -0.466406  1.218107            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  43.656898  1.695240  0.361819  0.10566
+1    13  36.772511  0.489759  2.984791  0.10566
+Estamos en el evento
+593
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   50.992439  0.178205 -0.163037            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  49.646263 -0.827843  2.665721  0.10566
+Estamos en el evento
+678
+Jet
+           pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   75.892357  1.82104 -2.422593            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  41.013725  1.165553 -0.526318  0.10566
+Estamos en el evento
+807
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   29.383278 -0.174791 -2.875486            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+2    13  21.956062 -0.830447  2.001631  0.10566
+Estamos en el evento
+1057
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   86.303116 -0.431279  0.367363            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  22.967188  1.335306  0.513053  0.10566
+Estamos en el evento
+1068
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   40.565834 -1.526452 -2.374951            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  49.811054 -0.349818 -0.102505  0.10566
+1    13  35.219769 -1.496808  2.729697  0.10566
+2    13  11.324185 -1.994830 -0.972705  0.10566
+Estamos en el evento
+1270
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   55.944122 -0.245049  0.288371            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  33.223541 -0.574452 -3.071347  0.10566
+Estamos en el evento
+1433
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   78.488922 -0.253181 -1.885411            13             0.0
+Muon
+    pdg         pt       eta      phi     mass
+id                                            
+0    13  18.043076  0.810047  1.48661  0.10566
+Estamos en el evento
+1678
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+2   106.015038 -0.632135 -1.942504            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  162.919189 -0.335175 -1.585835  0.10566
+Estamos en el evento
+1813
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   150.995621 -1.598097  0.751028            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  114.67067 -1.121208  1.300787  0.10566
+Estamos en el evento
+1892
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+4   29.29883 -0.500667 -2.287463            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  101.047829 -0.155674 -1.457223  0.10566
+1    13   45.038399  0.998768 -0.791202  0.10566
+Estamos en el evento
+1921
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+4   37.932407 -1.059126  0.616132            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  31.076075 -0.013551  2.867129  0.10566
+Estamos en el evento
+1956
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   141.655182  0.180872 -1.237689            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  23.797621  1.583292 -0.672033  0.10566
+Estamos en el evento
+2491
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   31.07893 -4.502437 -0.941709            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  44.672951  0.454622 -3.062027  0.10566
+1    13  29.709509 -1.217088  2.661592  0.10566
+Estamos en el evento
+2892
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   34.267357 -0.123272  2.551067            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  92.076492 -0.040465  0.404953  0.10566
+2    13  23.940613  0.824694 -3.082997  0.10566
+Estamos en el evento
+2895
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   62.424881 -2.052779 -0.515602            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  215.246246 -1.429433  2.528162  0.10566
+1    13   34.927155 -1.813171 -2.763095  0.10566
+Estamos en el evento
+3098
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   220.51506  1.544174 -0.086927            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  38.286537  0.818886 -0.852704  0.10566
+Estamos en el evento
+3175
+Jet
+           pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   64.120277 -0.39998  0.170713            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  60.166641 -0.612245  1.892123  0.10566
+Estamos en el evento
+3179
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   59.783203 -0.624958  1.387705            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  29.154827 -2.036506 -0.615103  0.10566
+1    13  24.900232  0.504365  0.070090  0.10566
+2    13  23.530144 -0.063729 -2.651652  0.10566
+Estamos en el evento
+3447
+Jet
+           pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   26.165089 -4.56564 -0.438479            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  69.818428 -0.606963  0.583090  0.10566
+1    13  27.510586 -0.855554 -2.470393  0.10566
+Estamos en el evento
+3569
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+1   140.778412  0.976351  1.095427            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  157.446472  1.328237  0.573667  0.10566
+Estamos en el evento
+3920
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   49.020245  1.762093  2.741132            13             0.0
+Muon
+    pdg        pt       eta       phi     mass
+id                                            
+0    13  30.58754  0.400235  0.290052  0.10566
+Estamos en el evento
+3986
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   38.857349  4.836653 -2.859549            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  49.661659 -1.221252  2.959379  0.10566
+1    13  31.806860  0.198090  0.982624  0.10566
+Estamos en el evento
+4031
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   27.627357 -0.913971 -2.760512            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  60.161781 -0.734553 -1.145996  0.10566
+Estamos en el evento
+4467
+Jet
+          pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                           
+1   34.12228  0.929513 -2.07828            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  99.802956  1.273375  0.171673  0.10566
+1    13  26.784523  1.479975  2.283572  0.10566
+Estamos en el evento
+4502
+Jet
+            pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   185.724594 -0.875361 -0.17796            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  32.993118  0.474163  2.553028  0.10566
+Estamos en el evento
+4534
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+4   29.65963  4.438083  1.895117            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  57.997562  0.794017  1.263474  0.10566
+1    13  30.806255  1.499366 -1.731495  0.10566
+2    13  29.689842 -0.270082 -1.717988  0.10566
+Estamos en el evento
+4540
+Jet
+            pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   193.638992 -0.67195  2.473777            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  264.062897 -0.340667  2.229223  0.10566
+Estamos en el evento
+4682
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   34.045925  1.339977 -1.048974            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  51.735336  0.881817  2.074702  0.10566
+1    13  24.102520 -0.641587 -0.521334  0.10566
+2    13  17.151789  1.554253  2.975830  0.10566
+Estamos en el evento
+4908
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   33.683315  1.149515  2.518511            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  19.678516 -1.411581  0.362528  0.10566
+Estamos en el evento
+5005
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   26.235769 -2.720299  1.610866            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  152.351868 -1.601406 -1.473038  0.10566
+1    13  105.836731 -0.895324 -1.245484  0.10566
+Estamos en el evento
+5016
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   79.433266  1.446943  3.073698            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  197.292892  1.977805 -2.681255  0.10566
+Estamos en el evento
+5270
+Jet
+           pt      eta      phi  Constituents  jet_iso_mu_e05
+id                                                           
+0   45.983631  1.04538  2.99859            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  37.793358  2.495334 -0.214315  0.10566
+1    13  27.741028  0.327560 -0.084872  0.10566
+Estamos en el evento
+5341
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   67.10363  0.181322  0.850029            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+2    13  22.143559  0.703997 -1.644688  0.10566
+Estamos en el evento
+5506
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   81.360886 -0.312201  2.425792            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  28.267897 -1.076555  0.542722  0.10566
+Estamos en el evento
+5573
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+1   40.370907  1.096329  2.59329            13             0.0
+Muon
+    pdg        pt       eta       phi     mass
+id                                            
+0    13  49.00848  1.726074 -1.007918  0.10566
+Estamos en el evento
+5701
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   60.960495  0.866905  1.975413            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  29.545519 -0.663781  0.323031  0.10566
+Estamos en el evento
+5979
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   41.300922 -0.021519 -0.950392            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  79.411842 -0.013686  1.120340  0.10566
+1    13  70.827843 -0.890573  1.987847  0.10566
+Estamos en el evento
+5993
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   74.058563 -1.390601  2.28563            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  37.564053  0.111826  1.643726  0.10566
+Estamos en el evento
+6051
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   110.666649  1.957601  0.825524            13             0.0
+Muon
+    pdg          pt       eta     phi     mass
+id                                            
+0    13  106.651489  1.891488 -0.0886  0.10566
+Estamos en el evento
+6061
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   51.680714  1.703428  2.771879            13             0.0
+Muon
+    pdg         pt      eta       phi     mass
+id                                            
+0    13  44.901546  1.77389  0.331058  0.10566
+Estamos en el evento
+6430
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+1   60.687641  0.227106 -0.52105            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  68.060562  0.836828  0.980189  0.10566
+Estamos en el evento
+6878
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   97.992699  0.422362 -2.05197            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  42.143295 -0.561994 -3.022609  0.10566
+Estamos en el evento
+6976
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   41.562347  2.045738  0.216287            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  82.654846  1.404253  1.953720  0.10566
+1    13  11.856650  0.467863 -0.203203  0.10566
+Estamos en el evento
+7011
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   28.579721  0.036064 -1.799014            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  54.449463 -1.220172  1.323956  0.10566
+1    13  38.816578  0.519198  1.029542  0.10566
+Estamos en el evento
+7176
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   105.800812  0.308847 -2.805456            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  23.406265  1.990535 -2.493066  0.10566
+Estamos en el evento
+7234
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   150.898987  1.543638 -0.181019            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  14.516028  1.599276  2.423165  0.10566
+Estamos en el evento
+7584
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   124.599663 -2.393727 -0.853773            13             0.0
+Muon
+    pdg         pt      eta      phi     mass
+id                                           
+0    13  40.849857 -1.67316  0.29188  0.10566
+Estamos en el evento
+7864
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   33.582115  1.059981 -2.342503            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  63.210392  0.405149 -0.396730  0.10566
+1    13  41.524830 -0.024968  2.093749  0.10566
+Estamos en el evento
+8059
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+1   68.45311 -4.532501 -1.877533            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  84.583649  1.010462  1.094609  0.10566
+1    13  60.826000  0.451245  2.276657  0.10566
+Estamos en el evento
+8076
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   60.349892 -0.691492  0.42583            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  42.541210 -0.930927 -2.596414  0.10566
+1    13  22.488668  0.298251  0.008855  0.10566
+Estamos en el evento
+8160
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   49.516026 -0.942159  1.256323            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  123.917114  0.026804  0.575457  0.10566
+Estamos en el evento
+8523
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   94.501724 -1.878338 -0.470784            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  23.308651 -0.495949  1.781779  0.10566
+Estamos en el evento
+8563
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+2   145.431076  0.685779 -0.931887            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  289.123108  0.346499 -0.647948  0.10566
+1    13   20.623329  1.040289  2.132851  0.10566
+Estamos en el evento
+8614
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+6   47.989365 -4.427493 -1.116827            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  77.782532  0.457195 -2.014531  0.10566
+1    13  47.879364  1.918947 -1.783325  0.10566
+Estamos en el evento
+8791
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+2   27.788334 -4.617582  1.36776            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  69.389175 -0.370707 -1.358523  0.10566
+1    13  52.214085  0.494276 -2.587039  0.10566
+Estamos en el evento
+8810
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   32.657505  1.233029  1.881003            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  39.081425 -0.159839  0.223523  0.10566
+3    13  11.411814 -1.400387  0.200708  0.10566
+Estamos en el evento
+9124
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   78.727257  0.162358  1.863993            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  101.763939  0.990618  1.209768  0.10566
+Estamos en el evento
+9162
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   77.772774 -0.577404  0.177838            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  42.944244 -1.613135  1.236960  0.10566
+1    13  12.611716 -0.365662  1.325013  0.10566
+Estamos en el evento
+9428
+Jet
+         pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                          
+1   59.2006 -0.317049  3.11596            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  61.577652 -0.472889  1.282638  0.10566
+Estamos en el evento
+9769
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   33.974106  2.086905 -2.855132            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  44.102058  0.637699  0.439743  0.10566
+1    13  24.533360  0.967400 -3.092073  0.10566
+Estamos en el evento
+238
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   26.72312 -0.466406  1.218107            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  43.656898  1.695240  0.361819  0.10566
+1    13  36.772511  0.489759  2.984791  0.10566
+Estamos en el evento
+593
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   50.992439  0.178205 -0.163037            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  49.646263 -0.827843  2.665721  0.10566
+Estamos en el evento
+678
+Jet
+           pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   75.892357  1.82104 -2.422593            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  41.013725  1.165553 -0.526318  0.10566
+Estamos en el evento
+807
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   29.383278 -0.174791 -2.875486            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+2    13  21.956062 -0.830447  2.001631  0.10566
+Estamos en el evento
+1057
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   86.303116 -0.431279  0.367363            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  22.967188  1.335306  0.513053  0.10566
+Estamos en el evento
+1068
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   40.565834 -1.526452 -2.374951            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  49.811054 -0.349818 -0.102505  0.10566
+1    13  35.219769 -1.496808  2.729697  0.10566
+2    13  11.324185 -1.994830 -0.972705  0.10566
+Estamos en el evento
+1270
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   55.944122 -0.245049  0.288371            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  33.223541 -0.574452 -3.071347  0.10566
+Estamos en el evento
+1433
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   78.488922 -0.253181 -1.885411            13             0.0
+Muon
+    pdg         pt       eta      phi     mass
+id                                            
+0    13  18.043076  0.810047  1.48661  0.10566
+Estamos en el evento
+1678
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+2   106.015038 -0.632135 -1.942504            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  162.919189 -0.335175 -1.585835  0.10566
+Estamos en el evento
+1813
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   150.995621 -1.598097  0.751028            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  114.67067 -1.121208  1.300787  0.10566
+Estamos en el evento
+1892
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+4   29.29883 -0.500667 -2.287463            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  101.047829 -0.155674 -1.457223  0.10566
+1    13   45.038399  0.998768 -0.791202  0.10566
+Estamos en el evento
+1921
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+4   37.932407 -1.059126  0.616132            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  31.076075 -0.013551  2.867129  0.10566
+Estamos en el evento
+1956
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   141.655182  0.180872 -1.237689            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  23.797621  1.583292 -0.672033  0.10566
+Estamos en el evento
+2491
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   31.07893 -4.502437 -0.941709            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  44.672951  0.454622 -3.062027  0.10566
+1    13  29.709509 -1.217088  2.661592  0.10566
+Estamos en el evento
+2892
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   34.267357 -0.123272  2.551067            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  92.076492 -0.040465  0.404953  0.10566
+2    13  23.940613  0.824694 -3.082997  0.10566
+Estamos en el evento
+2895
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   62.424881 -2.052779 -0.515602            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  215.246246 -1.429433  2.528162  0.10566
+1    13   34.927155 -1.813171 -2.763095  0.10566
+Estamos en el evento
+3098
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   220.51506  1.544174 -0.086927            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  38.286537  0.818886 -0.852704  0.10566
+Estamos en el evento
+3175
+Jet
+           pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   64.120277 -0.39998  0.170713            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  60.166641 -0.612245  1.892123  0.10566
+Estamos en el evento
+3179
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   59.783203 -0.624958  1.387705            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  29.154827 -2.036506 -0.615103  0.10566
+1    13  24.900232  0.504365  0.070090  0.10566
+2    13  23.530144 -0.063729 -2.651652  0.10566
+Estamos en el evento
+3447
+Jet
+           pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   26.165089 -4.56564 -0.438479            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  69.818428 -0.606963  0.583090  0.10566
+1    13  27.510586 -0.855554 -2.470393  0.10566
+Estamos en el evento
+3569
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+1   140.778412  0.976351  1.095427            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  157.446472  1.328237  0.573667  0.10566
+Estamos en el evento
+3920
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   49.020245  1.762093  2.741132            13             0.0
+Muon
+    pdg        pt       eta       phi     mass
+id                                            
+0    13  30.58754  0.400235  0.290052  0.10566
+Estamos en el evento
+3986
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   38.857349  4.836653 -2.859549            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  49.661659 -1.221252  2.959379  0.10566
+1    13  31.806860  0.198090  0.982624  0.10566
+Estamos en el evento
+4031
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   27.627357 -0.913971 -2.760512            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  60.161781 -0.734553 -1.145996  0.10566
+Estamos en el evento
+4467
+Jet
+          pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                           
+1   34.12228  0.929513 -2.07828            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  99.802956  1.273375  0.171673  0.10566
+1    13  26.784523  1.479975  2.283572  0.10566
+Estamos en el evento
+4502
+Jet
+            pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   185.724594 -0.875361 -0.17796            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  32.993118  0.474163  2.553028  0.10566
+Estamos en el evento
+4534
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+4   29.65963  4.438083  1.895117            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  57.997562  0.794017  1.263474  0.10566
+1    13  30.806255  1.499366 -1.731495  0.10566
+2    13  29.689842 -0.270082 -1.717988  0.10566
+Estamos en el evento
+4540
+Jet
+            pt      eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   193.638992 -0.67195  2.473777            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  264.062897 -0.340667  2.229223  0.10566
+Estamos en el evento
+4682
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   34.045925  1.339977 -1.048974            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  51.735336  0.881817  2.074702  0.10566
+1    13  24.102520 -0.641587 -0.521334  0.10566
+2    13  17.151789  1.554253  2.975830  0.10566
+Estamos en el evento
+4908
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   33.683315  1.149515  2.518511            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  19.678516 -1.411581  0.362528  0.10566
+Estamos en el evento
+5005
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   26.235769 -2.720299  1.610866            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  152.351868 -1.601406 -1.473038  0.10566
+1    13  105.836731 -0.895324 -1.245484  0.10566
+Estamos en el evento
+5016
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   79.433266  1.446943  3.073698            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  197.292892  1.977805 -2.681255  0.10566
+Estamos en el evento
+5270
+Jet
+           pt      eta      phi  Constituents  jet_iso_mu_e05
+id                                                           
+0   45.983631  1.04538  2.99859            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  37.793358  2.495334 -0.214315  0.10566
+1    13  27.741028  0.327560 -0.084872  0.10566
+Estamos en el evento
+5341
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+3   67.10363  0.181322  0.850029            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+2    13  22.143559  0.703997 -1.644688  0.10566
+Estamos en el evento
+5506
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   81.360886 -0.312201  2.425792            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  28.267897 -1.076555  0.542722  0.10566
+Estamos en el evento
+5573
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+1   40.370907  1.096329  2.59329            13             0.0
+Muon
+    pdg        pt       eta       phi     mass
+id                                            
+0    13  49.00848  1.726074 -1.007918  0.10566
+Estamos en el evento
+5701
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   60.960495  0.866905  1.975413            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  29.545519 -0.663781  0.323031  0.10566
+Estamos en el evento
+5979
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   41.300922 -0.021519 -0.950392            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  79.411842 -0.013686  1.120340  0.10566
+1    13  70.827843 -0.890573  1.987847  0.10566
+Estamos en el evento
+5993
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   74.058563 -1.390601  2.28563            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  37.564053  0.111826  1.643726  0.10566
+Estamos en el evento
+6051
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   110.666649  1.957601  0.825524            13             0.0
+Muon
+    pdg          pt       eta     phi     mass
+id                                            
+0    13  106.651489  1.891488 -0.0886  0.10566
+Estamos en el evento
+6061
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   51.680714  1.703428  2.771879            13             0.0
+Muon
+    pdg         pt      eta       phi     mass
+id                                            
+0    13  44.901546  1.77389  0.331058  0.10566
+Estamos en el evento
+6430
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+1   60.687641  0.227106 -0.52105            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  68.060562  0.836828  0.980189  0.10566
+Estamos en el evento
+6878
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   97.992699  0.422362 -2.05197            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  42.143295 -0.561994 -3.022609  0.10566
+Estamos en el evento
+6976
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   41.562347  2.045738  0.216287            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  82.654846  1.404253  1.953720  0.10566
+1    13  11.856650  0.467863 -0.203203  0.10566
+Estamos en el evento
+7011
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+3   28.579721  0.036064 -1.799014            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  54.449463 -1.220172  1.323956  0.10566
+1    13  38.816578  0.519198  1.029542  0.10566
+Estamos en el evento
+7176
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   105.800812  0.308847 -2.805456            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  23.406265  1.990535 -2.493066  0.10566
+Estamos en el evento
+7234
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   150.898987  1.543638 -0.181019            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  14.516028  1.599276  2.423165  0.10566
+Estamos en el evento
+7584
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+0   124.599663 -2.393727 -0.853773            13             0.0
+Muon
+    pdg         pt      eta      phi     mass
+id                                           
+0    13  40.849857 -1.67316  0.29188  0.10566
+Estamos en el evento
+7864
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   33.582115  1.059981 -2.342503            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  63.210392  0.405149 -0.396730  0.10566
+1    13  41.524830 -0.024968  2.093749  0.10566
+Estamos en el evento
+8059
+Jet
+          pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                            
+1   68.45311 -4.532501 -1.877533            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  84.583649  1.010462  1.094609  0.10566
+1    13  60.826000  0.451245  2.276657  0.10566
+Estamos en el evento
+8076
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+0   60.349892 -0.691492  0.42583            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  42.541210 -0.930927 -2.596414  0.10566
+1    13  22.488668  0.298251  0.008855  0.10566
+Estamos en el evento
+8160
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   49.516026 -0.942159  1.256323            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  123.917114  0.026804  0.575457  0.10566
+Estamos en el evento
+8523
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   94.501724 -1.878338 -0.470784            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  23.308651 -0.495949  1.781779  0.10566
+Estamos en el evento
+8563
+Jet
+            pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                              
+2   145.431076  0.685779 -0.931887            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  289.123108  0.346499 -0.647948  0.10566
+1    13   20.623329  1.040289  2.132851  0.10566
+Estamos en el evento
+8614
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+6   47.989365 -4.427493 -1.116827            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  77.782532  0.457195 -2.014531  0.10566
+1    13  47.879364  1.918947 -1.783325  0.10566
+Estamos en el evento
+8791
+Jet
+           pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                            
+2   27.788334 -4.617582  1.36776            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  69.389175 -0.370707 -1.358523  0.10566
+1    13  52.214085  0.494276 -2.587039  0.10566
+Estamos en el evento
+8810
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+2   32.657505  1.233029  1.881003            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+1    13  39.081425 -0.159839  0.223523  0.10566
+3    13  11.411814 -1.400387  0.200708  0.10566
+Estamos en el evento
+9124
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   78.727257  0.162358  1.863993            13             0.0
+Muon
+    pdg          pt       eta       phi     mass
+id                                              
+0    13  101.763939  0.990618  1.209768  0.10566
+Estamos en el evento
+9162
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+0   77.772774 -0.577404  0.177838            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  42.944244 -1.613135  1.236960  0.10566
+1    13  12.611716 -0.365662  1.325013  0.10566
+Estamos en el evento
+9428
+Jet
+         pt       eta      phi  Constituents  jet_iso_mu_e05
+id                                                          
+1   59.2006 -0.317049  3.11596            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  61.577652 -0.472889  1.282638  0.10566
+Estamos en el evento
+9769
+Jet
+           pt       eta       phi  Constituents  jet_iso_mu_e05
+id                                                             
+1   33.974106  2.086905 -2.855132            13             0.0
+Muon
+    pdg         pt       eta       phi     mass
+id                                             
+0    13  44.102058  0.637699  0.439743  0.10566
+1    13  24.533360  0.967400 -3.092073  0.10566

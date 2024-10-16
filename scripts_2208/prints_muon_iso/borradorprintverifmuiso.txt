@@ -1,0 +1,21 @@
+contador_anomalo = 0
+    file_path = "/Collider/limon/scripts_2208/verification_muon_iso.txt"
+
+if ((dr > 0.00001) and row_ph.Constituents == 13):
+
+                        contador_anomalo += 1
+                        # Open the file in append mode ('a')
+                        with open(file_path, 'a') as f:  
+                            # Write the messages to the file
+                            f.write("Estamos en el evento\n")
+                            f.write(str(ix) + "\n")
+                            f.write("deltaR\n")
+                            f.write(str(dr) + "\n")
+                            f.write("El jet tiene id = 13 pero no esta alineado con el muon\n")
+                            f.write("Jet\n")
+                            f.write(event_ph.to_string() + "\n")  # Use .to_string() for better formatting
+                            f.write("Muon\n")
+                            f.write(event_surr.to_string() + "\n")
+
+print(" cantidad de jets con (dr > 0.00001) and row_ph.Constituents == 13: ", contador_anomalo)
+    print(f"Output successfully written to {file_path}")

@@ -22,43 +22,17 @@ echo "Analysis master"
 
 #python 03_extracting_root_jetiso_clean.py
 
-echo "04"
-
-python 04_bins_after_Delphes_Muon_Isolation.py "$1"
-
-#python 04_bins_after_Delphes_Walter.py "$1"
-#python 04_cuts_after_Delphes.py "$1"
-
-#python 04_jets_solving.py
-
 #echo "04"
-#python 04_bins_after_Delphes_jetiso_Walter.py "$1"
 
-#05
+#python 04_bins_after_Delphes_Muon_Isolation.py "$1"
 
-#echo "05_com_pt_Channels.py"
-#python 05_com_pt_Channels.py
-
-#echo "05_com_pt_Merges_Channels.py"
-#python 05_com_pt_Merges_Channels.py
+#python 04_bins_after_Delphes_MI_Clean.py "$1"
 
 
+echo "05"
 
-#echo "05_simples_histograms_Channels.py"
-#python 05_simples_histograms_Channels.py
-
-#echo "05_simples_histograms_Merges_Channels.py"
-#python 05_simples_histograms_Merges_Channels.py
+python "05a_making_graphs (copy).py"
 
 
-
-#echo "05_deltaR_Channels.py"
-#python 05_deltaR_Channels.py
-
-#echo "05_deltaR_Merge_Channels.py"
-#python 05_deltaR_Merge_Channels.py
-
-#06
-
-#echo "06_ISO_vs_NoISO.py"
-#python 06_ISO_vs_NoISO.py
+#echo "07"
+#python 07_contour_graphs.py
