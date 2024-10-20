@@ -48,15 +48,15 @@ for delta in deltas[:]:
         #'./data/matrices_15/bin_matrices-M3_Alpha1_13-WH.json', './data/matrices_15/bin_matrices-M3_Alpha1_13-TTH.json']
         input_files = list(reversed(sorted(glob.glob(origin + f"bin_*M9_Alpha{alpha}_*.json"))))
         #input_files = list(reversed(sorted(glob.glob(origin + f"bin_matrices-M3_Alpha{alpha}_*.json"))))
-        print("Input_files")
-        print(input_files)
+        #print("Input_files")
+        #print(input_files)
         
 
         for input_file in input_files:
             #seleccion WH, ZH o TTH
             process = re.search(f'/.*_13-(.*).json', input_file).group(1)
-            #print("Process")
-            #print(process)
+            print("Process")
+            print(process)
             #sys.exit("Salimos")
             #print(process)
             with open(input_file, 'r') as file:
@@ -69,13 +69,17 @@ for delta in deltas[:]:
             #la sintaxis puede hacer pensar que dependiendo de las key (1 o 2+), habra una multiplicacion diferente
             #pero esto no es asi, en ambos casos se multiplica por el mismo factor, solo se esta reconstruyendo
             #la misma estructura con las dos keys
-            #print("cofre antes de la multiplicacion")
-            #print(cofre)
+      
             cofre = {key: k_factors[process]*np.asarray(matrix) for key, matrix in cofre.items()}
+            #cofre = {key: np.asarray(matrix) for key, matrix in cofre.items()}
 
-            #print("cofre despues de la multiplicacion")
-            #print(cofre)
+            for key, x in cofre.items():
+                print(f"Slice for key '{key}':")
+                print(x[:, :, -1])
+                print("sum slice")
+                print(x[:, :, -1].sum())
             
+            #sys.exit("Salimos")
             # suponer que inicialmente se tiene
             #cofre = {
             #   'key1': [7, 8, 9],
@@ -102,15 +106,25 @@ for delta in deltas[:]:
             #print(burrito)
         #sys.exit()
         norm = sum([x[:,:,-1].sum() for x in burrito.values()])
-        #estamos normalizando la data
+        #estamos normalizando la data: en cada iteracion del loop, vamos combinando los canales,
+        #cuando solo hay 1 (i = 0) normalizamos, cuando hay dos (i=2) volvemos a normalizar con la data sumada
+        #finalmente para los tres canales, hacemos una normalizacion final, por ello esto no se pone fuera del loop
         burrito = {key: value[:,:,-1]/norm for key, value in burrito.items()}
+
+        print("burrito despues de normalizar y hacer value[:,:,-1]")
+        print(burrito)
         #print(sum([x.sum() for x in burrito.values()]))
         #sys.exit()
         ymax_p = []
         ymin_p = []
 
         for key, matrix in burrito.items():
+            print("key: ", key)
             nbins = np.array(range(matrix.shape[1] + 1)) + 0.5
+            print("matrix.shape[1]: ", matrix.shape[1])
+
+            print(nbins)
+            #sys.exit("Salimos")
             #este codigo realiza lo siguiente, por ejemplo si tenemos
             #burrito = {
             #    'matrix1': np.array([[1, 2, 3], [4, 5, 6]]),
@@ -122,8 +136,9 @@ for delta in deltas[:]:
             ix = int(key[0]) - 1
             ir = 0
             #print(nbins)
-            #print(matrix[ir][:,-1])
-            #sys.exit()
+            print("matrix[ir]")
+            print(matrix[ir])
+            #sys.exit("Salimos")
             #axs representa un arreglo de todos los subplots
             #un subplot solo un grafico de un conjunto de graficos que se muestran en un solo archivo
             #i = 0
@@ -132,6 +147,12 @@ for delta in deltas[:]:
                 #print(row)
                 #i = i +1
                 #ix es el iterador en la columna, caso 1 y caso 2fotones en este caso
+                #aqui estamos por cada bin que tiene la forma 
+                #[0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5]
+                #estamos agregando la fila
+                #[0.21017119 0.1418585  0.04173308 0.01029008 0.00712147 0.00095774 0.00085484]
+                # en esta se ha fijado el z y se varia el t, para un met fijo > 50 GeV
+
                 row[ix].hist(nbins[:-1],
                              bins=nbins, weights=matrix[ir], histtype='step', label=f'Alpha {alpha}')
                 row[ix].set_yscale('log')

@@ -392,6 +392,8 @@ def main(variables):
             would only reflect raw counts from the simulation, which do not correspond directly to the real-world 
             experimental conditions.
             """
+            #con tally finalmente se esta agregando lo que faltaba, la cantidad de eventos Nsig que pasa los cortes
+            #esto se realiza para cada configuracion de z,t y met
 
             bin_matrix[channel][z][t][met] += tally * scale
             #print(scale)

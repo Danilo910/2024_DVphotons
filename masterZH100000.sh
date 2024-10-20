@@ -20,7 +20,7 @@ destiny_folder="/Collider"
 #and it does so without asking for confirmation (-rf options). 
 #The destiny_folder variable is used to specify the base directory where the "scripts_2208" directory is located.
 
-#rm -rf "${destiny_folder}/scripts_2208
+rm -rf "${destiny_folder}/scripts_2208"
 
 # When you run this command, it creates the directory structure:
 
@@ -29,15 +29,16 @@ destiny_folder="/Collider"
 #  data
 #   raw
 
-#mkdir -p "${destiny_folder}/scripts_2208/data/raw" #crea la estructura para guardar los datos del analisis
+mkdir -p "${destiny_folder}/scripts_2208/data/raw" #crea la estructura para guardar los datos del analisis
 
 #the command extracts the contents of the specified compressed archive 
 #file (heavNeff4_UFO.tar.xz) that is in limon into the directory ${madgraph_folder}/models/
-#tar -xf heavNeff4_UFO.tar.xz -C "${madgraph_folder}/models/"
+tar -xf heavNeff4_UFO.tar.xz -C "${madgraph_folder}/models/"
 
 #el sed remplaza patrones (edita archivos de texto)
 #normalmente se pone la canitdad de cores de 10 el cual se puede variar si deseas
 #con sed buscamos en el archivo input/mg5_configuration.txt el string run_mode=2 y lo remplaza por run_mode=0
+#en el codigo de abajo no estamos realizando ningun cambio pues remplazamos run_mode = 2 por run_mode = 2 que es lo mismo
 # en el archivo mg5_configuration.txt se tiene lo siguiente:
 ##! Default Running mode
 #!  0: single machine/ 1: cluster / 2: multicore
@@ -47,7 +48,7 @@ destiny_folder="/Collider"
 #mv "$madgraph_folder/madgraph/interface/madevent_interface.py" "$madgraph_folder/madgraph/interface/madevent_interface-default.py"
 #cp "./madevent_interface.py" "$madgraph_folder/madgraph/interface/madevent_interface.py"
 
-#sed -i 's+run_mode = 2+run_mode = 2+' ${madgraph_folder}/input/mg5_configuration.txt
+sed -i 's+run_mode = 2+run_mode = 2+' ${madgraph_folder}/input/mg5_configuration.txt
 #sed -i 's+nb_core = 4+nb_core = 1+' ${madgraph_folder}/input/mg5_configuration.txt
 
 #seteamos en madgraph folder pues cuando abrimos el archivo como tal, tiene 
@@ -59,15 +60,15 @@ destiny_folder="/Collider"
 #sed "s|FOLDER|$madgraph_folder|g" mg5_launches.txt > mg5_launches_proper.txt
 
 #este codigo solo genera los esqueletos, todavia no afecta los paramcards
-#${madgraph_folder}/bin/mg5_aMC mg5_launches_proper.txt #> /dev/null 2>&1  
+${madgraph_folder}/bin/mg5_aMC mg5_launches_proper.txt #> /dev/null 2>&1  
 
-#bash benchsZH.sh "$x1" "$madgraph_folder"
-#bash hepmc_dist.sh "$madgraph_folder" "$destiny_folder"
+bash benchsZH.sh "$x1" "$madgraph_folder"
+bash hepmc_dist.sh "$madgraph_folder" "$destiny_folder"
 #bash crossec_distZH.sh "$destiny_folder" "$madgraph_folder"
 
-source ~/.bashrc
-cd ./scripts_2208/
-echo $PYTHONPATH
-bash analysis_master.sh "$x1" "$delphes_folder"  "$destiny_folder"
+#source ~/.bashrc
+#cd ./scripts_2208/
+#echo $PYTHONPATH
+#bash analysis_master.sh "$x1" "$delphes_folder"  "$destiny_folder"
 
 echo "Done!"

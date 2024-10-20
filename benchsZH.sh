@@ -3,15 +3,16 @@
 #echo "In benchs"
 #echo $PWD
 
-#LAPTOP: comentar estas lineas
 ###AWS
-line=$(($AWS_BATCH_JOB_ARRAY_INDEX + 1))
-line=1
+#line=$(($AWS_BATCH_JOB_ARRAY_INDEX + 1))
+#line=1
+#esto estaba linea abajo del benches
+#benches+=$(sed "$line!d" benchmarks.txt)
+###
 
 #Este codigo va corriendo en cada linea deterimando parametro
 
 benches=() #Inicializar lista de nombres de param
-#benches+=$(sed "$line!d" benchmarks.txt)
 benches1=$(sed -n '46,+2p' benchmarks.txt) #Extrae cierta canitdad de nombres de benchmarks.txt
 
 #echo "Benches before transformations"
@@ -55,8 +56,7 @@ do
 	mass=${array[0]}
 	alpha=${array[1]}
 
-	#LAPTOP: puede descomentar
-	#echo "$mass $alpha"
+	echo "$mass $alpha"
 
 	bash param_distZH.sh "" "M${mass}" "Alpha${alpha}" "${origin}" "$1" "$2"
 
