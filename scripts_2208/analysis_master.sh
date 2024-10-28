@@ -39,5 +39,11 @@ echo "Analysis master"
 #echo "05"
 #python "05a_making_graphs (copy).py"
 
-echo "07"
-python 07_contour_graphs_Walter.py
+#echo "07"
+#python 07_contour_graphs_Walter.py
+
+echo "08"
+python 08_graphs_BRvsAlpha.py
+#python 08_graphs_LambdavsAlpha.py
+#echo "09"
+#python ecuaciones.py

@@ -22,15 +22,16 @@ import time
 # Record the start time
 start_time = time.time()
 
+
 def calculate_sqrt(value):
     try:
         if value < 0:
-            raise ValueError("Input value is less than 0. Cannot compute the square root of a negative number.")
+            raise ValueError(f"Input value is {value}. Cannot compute the square root of a negative number.")
         result = np.sqrt(value)
         return result
     except ValueError as e:
         print(e)
-        sys.exit(1)
+        return 0  # Return 0 instead of exiting
 
 
 def timepositive(pgamma, rn, Ri):
@@ -103,7 +104,7 @@ def epsilonsevaluator(epsilon1,epsilon2,timepositiveR1, timenegativeR1, timeposi
         no_entro_a_ninguno = False
 
     if no_entro_a_ninguno:
-        sys.exit("error, no entramos a ningun caso del time")
+        print("error, no entramos a ningun caso del time")
 
     return epsilon1, epsilon2
 
@@ -383,7 +384,7 @@ def main(parameters):
                             #print(timepositiveR1, timenegativeR1, timepositiveR2, timenegativeR2)
 
                             if((timepositiveR1 < 0 and timenegativeR1 < 0) or (timepositiveR2 < 0 and timenegativeR2 < 0)):
-                                sys.exit("t < 0 salimos para analizar el problema")
+                                print("t < 0 hay que analizar el problema")
 
                             epsilon1 = 0
                             epsilon2 = 0
