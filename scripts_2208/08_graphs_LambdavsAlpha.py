@@ -2,11 +2,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
-import os
 
-import os
-
-import os
 
 def create_mass_mapping(directory):
     mass_mapping = {}
@@ -110,8 +106,7 @@ def generate_alpha_mapping(directory):
     return alpha_mapping
 
 
-
-def lambda_max(m_phi, BR, m_h=125.1, Gamma_SM=4.07e-3, epsilon=1e-6, alpha=0.01, beta=0.5):
+def lambda_max_antiguo(m_phi, BR, m_h=125.1, Gamma_SM=4.07e-3, epsilon=1e-6, alpha=0.01, beta=0.5):
     """
     Calculate the maximum coupling constant lambda_max for Higgs decay.
     
@@ -152,6 +147,50 @@ def lambda_max(m_phi, BR, m_h=125.1, Gamma_SM=4.07e-3, epsilon=1e-6, alpha=0.01,
     
     return lambda_max_value
 
+
+def lambda_max(m_phi, BR, m_h=125.1, Gamma_SM=4.07e-3, v=246.0, epsilon=1e-6, alpha=0.01, beta=0.5):
+    """
+    Calculate the maximum coupling constant lambda_max for Higgs decay.
+    
+    Parameters:
+    - m_phi (float): Mass of the scalar particle in GeV.
+    - BR (float or np.array): Branching ratio(s) in percentage (%).
+    - m_h (float): Mass of the Higgs boson in GeV (default: 125.1 GeV).
+    - Gamma_SM (float): Decay width of the Higgs boson into SM particles (default: 4.07e-3 GeV).
+    - v (float): Vacuum expectation value (VEV) of the Higgs field in GeV (default: 246 GeV).
+    - epsilon (float): Small offset to avoid division by zero when BR is close to 1 (default: 1e-6).
+    - alpha (float): Softening factor for the denominator when BR > 1, controls continuity.
+    - beta (float): Scaling factor to control additional divergence near BR > 1.
+    
+    Returns:
+    - float or np.array: The calculated lambda_max for each BR value.
+    """
+    # Convert BR from percentage to fraction
+    BR = np.asarray(BR) / 100.0
+    
+    # Compute the mass difference term (1 - 4 * m_phi^2 / m_h^2)^(1/4)
+    mass_diff_term = (1 - (4 * m_phi**2 / m_h**2))
+    mass_diff_term = np.maximum(mass_diff_term, epsilon)  # Avoid issues with small/negative values
+    mass_diff_term = mass_diff_term**0.25
+    
+    # Initialize sqrt_term as an array of zeros with the same shape as BR
+    sqrt_term = np.zeros_like(BR, dtype=float)
+    
+    # Case 1: For 0 < BR < 1, use the original formula from the image
+    mask_normal = (BR > 0) & (BR < 1)
+    sqrt_term[mask_normal] = np.sqrt(Gamma_SM * BR[mask_normal] * 8 * np.pi * m_h / ((1 - BR[mask_normal]) * v**2))
+    
+    # Case 2: For BR > 1, use the modified denominator and apply the scaling function
+    mask_modified = BR > 1
+    smooth_denominator = np.maximum(1 - BR[mask_modified], epsilon) + alpha * BR[mask_modified]**2
+    scaled_sqrt_term = np.sqrt(Gamma_SM * BR[mask_modified] * 8 * np.pi * m_h / (smooth_denominator * v**2))
+    scaling_factor = 1 + beta * (BR[mask_modified]**2 / (1 + BR[mask_modified]))
+    sqrt_term[mask_modified] = scaled_sqrt_term * scaling_factor
+    
+    # Calculate lambda_max for each BR value using the full formula
+    lambda_max_value = 2 * sqrt_term / mass_diff_term
+    
+    return lambda_max_value
 
 
 
@@ -254,10 +293,11 @@ for filename in os.listdir(data_dir):
             plt.plot(x_vals, lambda_max_vector, marker='o', linestyle='-', label=label)
 
         
-        
+        plt.xscale("log")
+        plt.yscale("log")
         # Add labels and title
         plt.xlabel(r'$\alpha$ (custom scale)')
-        plt.ylabel('Branching Ratio (BR)')
+        plt.ylabel('Lambda max')
         plt.title(f'Lambda vs Alpha for {signal_region}')
         plt.legend()
         

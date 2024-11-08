@@ -43,7 +43,7 @@ echo "Analysis master"
 #python 07_contour_graphs_Walter.py
 
 echo "08"
-python 08_graphs_BRvsAlpha.py
-#python 08_graphs_LambdavsAlpha.py
+#python 08_graphs_BRvsAlpha.py
+python 08_graphs_LambdavsAlpha.py
 #echo "09"
-#python ecuaciones.py
+#python ecuaciones2.py

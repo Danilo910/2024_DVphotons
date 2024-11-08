@@ -227,7 +227,8 @@ for filename in os.listdir(data_dir):
             plt.plot(x_vals, y_vals, marker='o', linestyle='-', label=label)
 
         
-        
+        plt.xscale("log")
+        plt.yscale("log")
         # Add labels and title
         plt.xlabel(r'$\alpha$ (custom scale)')
         plt.ylabel('Branching Ratio (BR)')
