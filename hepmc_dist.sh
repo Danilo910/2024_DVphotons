@@ -26,18 +26,18 @@ for tipo in ${tipos}
 		do
 		cd "${run}"
 		echo "${run}"
-		#count="$(ls -1 *.hepmc 2>/dev/null | wc -l)"
-		#echo "${count}"
-		#if [ $count == 0 ]
-		#	then
+		count="$(ls -1 *.hepmc 2>/dev/null | wc -l)"
+		echo "${count}"
+		if [ $count == 0 ]
+			then
 			#echo "hola"
-		#	file_gz=("$(ls -d *.hepmc.gz)")
-		#	gzip -dk "${file_gz}"
-		#fi
-		#file_mc=("$(ls -d *.hepmc)")
-		#echo "${file_mc}"
-		#file_final="$(echo "${file_mc}" | sed 's/_pythia8_events//')"
-		#mv "${file_mc}" "${folder_destiny}/run_${file_final}"	
+			file_gz=("$(ls -d *.hepmc.gz)")
+			gzip -dk "${file_gz}"
+		fi
+		file_mc=("$(ls -d *.hepmc)")
+		echo "${file_mc}"
+		file_final="$(echo "${file_mc}" | sed 's/_pythia8_events//')"
+		mv "${file_mc}" "${folder_destiny}/run_${file_final}"	
 		cd ..
 	done
 done

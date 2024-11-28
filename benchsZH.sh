@@ -18,7 +18,7 @@ benches=() #Inicializar lista de nombres de param
 benches1=$(sed -n '46,+2p' benchmarks.txt) #Extrae cierta canitdad de nombres de benchmarks.txt
 
 #echo "Benches before transformations"
-echo "$benches1"
+#echo "$benches1"
 
 #En nuestro caso tenemos que el echo nos dara
 #param_cards-DeltaM_15/param_card.SeesawSM9.4.dat
@@ -41,7 +41,7 @@ for vars in "${benches[@]}"
 do
     #pwd es la direccion actual y vars sera el param card luego origin = /Collider/limon/param_cards-DeltaM_15/param_card.SeesawSM9.5.dat
     origin="${PWD}/${vars}"
-	echo $origin
+	#echo $origin
 
 	#x=$(find|grep "# gNh55" "${origin}") 	
 	#sed -i "s/$x/  4 0e00  # gNh55/" "${origin}"
@@ -53,21 +53,21 @@ do
 	ids=$(sed 's|.dat|''|g' <<< "$vars")
 	ids=$(sed 's|.*/param_card.SeesawSM|''|g' <<< "$ids")
 
-	echo "ids"
-	echo $ids
+	#echo "ids"
+	#echo $ids
     
 	# Usamos IFS="." para dividir la variable $ids por el punto y almacenar las partes en el array 'array'
 	# echo $array solo imprime el primer elemento del array; para imprimir todos los elementos, usamos ${array[@]}
 
 	IFS="." read -r -a array <<< "$ids"
 	
-	echo "array"
-	echo ${array[@]}:
+	#echo "array"
+	#echo ${array[@]}:
 
 	mass=${array[0]}
 	alpha=${array[1]}
 
-	echo "$mass $alpha"
+	#echo "$mass $alpha"
 
 	bash param_distZH.sh "" "M${mass}" "Alpha${alpha}" "${origin}" "$1" "$2"
 

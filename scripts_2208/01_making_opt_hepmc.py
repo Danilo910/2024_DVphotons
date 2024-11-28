@@ -6,7 +6,7 @@ import re
 import pandas as pd
 from multiprocessing import Pool
 import numpy as np
-from my_funcs import my_arctan
+from my_funcs_vfinal import my_arctan
 import eta_functions_R_abs
 from functools import partial
 
@@ -517,7 +517,8 @@ def main(parameters):
                         rel_tof = tof - prompt_tof
 
                         if (z_mode_atlas == True):
-                            z_origin = abs(z_atlas_value)
+                            #solo por debbugeo hacemos esto, lo correcto es definir z_atlas afuera del try donde esta
+                            z_origin = abs(c_z[-1])
                         else:
                             z_origin = abs(c_z[-1])
 
@@ -588,7 +589,7 @@ for typex in types[:]:
 #print("All cases 2: ", allcases)
 #sys.exit("Salimos")
 
-for iteration in [True, False]:  # First iteration with True, second with False
+for iteration in [True, False]:  # Only want zsimp for debbuging, usally put True, False for having the z_atlas and z_simp
 
     print("We are in iteration: ")
     print(iteration)
@@ -609,8 +610,6 @@ for iteration in [True, False]:  # First iteration with True, second with False
             print("Exiting the program.")
             break  # Exit the loop if the user doesn't want to continue
         elif user_input == "yes":
-            # Get zsimp value from the user
-            zsimp = input("Please enter the zsimp value: ").strip()
 
             # Modify allcases to include `False` for the yes_zatlas parameter
             allcases = [[file_inx, typex, False] for file_inx, typex, _ in allcases]

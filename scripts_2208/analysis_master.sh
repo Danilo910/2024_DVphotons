@@ -9,8 +9,8 @@ echo "Analysis master"
 #echo "01"
 #python 01_making_opt_hepmc.py
 
-#echo "02"
-#python 02_run_Delphes.py "$3" "$2"
+echo "02"
+python 02_run_Delphes.py "$3" "$2"
 
 #echo "03"
 #python 03_extracting_root_avoid_jet_constitu.py
@@ -42,8 +42,8 @@ echo "Analysis master"
 #echo "07"
 #python 07_contour_graphs_Walter.py
 
-echo "08"
+#echo "08"
 #python 08_graphs_BRvsAlpha.py
-python 08_graphs_LambdavsAlpha.py
+#python 08_graphs_LambdavsAlpha.py
 #echo "09"
 #python ecuaciones2.py

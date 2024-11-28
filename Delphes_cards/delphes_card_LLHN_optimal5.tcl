@@ -550,7 +550,6 @@ module Isolation ElectronCaloIsolation {
   set PTRatioMax 0.2
 
   set DeltaRMin 0.01
-  set UseMiniCone true
 }
 
 #####################

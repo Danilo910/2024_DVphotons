@@ -16,10 +16,13 @@ def main(in_file):
     #estamos accediendo a Delphes_folder="/Collider/MG5_aMC_v2_9_11/Delphes", luego con el && consecutivamente
     #corremos ./DelphesHepMC2 y usamos la configuracion elphes_card_LLHNscanV5.tcl (archivo editado?)
     #finalmente obtenemos out_file como .root y el in_file como hepmc
+    #activar el quinto para debbug
     os.system(f'cd {sys.argv[2]} && ./DelphesHepMC2 ' 
                 #f'/Collider/limon/Delphes_cards/delphes_card_LLHNscanV3_ATLAS.tcl {out_file} {in_file} > /dev/null 2>&1')
-                f'/Collider/limon/Delphes_cards/delphes_card_LLHNscanVbasic_6.tcl {out_file} {in_file} > /dev/null 2>&1')
+                #f'/Collider/limon/Delphes_cards/delphes_card_LLHNscanVbasic_6.tcl {out_file} {in_file} > /dev/null 2>&1')
                 #f'/Collider/limon/Delphes_cards/delphes_card_LLHNscanV5.tcl {out_file} {in_file} > /dev/null 2>&1')
+                #f'/Collider/limon/Delphes_cards/delphes_card_LLHN_optimal5.tcl {out_file} {in_file} > /dev/null 2>&1')
+                f'/Collider/limon/Delphes_cards/delphes_card_LLHN_optimal6.tcl {out_file} {in_file} > /dev/null 2>&1')
     return
 
 # 1: destiny_folder="/Collider"
@@ -29,6 +32,12 @@ types = ['ZH', "WH", "TTH"]
 tevs = [13]
 #variable externa
 root = sys.argv[1]
+
+print("sys.argv[2]")
+print(sys.argv[2])
+
+print("sys.argv[1]")
+print(root)
 
 #agregamos zsimp si queremos agregar la simulacion para zsimp
 for mode_atlas in [""]:
